@@ -27,10 +27,6 @@
 
 class CWorker : public CTalkMonsterWithScientistAI
 {
-public:
-
-	virtual BOOL IsMedic() const;
-
 protected:
 	virtual void PrecacheModels();
 	virtual void PrecacheSounds();
@@ -52,11 +48,6 @@ LINK_ENTITY_TO_CLASS(monster_worker, CWorker);
 void CWorker::PrecacheModels()
 {
 	PRECACHE_MODEL("models/gus.mdl");
-}
-
-BOOL CWorker::IsMedic() const
-{
-	return FALSE;
 }
 
 void CWorker::PrecacheSounds()

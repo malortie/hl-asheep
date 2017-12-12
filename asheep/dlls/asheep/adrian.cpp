@@ -104,6 +104,7 @@ protected:
 	virtual void PrecacheModels();
 	virtual void PrecacheSounds();
 	virtual void SetModel();
+	virtual void SetSkinAndBodyGroups() {}
 	virtual int GetFirstTimeSpawnHealth() const;
 
 	virtual BOOL CanKick() { return TRUE; }

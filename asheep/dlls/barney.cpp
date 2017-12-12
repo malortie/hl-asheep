@@ -33,6 +33,9 @@
 #define SF_BARNEY_LAZY_BARNEY	32
 #define SF_BARNEY_CARDS_BARNEY	64
 
+#define BARNEY_CARDS_GROUP		1
+#define BARNEY_CARDS_VISIBLE	1
+
 class CBarney : public CTalkMonsterWithBarneyAI
 {
 	typedef CTalkMonsterWithBarneyAI BaseClass;
@@ -44,6 +47,7 @@ public:
 protected:
 	virtual void PrecacheModels();
 	virtual void SetModel();
+	virtual void SetSkinAndBodyGroups();
 	virtual int GetFirstTimeSpawnHealth() const;
 
 	virtual void InitSentenceGroup();
@@ -99,6 +103,12 @@ void CBarney::SetModel()
 		SET_MODEL(ENT(pev), GetLazyBarneyModel());
 	else
 		SET_MODEL(ENT(pev), GetDefaultBarneyModel());
+}
+
+void CBarney::SetSkinAndBodyGroups()
+{
+	if (IsCardsBarney()) 
+		SetBodygroup(BARNEY_CARDS_GROUP, BARNEY_CARDS_VISIBLE);
 }
 
 int CBarney::GetFirstTimeSpawnHealth() const

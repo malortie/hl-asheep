@@ -24,24 +24,53 @@
 #include "monsters.h"
 #include "dead_actor.h"
 
+#define ARRAY_LAST_INDEX(_array) ARRAYSIZE(_array) - 1
+
 //=========================================================
 // Dead Worker PROP
 //=========================================================
-class CDeadWorker : public CDeadActorWithScientistSequences
+class CDeadWorker : public CBaseDeadActor
 {
 public:
+	int	Classify(void);
 	virtual void PrecacheModels();
 	virtual void SetModel();
+	const char* GetPoseByIndex(int index);
+	int GetLastPoseIndex();
 };
+
+int	CDeadWorker::Classify(void)
+{
+	return CLASS_PLAYER_ALLY;
+}
+
+// Dead workers use the same underlying sequences
+// as barney, but we treat those separately.
+static const char* gWorkerPoses[] =
+{
+	"lying_on_back",
+	"lying_on_side",
+	"lying_on_stomach"
+};
+
+const char* CDeadWorker::GetPoseByIndex(int index)
+{
+	return gWorkerPoses[index];
+}
+
+int CDeadWorker::GetLastPoseIndex()
+{
+	return ARRAY_LAST_INDEX(gWorkerPoses);
+}
 
 void CDeadWorker::PrecacheModels()
 {
-	PRECACHE_MODEL("models/gus.mdl");
+	PRECACHE_MODEL("models/construction.mdl");
 }
 
 void CDeadWorker::SetModel()
 {
-	SET_MODEL(ENT(pev), "models/gus.mdl");
+	SET_MODEL(ENT(pev), "models/construction.mdl");
 }
 
 LINK_ENTITY_TO_CLASS(monster_worker_dead, CDeadWorker);

@@ -40,17 +40,6 @@ enum
 	SCHED_TARGET_FACE_SCARED,
 };
 
-enum
-{
-	TASK_SAY_HEAL = LAST_TALKMONSTER_TASK + 1,
-	TASK_HEAL,
-	TASK_SAY_FEAR,
-	TASK_RUN_PATH_SCARED,
-	TASK_SCREAM,
-	TASK_RANDOM_SCREAM,
-	TASK_MOVE_TO_TARGET_RANGE_SCARED,
-};
-
 //=========================================================
 // Monster's Anim Events Go Here
 //=========================================================
@@ -61,7 +50,6 @@ enum
 TYPEDESCRIPTION	CTalkMonsterWithScientistAI::m_SaveData[] =
 {
 	DEFINE_FIELD(CTalkMonsterWithScientistAI, m_painTime, FIELD_TIME),
-	DEFINE_FIELD(CTalkMonsterWithScientistAI, m_healTime, FIELD_TIME),
 	DEFINE_FIELD(CTalkMonsterWithScientistAI, m_fearTime, FIELD_TIME),
 };
 
@@ -145,28 +133,6 @@ Schedule_t	slStopFollowing[] =
 		0,
 		0,
 		"StopFollowing"
-	},
-};
-
-Task_t	tlHeal[] =
-{
-	{ TASK_MOVE_TO_TARGET_RANGE,(float)50 },	// Move within 60 of target ent (client)
-	{ TASK_SET_FAIL_SCHEDULE,	(float)SCHED_TARGET_CHASE },	// If you fail, catch up with that guy! (change this to put syringe away and then chase)
-	{ TASK_FACE_IDEAL,			(float)0 },
-	{ TASK_SAY_HEAL,			(float)0 },
-	{ TASK_PLAY_SEQUENCE_FACE_TARGET,		(float)ACT_ARM },			// Whip out the needle
-	{ TASK_HEAL,				(float)0 },	// Put it in the player
-	{ TASK_PLAY_SEQUENCE_FACE_TARGET,		(float)ACT_DISARM },			// Put away the needle
-};
-
-Schedule_t	slHeal[] =
-{
-	{
-		tlHeal,
-		ARRAYSIZE(tlHeal),
-		0,	// Don't interrupt or he'll end up running around with a needle all the time
-		0,
-		"Heal"
 	},
 };
 
@@ -354,7 +320,6 @@ DEFINE_CUSTOM_SCHEDULES(CTalkMonsterWithScientistAI)
 	slScientistCover,
 	slScientistHide,
 	slScientistStartle,
-	slHeal,
 	slStopFollowing,
 	slSciPanic,
 	slFollowScared,
@@ -489,6 +454,7 @@ void CTalkMonsterWithScientistAI::RunTask(Task_t *pTask)
 		}
 	}
 	break;
+
 	default:
 		CTalkMonster::RunTask(pTask);
 		break;
@@ -806,8 +772,9 @@ Schedule_t *CTalkMonsterWithScientistAI::GetSchedule(void)
 				// If I'm already close enough to my target
 				if (TargetDistance() <= 128)
 				{
-					if (CanHeal())	// Heal opportunistically
-						return slHeal;
+					Schedule_t* healSchedule = GetHealSchedule(); 	// Heal opportunistically
+					if (healSchedule != NULL)
+						return healSchedule;
 					if (HasConditions(bits_COND_CLIENT_PUSH))	// Player wants me to move
 						return GetScheduleOfType(SCHED_MOVE_AWAY_FOLLOW);
 				}
@@ -905,44 +872,12 @@ MONSTERSTATE CTalkMonsterWithScientistAI::GetIdealState(void)
 	return CTalkMonster::GetIdealState();
 }
 
-
-BOOL CTalkMonsterWithScientistAI::CanHeal(void)
-{
-	if (!IsMedic())
-		return FALSE;
-
-	if ((m_healTime > gpGlobals->time) || (m_hTargetEnt == NULL) || (m_hTargetEnt->pev->health > (m_hTargetEnt->pev->max_health * 0.5)))
-		return FALSE;
-
-	return TRUE;
-}
-
-void CTalkMonsterWithScientistAI::Heal(void)
-{
-	if (!CanHeal())
-		return;
-
-	Vector target = m_hTargetEnt->pev->origin - pev->origin;
-	if (target.Length() > 100)
-		return;
-
-	m_hTargetEnt->TakeHealth(gSkillData.scientistHeal, DMG_GENERIC);
-	// Don't heal again for 1 minute
-	m_healTime = gpGlobals->time + 60;
-}
-
-
 int CTalkMonsterWithScientistAI::FriendNumber(int arrayNumber)
 {
 	static int array[3] = { 1, 2, 0 };
 	if (arrayNumber < 3)
 		return array[arrayNumber];
 	return arrayNumber;
-}
-
-BOOL CTalkMonsterWithScientistAI::IsMedic() const
-{
-	return TRUE;
 }
 
 void CTalkMonsterWithScientistAI::SetSkinAndBodygroups()

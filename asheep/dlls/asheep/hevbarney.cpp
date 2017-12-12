@@ -30,6 +30,7 @@ public:
 protected:
 	virtual void PrecacheModels();
 	virtual void SetModel();
+	virtual void SetSkinAndBodyGroups() {}
 	virtual int GetFirstTimeSpawnHealth() const;
 
 	virtual void InitSentenceGroup();

@@ -169,12 +169,18 @@ void CHGrunt::SetModel()
 
 void CHGrunt::SetSkinAndBodyGroups()
 {
-	// If IsUsingGrenadeLauncher() returns true,
-	// then always use a dark skin.
-	if (IsUsingGrenadeLauncher() || RANDOM_LONG(0, 99) >= 80) 
+	if (RANDOM_LONG(0, 99) >= 80) 
 		pev->skin = 1;	// dark skin
 	else
 		pev->skin = 0;	// light skin
+
+	if (IsUsingSecondaryWeapon())
+		SetBodygroup(HEAD_GROUP, HEAD_SHOTGUN);
+	else if (IsUsingGrenadeLauncher()) 
+	{
+		SetBodygroup(HEAD_GROUP, HEAD_M203);
+		pev->skin = 1; // alway dark skin
+	}
 }
 
 int CHGrunt::GetFirstTimeSpawnHealth() const

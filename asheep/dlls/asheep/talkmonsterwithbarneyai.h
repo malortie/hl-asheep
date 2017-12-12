@@ -70,6 +70,7 @@ protected:
 	virtual void PrecacheModels() = 0;
 	virtual void PrecacheSounds();
 	virtual void SetModel() = 0;
+	virtual void SetSkinAndBodyGroups() = 0;
 	virtual int GetFirstTimeSpawnHealth() const = 0;
 
 	virtual void InitSentenceGroup() = 0;

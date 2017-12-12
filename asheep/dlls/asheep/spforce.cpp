@@ -206,12 +206,6 @@ void CSpForce::SetSkinAndBodyGroups()
 {
 	pev->skin = 0;
 
-	if (pev->weapons == 0)
-	{
-		// initialize to original values
-		pev->weapons = SPFORCE_9MMM41A | SPFORCE_HANDGRENADE;
-	}
-
 	if (IsUsingSecondaryWeapon())
 	{
 		SetBodygroup(GUN_GROUP, GUN_BERETTA);

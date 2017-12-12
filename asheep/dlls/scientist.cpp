@@ -30,6 +30,19 @@
 #include	"talkmonsterwithscientistai.h"
 #include	"scientist.h"
 
+enum
+{
+	TASK_SAY_HEAL = LAST_TALKMONSTER_WITH_AI_TASK + 1,
+	TASK_HEAL,
+};
+
+//=========================================================
+// Monster's Anim Events Go Here
+//=========================================================
+#define		SCIENTIST_AE_HEAL		( 1 )
+#define		SCIENTIST_AE_NEEDLEON	( 2 )
+#define		SCIENTIST_AE_NEEDLEOFF	( 3 )
+
 //=======================================================
 // Scientist
 //=======================================================
@@ -37,7 +50,17 @@
 class CScientist : public CTalkMonsterWithScientistAI
 {
 	typedef CTalkMonsterWithScientistAI BaseClass;
+
+	float m_healTime;
 public:
+	virtual int		Save(CSave &save);
+	virtual int		Restore(CRestore &restore);
+	static	TYPEDESCRIPTION m_SaveData[];
+
+	CUSTOM_SCHEDULES;
+
+	BOOL	CanHeal(void);
+	void	Heal(void);
 protected:
 	virtual void PrecacheModels();
 	virtual void PrecacheSounds();
@@ -53,9 +76,23 @@ protected:
 	virtual void SpeakScream();
 	virtual void SpeakFearEnemy();
 	virtual void SpeakFearPlayer();
+	virtual void SpeakHealPlayer();
+
+	virtual void RunTask(Task_t *pTask);
+	virtual void StartTask(Task_t *pTask);
+	virtual void HandleAnimEvent(MonsterEvent_t *pEvent);
+
+	virtual Schedule_t* GetHealSchedule();
 };
 
 LINK_ENTITY_TO_CLASS(monster_scientist, CScientist);
+
+TYPEDESCRIPTION	CScientist::m_SaveData[] =
+{
+	DEFINE_FIELD(CScientist, m_healTime, FIELD_TIME),
+};
+
+IMPLEMENT_SAVERESTORE(CScientist, CTalkMonsterWithScientistAI);
 
 void CScientist::PrecacheModels()
 {
@@ -164,6 +201,138 @@ void CScientist::SpeakFearPlayer()
 {
 	PlaySentence("SC_PLFEAR", 5, VOL_NORM, ATTN_NORM);
 }
+
+void CScientist::SpeakHealPlayer() {
+	PlaySentence("SC_HEAL", 2, VOL_NORM, ATTN_IDLE);
+}
+
+void CScientist::HandleAnimEvent(MonsterEvent_t *pEvent)
+{
+	switch (pEvent->event)
+	{
+	case SCIENTIST_AE_HEAL:		// Heal my target (if within range)
+		Heal();
+		break;
+	case SCIENTIST_AE_NEEDLEON:
+	{
+		int oldBody = pev->body;
+		pev->body = (oldBody % NUM_SCIENTIST_HEADS) + NUM_SCIENTIST_HEADS * 1;
+	}
+	break;
+	case SCIENTIST_AE_NEEDLEOFF:
+	{
+		int oldBody = pev->body;
+		pev->body = (oldBody % NUM_SCIENTIST_HEADS) + NUM_SCIENTIST_HEADS * 0;
+	}
+	break;
+	default:
+		BaseClass::HandleAnimEvent(pEvent);
+	}
+}
+
+void CScientist::StartTask(Task_t *pTask)
+{
+	switch (pTask->iTask)
+	{
+	case TASK_SAY_HEAL:
+		Talk(2);
+		m_hTalkTarget = m_hTargetEnt;
+		SpeakHealPlayer();
+
+		TaskComplete();
+		break;
+
+	case TASK_HEAL:
+		m_IdealActivity = ACT_MELEE_ATTACK1;
+		break;
+
+	default:
+		BaseClass::StartTask(pTask);
+		break;
+	}
+}
+
+void CScientist::RunTask(Task_t *pTask)
+{
+	switch (pTask->iTask)
+	{
+	case TASK_HEAL:
+		if (m_fSequenceFinished)
+		{
+			TaskComplete();
+		}
+		else
+		{
+			if (TargetDistance() > 90)
+				TaskComplete();
+			pev->ideal_yaw = UTIL_VecToYaw(m_hTargetEnt->pev->origin - pev->origin);
+			ChangeYaw(pev->yaw_speed);
+		}
+		break;
+	default:
+		BaseClass::RunTask(pTask);
+		break;
+	}
+}
+
+BOOL CScientist::CanHeal(void)
+{
+	if ((m_healTime > gpGlobals->time) || (m_hTargetEnt == NULL) || (m_hTargetEnt->pev->health > (m_hTargetEnt->pev->max_health * 0.5)))
+		return FALSE;
+
+	return TRUE;
+}
+
+void CScientist::Heal(void)
+{
+	if (!CanHeal())
+		return;
+
+	Vector target = m_hTargetEnt->pev->origin - pev->origin;
+	if (target.Length() > 100)
+		return;
+
+	m_hTargetEnt->TakeHealth(gSkillData.scientistHeal, DMG_GENERIC);
+	// Don't heal again for 1 minute
+	m_healTime = gpGlobals->time + 60;
+}
+
+Task_t	tlHeal[] =
+{
+	{ TASK_MOVE_TO_TARGET_RANGE,(float)50 },	// Move within 60 of target ent (client)
+	{ TASK_SET_FAIL_SCHEDULE,	(float)SCHED_TARGET_CHASE },	// If you fail, catch up with that guy! (change this to put syringe away and then chase)
+	{ TASK_FACE_IDEAL,			(float)0 },
+	{ TASK_SAY_HEAL,			(float)0 },
+	{ TASK_PLAY_SEQUENCE_FACE_TARGET,		(float)ACT_ARM },			// Whip out the needle
+	{ TASK_HEAL,				(float)0 },	// Put it in the player
+	{ TASK_PLAY_SEQUENCE_FACE_TARGET,		(float)ACT_DISARM },			// Put away the needle
+};
+
+Schedule_t	slHeal[] =
+{
+	{
+		tlHeal,
+		ARRAYSIZE(tlHeal),
+		0,	// Don't interrupt or he'll end up running around with a needle all the time
+		0,
+		"Heal"
+	},
+};
+
+DEFINE_CUSTOM_SCHEDULES(CScientist)
+{
+	slHeal,
+};
+IMPLEMENT_CUSTOM_SCHEDULES(CScientist, CTalkMonsterWithScientistAI);
+
+Schedule_t* CScientist::GetHealSchedule()
+{
+	if (CanHeal())
+		return slHeal;
+	else
+		return NULL;
+}
+
 #else
 
 #define		NUM_SCIENTIST_HEADS		4 // four heads available for scientist model
