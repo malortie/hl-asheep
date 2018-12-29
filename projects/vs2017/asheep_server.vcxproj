@@ -1,0 +1,366 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{69DDADC0-97F4-419E-86EB-C91781A0D2E0}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>asheep_server</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>NotSet</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(Configuration)\$(ProjectName)\int\</IntDir>
+    <TargetName>hl</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(Configuration)\$(ProjectName)\int\</IntDir>
+    <TargetName>hl</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;QUIVER;VOXEL;QUAKE2;VALVE_DLL;%(PreprocessorDefinitions);ASHEEP_DLL;ASHEEP_WEAPONHOLSTER;ASHEEP_MAPFIXES;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE</PreprocessorDefinitions>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AdditionalIncludeDirectories>..\..\asheep\dlls;..\..\engine;..\..\common;..\..\asheep\pm_shared;..\..\game_shared;..\..\public;..\..\asheep\dlls\asheep;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <DisableSpecificWarnings>4018;4091;4474;4477;4996;</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ModuleDefinitionFile>$(ProjectDir)..\..\dlls\hl.def</ModuleDefinitionFile>
+    </Link>
+    <PostBuildEvent>
+      <Command>call ..\..\filecopy.bat $(TargetPath) ..\..\..\game\mod\dlls\$(TargetName).dll
+call ..\..\filecopy.bat $(TargetDir)\$(TargetName).pdb ..\..\..\game\mod\dlls\$(TargetName).pdb</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Performing Post-Build Event</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;QUIVER;VOXEL;QUAKE2;VALVE_DLL;%(PreprocessorDefinitions);ASHEEP_DLL;ASHEEP_WEAPONHOLSTER;ASHEEP_MAPFIXES;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\asheep\dlls;..\..\engine;..\..\common;..\..\asheep\pm_shared;..\..\game_shared;..\..\public;..\..\asheep\dlls\asheep;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <DisableSpecificWarnings>4018;4091;4474;4477;4996;</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ModuleDefinitionFile>$(ProjectDir)..\..\dlls\hl.def</ModuleDefinitionFile>
+    </Link>
+    <PostBuildEvent>
+      <Command>call ..\..\filecopy.bat $(TargetPath) ..\..\..\game\mod\dlls\$(TargetName).dll
+call ..\..\filecopy.bat $(TargetDir)\$(TargetName).pdb ..\..\..\game\mod\dlls\$(TargetName).pdb</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Performing Post-Build Event</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\asheep\dlls\aflock.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\agrunt.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\airtank.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\animating.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\animation.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\apache.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\9mmm41a.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\adrian.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\archer.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\armor.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\asheep_globals.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\asheep_map_fixes.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\asheep_messages.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\asheep_triggers.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\asheep_weapons.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\barney9mmar.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\barney9mmhg.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\barneyhandgrenade.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\barneyshotgun.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\barniel.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\basemonsterrepel.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\basemonsterwithheadcrabai.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\basemonsterwithichthyosaurai.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\basemonsterwithichthyosaurai_constants.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\basemonsterwithsnarkai.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\basemonsterwithzombieai.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\basemonsterwithzombieai_util.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\baseweaponarwithgrenadelauncher.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\baseweapongrenade.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\baseweaponmelee.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\baseweaponpistol.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\baseweaponshotgun.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\baseweaponwiththrowablemonster.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\beretta.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\bodypart.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\combat_tactics.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\dead_actor.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\dead_barney.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\dead_barniel.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\dead_gordon.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\dead_hevbarney.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\dead_hgrunt.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\dead_scientist.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\dead_spforce.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\dead_worker.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\exp_alien_slave.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\garbage.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\gordon.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\hevbarney.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\hev_mediator.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\hgruntrepel.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\hterror.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\kate.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\kmedkit.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\myself.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\panther.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\player_utils.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\poolstick.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\spawnereffect.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\spforce.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\spforcerepel.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\squadmonsterwithhgruntai.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\squadmonsterwithhgruntai_util.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\squadmonsterwithislaveai.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\squadmonsterwithislaveai_util.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\talkmonsterwithbarneyai.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\talkmonsterwithbarneyai_util.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\talkmonsterwithscientistai.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\toad.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\toadweapon.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\toadweaponmonster.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\weapon_util.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\worker.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\asheep\zombie_barney.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\barnacle.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\barney.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\bigmomma.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\bloater.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\bmodels.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\bullsquid.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\buttons.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\cbase.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\client.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\combat.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\controller.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\crossbow.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\crowbar.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\defaultai.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\doors.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\effects.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\egon.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\explode.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\flyingmonster.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\func_break.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\func_tank.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\game.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\gamerules.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\gargantua.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\gauss.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\genericmonster.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\ggrenade.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\globals.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\gman.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\handgrenade.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\hassassin.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\headcrab.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\healthkit.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\hgrunt.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\hornet.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\hornetgun.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\houndeye.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\h_ai.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\h_battery.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\h_cine.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\h_cycler.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\h_export.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\ichthyosaur.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\islave.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\items.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\leech.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\lights.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\maprules.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\monstermaker.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\monsters.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\monsterstate.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\mortar.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\mp5.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\multiplay_gamerules.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\nihilanth.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\nodes.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\observer.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\osprey.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\pathcorner.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\plane.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\plats.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\player.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\python.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\rat.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\roach.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\rpg.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\satchel.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\schedule.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\scientist.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\scripted.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\shotgun.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\singleplay_gamerules.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\skill.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\sound.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\soundent.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\spectator.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\squadmonster.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\squeakgrenade.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\subs.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\talkmonster.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\teamplay_gamerules.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\tempmonster.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\tentacle.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\triggers.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\tripmine.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\turret.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\util.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\weapons.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\world.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\wpn_shared\hl_wpn_glock.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\xen.cpp" />
+    <ClCompile Include="..\..\asheep\dlls\zombie.cpp" />
+    <ClCompile Include="..\..\game_shared\voice_gamemgr.cpp" />
+    <ClCompile Include="..\..\asheep\pm_shared\pm_debug.c" />
+    <ClCompile Include="..\..\asheep\pm_shared\pm_math.c" />
+    <ClCompile Include="..\..\asheep\pm_shared\pm_shared.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\asheep\dlls\activity.h" />
+    <ClInclude Include="..\..\asheep\dlls\activitymap.h" />
+    <ClInclude Include="..\..\asheep\dlls\animation.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\asheep_globals.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\asheep_map_fixes.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\asheep_messages.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\asheep_serverside_utils.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\basemonsterrepel.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\basemonsterwithheadcrabai.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\basemonsterwithichthyosaurai.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\basemonsterwithichthyosaurai_constants.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\basemonsterwithsnarkai.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\basemonsterwithzombieai.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\basemonsterwithzombieai_util.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\baseweaponarwithgrenadelauncher.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\baseweapongrenade.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\baseweaponmelee.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\baseweaponpistol.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\baseweaponshotgun.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\baseweaponwiththrowablemonster.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\combat_tactics.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\dead_actor.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\hev_mediator.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\hgrunt.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\player_utils.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\rat.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\scientist.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\spawnereffect.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\spforce.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\squadmonsterwithhgruntai.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\squadmonsterwithhgruntai_util.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\squadmonsterwithislaveai.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\squadmonsterwithislaveai_util.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\talkmonsterwithbarneyai.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\talkmonsterwithbarneyai_util.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\talkmonsterwithscientistai.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\toadweaponmonster.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\weaponinterface.h" />
+    <ClInclude Include="..\..\asheep\dlls\asheep\weapon_util.h" />
+    <ClInclude Include="..\..\asheep\dlls\basemonster.h" />
+    <ClInclude Include="..\..\asheep\dlls\cbase.h" />
+    <ClInclude Include="..\..\asheep\dlls\cdll_dll.h" />
+    <ClInclude Include="..\..\asheep\dlls\client.h" />
+    <ClInclude Include="..\..\asheep\dlls\decals.h" />
+    <ClInclude Include="..\..\asheep\dlls\defaultai.h" />
+    <ClInclude Include="..\..\asheep\dlls\doors.h" />
+    <ClInclude Include="..\..\asheep\dlls\effects.h" />
+    <ClInclude Include="..\..\asheep\dlls\enginecallback.h" />
+    <ClInclude Include="..\..\asheep\dlls\explode.h" />
+    <ClInclude Include="..\..\asheep\dlls\extdll.h" />
+    <ClInclude Include="..\..\asheep\dlls\flyingmonster.h" />
+    <ClInclude Include="..\..\asheep\dlls\func_break.h" />
+    <ClInclude Include="..\..\asheep\dlls\gamerules.h" />
+    <ClInclude Include="..\..\asheep\dlls\hornet.h" />
+    <ClInclude Include="..\..\asheep\dlls\items.h" />
+    <ClInclude Include="..\..\asheep\dlls\monsterevent.h" />
+    <ClInclude Include="..\..\asheep\dlls\monsters.h" />
+    <ClInclude Include="..\..\asheep\dlls\nodes.h" />
+    <ClInclude Include="..\..\asheep\dlls\plane.h" />
+    <ClInclude Include="..\..\asheep\dlls\player.h" />
+    <ClInclude Include="..\..\asheep\dlls\saverestore.h" />
+    <ClInclude Include="..\..\asheep\dlls\schedule.h" />
+    <ClInclude Include="..\..\asheep\dlls\scripted.h" />
+    <ClInclude Include="..\..\asheep\dlls\scriptevent.h" />
+    <ClInclude Include="..\..\asheep\dlls\skill.h" />
+    <ClInclude Include="..\..\asheep\dlls\soundent.h" />
+    <ClInclude Include="..\..\asheep\dlls\spectator.h" />
+    <ClInclude Include="..\..\asheep\dlls\squadmonster.h" />
+    <ClInclude Include="..\..\asheep\dlls\talkmonster.h" />
+    <ClInclude Include="..\..\asheep\dlls\teamplay_gamerules.h" />
+    <ClInclude Include="..\..\asheep\dlls\trains.h" />
+    <ClInclude Include="..\..\asheep\dlls\util.h" />
+    <ClInclude Include="..\..\asheep\dlls\vector.h" />
+    <ClInclude Include="..\..\asheep\dlls\weapons.h" />
+    <ClInclude Include="..\..\engine\eiface.h" />
+    <ClInclude Include="..\..\asheep\pm_shared\pm_debug.h" />
+    <ClInclude Include="..\..\asheep\pm_shared\pm_defs.h" />
+    <ClInclude Include="..\..\asheep\pm_shared\pm_info.h" />
+    <ClInclude Include="..\..\asheep\pm_shared\pm_materials.h" />
+    <ClInclude Include="..\..\asheep\pm_shared\pm_movevars.h" />
+    <ClInclude Include="..\..\asheep\pm_shared\pm_shared.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
