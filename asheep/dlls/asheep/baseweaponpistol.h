@@ -7,6 +7,7 @@ public:
 	virtual void Spawn(void);
 	void Precache(void);
 	int iItemSlot(void) { return 2; }
+	int AddToPlayer(CBasePlayer* pPlayer);
 
 	void PrimaryAttack(void);
 	void SecondaryAttack(void);
