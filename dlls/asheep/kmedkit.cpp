@@ -623,7 +623,7 @@ void CKMedkit::State_VitalSigns()
 
 	// Reduce the delay until ones sound plays to give a
 	// blending effect.
-	soundDuration = max(0, soundDuration - 0.1f);
+	soundDuration = std::max(0.0f, soundDuration - 0.1f);
 
 	m_useState = KMedkitUseState::STATE_HEALTH_PERCENTAGE;
 	m_delay = gpGlobals->time + soundDuration;
