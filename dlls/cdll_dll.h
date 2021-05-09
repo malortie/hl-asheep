@@ -22,7 +22,11 @@
 
 #define MAX_WEAPONS		32		// ???
 
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+#define MAX_WEAPON_SLOTS		6	// hud item selection slots
+#else
 #define MAX_WEAPON_SLOTS		5	// hud item selection slots
+#endif
 #define MAX_ITEM_TYPES			6	// hud item selection slots
 
 #define MAX_ITEMS				5	// hard coded item types
@@ -41,6 +45,9 @@
 #define HUD_PRINTCENTER		4
 
 
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+#define WEAPON_ARMOR		30
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 #define WEAPON_SUIT			31
 
 #endif

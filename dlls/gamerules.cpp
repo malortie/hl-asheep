@@ -302,6 +302,58 @@ void CGameRules::RefreshSkillData ( void )
 	gSkillData.plrStomach = GetSkillCvar( "sk_player_stomach" );
 	gSkillData.plrLeg = GetSkillCvar( "sk_player_leg" );
 	gSkillData.plrArm = GetSkillCvar( "sk_player_arm" );
+#if defined  ( ASHEEP_DLL )
+	gSkillData.adrianHealth = GetSkillCvar("sk_adrian_health");
+	gSkillData.adrianDmgKick = GetSkillCvar("sk_adrian_kick");
+
+	gSkillData.archerHealth = GetSkillCvar("sk_archer_health");
+	gSkillData.archerDmgShake = GetSkillCvar("sk_archer_shake");
+
+	gSkillData.barnielHealth = GetSkillCvar("sk_barniel_health");
+
+	gSkillData.expSlaveHealth = GetSkillCvar("sk_exp_alien_slave_health");
+	gSkillData.expSlaveDmgClaw = GetSkillCvar("sk_exp_alien_slave_dmg_claw");
+	gSkillData.expSlaveDmgClawrake = GetSkillCvar("sk_exp_alien_slave_dmg_clawrake");
+	gSkillData.expSlaveDmgZap = GetSkillCvar("sk_exp_alien_slave_dmg_zap");
+
+	gSkillData.freemanHealth = GetSkillCvar("sk_freeman_health");
+
+	gSkillData.hevbarneyHealth = GetSkillCvar("sk_hev_barney_health");
+
+	gSkillData.kateHealth = GetSkillCvar("sk_kate_health");
+	gSkillData.kateDmgKick = GetSkillCvar("sk_kate_kick");
+	gSkillData.kateDmgPunch = GetSkillCvar("sk_kate_punch");
+
+	gSkillData.pantherHealth = GetSkillCvar("sk_panther_health");
+	gSkillData.pantherDmgClaw = GetSkillCvar("sk_panther_dmg_claw");
+	gSkillData.pantherDmgClawrake = GetSkillCvar("sk_panther_dmg_clawrake");
+	gSkillData.pantherDmgZap = GetSkillCvar("sk_panther_dmg_zap");
+
+	gSkillData.ratHealth = GetSkillCvar("sk_rat_health");
+	gSkillData.ratDmgBite = GetSkillCvar("sk_rat_dmg_bite");
+
+	gSkillData.spforceHealth = GetSkillCvar("sk_spforce_health");
+	gSkillData.spforceDmgKick = GetSkillCvar("sk_spforce_kick");
+
+	gSkillData.terrorHealth = GetSkillCvar("sk_terror_health");
+	gSkillData.terrorDmgKick = GetSkillCvar("sk_terror_kick");
+
+	gSkillData.toadHealth = GetSkillCvar("sk_toad_health");
+	gSkillData.toadDmgBite = GetSkillCvar("sk_toad_dmg_bite");
+	gSkillData.toadDmgPop = GetSkillCvar("sk_toad_dmg_pop");
+
+	gSkillData.workerHealth = GetSkillCvar("sk_worker_health");
+
+	gSkillData.zbarneyHealth = GetSkillCvar("sk_zbarney_health");
+	gSkillData.zbarneyDmgOneSlash = GetSkillCvar("sk_zbarney_dmg_one_slash");
+	gSkillData.zbarneyDmgBothSlash = GetSkillCvar("sk_zbarney_dmg_both_slash");
+
+	gSkillData.plrDmgPoolstick = GetSkillCvar("sk_plr_poolstick");
+	gSkillData.plrDmgBeretta = GetSkillCvar("sk_plr_beretta_bullet");
+	gSkillData.plrDmg9mmM41A = GetSkillCvar("sk_plr_9mmM41A_bullet");
+
+	gSkillData.kmedkitHeal = GetSkillCvar("sk_kmedkit_heal");
+#endif // defined  ( ASHEEP_DLL )
 }
 
 //=========================================================

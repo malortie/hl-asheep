@@ -62,6 +62,32 @@ public:
 #define ITEM_SECURITY		3
 #define ITEM_BATTERY		4
 
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+#define WEAPON_NONE				0
+#define WEAPON_CROWBAR			1
+#define WEAPON_POOLSTICK		2
+#define WEAPON_KMEDKIT			3
+#define WEAPON_GLOCK			4
+#define WEAPON_BARNEY9MMHG		5
+#define WEAPON_BERETTA			6
+#define WEAPON_PYTHON			7
+#define WEAPON_MP5				8
+#define WEAPON_BARNEY9MMAR		9
+#define WEAPON_SHOTGUN			10
+#define WEAPON_BARNEYSHOTGUN	11
+#define WEAPON_CROSSBOW			12
+#define WEAPON_9MMM41A			13
+#define WEAPON_RPG				14
+#define WEAPON_GAUSS			15
+#define WEAPON_EGON				16
+#define WEAPON_HORNETGUN		17
+#define WEAPON_HANDGRENADE		18
+#define WEAPON_BARNEYHANDGRENADE 19
+#define WEAPON_SATCHEL			20
+#define WEAPON_TRIPMINE			21
+#define WEAPON_SNARK			22
+#define WEAPON_TOAD				23
+#else
 #define WEAPON_NONE				0
 #define WEAPON_CROWBAR			1
 #define	WEAPON_GLOCK			2
@@ -78,9 +104,17 @@ public:
 #define WEAPON_TRIPMINE			13
 #define	WEAPON_SATCHEL			14
 #define	WEAPON_SNARK			15
+#endif // defined(ASHEEP_DLL) || defined(ASHEEP_CLIENT_DLL)
 
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+#define WEAPON_ALLWEAPONS		(~(1<<WEAPON_ARMOR))
+#else
 #define WEAPON_ALLWEAPONS		(~(1<<WEAPON_SUIT))
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+#define WEAPON_ARMOR			30
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 #define WEAPON_SUIT				31	// ?????
 
 #define MAX_WEAPONS			32
@@ -104,6 +138,17 @@ public:
 #define SNARK_WEIGHT		5
 #define SATCHEL_WEIGHT		-10
 #define TRIPMINE_WEIGHT		-10
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+#define POOLSTICK_WEIGHT	CROWBAR_WEIGHT
+#define KMEDKIT_WEIGHT		-10
+#define BARNEY9MMHG_WEIGHT	GLOCK_WEIGHT
+#define BERETTA_WEIGHT		15
+#define BARNEY9MMAR_WEIGHT	MP5_WEIGHT
+#define BARNEYSHOTGUN_WEIGHT SHOTGUN_WEIGHT
+#define _9MMM41A_WEIGHT		15
+#define BARNEYHANDGRENADE_WEIGHT HANDGRENADE_WEIGHT
+#define TOAD_WEIGHT			SNARK_WEIGHT 
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
 
 // weapon clip/carry ammo capacities
@@ -119,6 +164,17 @@ public:
 #define SNARK_MAX_CARRY			15
 #define HORNET_MAX_CARRY		8
 #define M203_GRENADE_MAX_CARRY	10
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+#define KMEDKIT_MAX_CARRY			10
+#define BARNEY9MMHG_MAX_CARRY		_9MM_MAX_CARRY
+#define BERETTA_MAX_CARRY			250
+#define BARNEY9MMAR_MAX_CARRY		_9MM_MAX_CARRY
+#define BARNEYSHOTGUN_MAX_CARRY		BUCKSHOT_MAX_CARRY
+#define _9MMM41A_MAX_CARRY			250
+#define _9MMM41A_GRENADE_MAX_CARRY	10
+#define BARNEYHANDGRENADE_MAX_CARRY	HANDGRENADE_MAX_CARRY
+#define TOAD_MAX_CARRY				12 
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
 // the maximum amount of ammo each weapon's clip can hold
 #define WEAPON_NOCLIP			-1
@@ -139,6 +195,16 @@ public:
 #define TRIPMINE_MAX_CLIP		WEAPON_NOCLIP
 #define SNARK_MAX_CLIP			WEAPON_NOCLIP
 
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+#define KMEDKIT_MAX_CLIP		WEAPON_NOCLIP
+#define BARNEY9MMHG_MAX_CLIP		GLOCK_MAX_CLIP
+#define BERETTA_MAX_CLIP			15
+#define BARNEY9MMAR_MAX_CLIP		MP5_MAX_CLIP
+#define BARNEYSHOTGUN_MAX_CLIP		SHOTGUN_MAX_CLIP
+#define _9MMM41A_MAX_CLIP			50
+#define BARNEYHANDGRENADE_MAX_CLIP	HANDGRENADE_MAX_CLIP
+#define TOAD_MAX_CLIP				WEAPON_NOCLIP
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
 // the default amount of ammo that comes with each gun when it spawns
 #define GLOCK_DEFAULT_GIVE			17
@@ -156,6 +222,16 @@ public:
 #define TRIPMINE_DEFAULT_GIVE		1
 #define SNARK_DEFAULT_GIVE			5
 #define HIVEHAND_DEFAULT_GIVE		8
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+#define KMEDKIT_DEFAULT_GIVE			1
+#define BARNEY9MMHG_DEFAULT_GIVE		GLOCK_DEFAULT_GIVE
+#define BERETTA_DEFAULT_GIVE			15
+#define BARNEY9MMAR_DEFAULT_GIVE		MP5_DEFAULT_GIVE
+#define BARNEYSHOTGUN_DEFAULT_GIVE		SHOTGUN_DEFAULT_GIVE
+#define _9MMM41A_DEFAULT_GIVE			25
+#define BARNEYHANDGRENADE_DEFAULT_GIVE	HANDGRENADE_DEFAULT_GIVE
+#define TOAD_DEFAULT_GIVE				1
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
 // The amount of ammo given to a player by an ammo item.
 #define AMMO_URANIUMBOX_GIVE	20
@@ -169,6 +245,10 @@ public:
 #define AMMO_RPGCLIP_GIVE		RPG_MAX_CLIP
 #define AMMO_URANIUMBOX_GIVE	20
 #define AMMO_SNARKBOX_GIVE		5
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+#define AMMO_KMEDKIT_GIVE			1
+#define AMMO_TOAD_GIVE				1
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
 // bullet types
 typedef	enum
@@ -179,10 +259,19 @@ typedef	enum
 	BULLET_PLAYER_357, // python
 	BULLET_PLAYER_BUCKSHOT, // shotgun
 	BULLET_PLAYER_CROWBAR, // crowbar swipe
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+	BULLET_PLAYER_POOLSTICK,
+	BULLET_PLAYER_BERETTA,
+	BULLET_PLAYER_9MMM41A,
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
 	BULLET_MONSTER_9MM,
 	BULLET_MONSTER_MP5,
 	BULLET_MONSTER_12MM,
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+	BULLET_MONSTER_9MMM41A,
+	BULLET_MONSTER_BERETTA,
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 } Bullet;
 
 
@@ -318,6 +407,9 @@ public:
 	virtual BOOL CanDeploy( void );
 	virtual BOOL IsUseable( void );
 	BOOL DefaultDeploy( char *szViewModel, char *szWeaponModel, int iAnim, char *szAnimExt, int skiplocal = 0, int body = 0 );
+#if defined ( ASHEEP_WEAPONHOLSTER )
+	BOOL DefaultHolster( int iAnim, float flDelay, int skiplocal = 0, int body = 0 );
+#endif // defined ( ASHEEP_WEAPONHOLSTER )
 	int DefaultReload( int iClipSize, int iAnim, float fDelay, int body = 0 );
 
 	virtual void ItemPostFrame( void );	// called each frame by the player PostThink
@@ -358,6 +450,18 @@ public:
 	float	m_flPrevPrimaryAttack;
 	float	m_flLastFireTime;			
 
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+	BOOL UsesPrimaryAmmo();
+	BOOL UsesSecondaryAmmo();
+	BOOL HasPrimaryAmmo();
+	BOOL HasSecondaryAmmo();
+	BOOL UsesClipsForAmmo();
+	BOOL HasAnyAmmo();
+	int GetPrimaryAmmoCount();
+	int GetSecondaryAmmoCount();
+	BOOL IsAllowedToNotifyOutOfAmmo();
+	void DoSuitSpeakOutOfAmmo();
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 };
 
 
@@ -467,6 +571,57 @@ bool bIsMultiplayer ( void );
 void LoadVModel ( char *szViewModel, CBasePlayer *m_pPlayer );
 #endif
 
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+#include "weaponinterface.h"
+#include "weapon_util.h"
+#include "baseweaponmelee.h"
+#include "baseweaponpistol.h"
+#include "baseweaponarwithgrenadelauncher.h"
+#include "baseweaponshotgun.h"
+#include "baseweapongrenade.h"
+#include "baseweaponwiththrowablemonster.h"
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+class CGlock : public CBaseWeaponPistol
+{
+	typedef CBaseWeaponPistol BaseClass;
+public:
+	void Spawn(void);
+	int iItemSlot(void) { return 2; }
+	int GetItemInfo(ItemInfo *p);
+
+	const char* GetThirdpersonModel();
+	const char* GetViewModel();
+	const char* GetWorldModel();
+	int GetWeaponID();
+
+	void PrecacheModels();
+	void PrecacheEvents();
+
+	int GetBulletType();
+	void GiveFirstTimeSpawnDefaultAmmo();
+
+	const unsigned short& GetPrimaryFireEvent() const;
+	const unsigned short& GetSecondaryFireEvent() const;
+
+	int GetDeploySequence();
+	int GetReloadSequence();
+	int GetReloadEmptySequence();
+	int GetHolsterSequence();
+
+	float GetReloadSequenceDuration();
+	float GetReloadEmptySequenceDuration();
+	float GetHolsterSequenceDuration();
+
+	float PlayIdleAnimation();
+
+private:
+
+	unsigned short m_usFireGlock1;
+	unsigned short m_usFireGlock2;
+};
+#else
 class CGlock : public CBasePlayerWeapon
 {
 public:
@@ -479,6 +634,9 @@ public:
 	void SecondaryAttack( void );
 	void GlockFire( float flSpread, float flCycleTime, BOOL fUseAutoAim );
 	BOOL Deploy( void );
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+	void Holster(int skiplocal = 0);
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 	void Reload( void );
 	void WeaponIdle( void );
 
@@ -498,8 +656,49 @@ private:
 	unsigned short m_usFireGlock1;
 	unsigned short m_usFireGlock2;
 };
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+class CCrowbar : public CBaseWeaponMelee
+{
+	typedef CBaseWeaponMelee BaseClass;
+public:
+	int iItemSlot(void) { return 1; }
+	int GetItemInfo(ItemInfo *p);
 
+	int GetWeaponID();
+	const char* GetThirdpersonModel();
+	const char* GetViewModel();
+	const char* GetWorldModel();
+	float GetMeleeDamage();
+
+	int GetBulletType();
+
+	void PrecacheModels();
+	void PrecacheSounds();
+	void PrecacheEvents();
+
+	const unsigned short& GetSwingEvent() const;
+
+	int GetDeploySequence();
+	int GetHolsterSequence();
+	float GetHolsterSequenceDuration();
+
+	void PlayMissAnimation();
+	void PlayMissSound();
+
+	void PlayHitAnimation();
+	void PlayHitBodySound();
+	void PlayHitWorldSound(float fvolbar);
+
+private:
+	unsigned short m_usCrowbar;
+
+	static const char* pMissSounds[];
+	static const char* pHitBodySounds[];
+	static const char* pHitWorldSounds[];
+};
+#else
 class CCrowbar : public CBasePlayerWeapon
 {
 public:
@@ -528,6 +727,7 @@ public:
 private:
 	unsigned short m_usCrowbar;
 };
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
 class CPython : public CBasePlayerWeapon
 {
@@ -559,6 +759,43 @@ private:
 	unsigned short m_usFirePython;
 };
 
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+class CMP5 : public CBaseWeaponARWithGrenadeLauncher
+{
+	typedef CBaseWeaponARWithGrenadeLauncher BaseClass;
+public:
+	void Spawn(void);
+	int iItemSlot(void) { return 3; }
+	int GetItemInfo(ItemInfo *p);
+
+	const char* GetThirdpersonModel();
+	const char* GetViewModel();
+	const char* GetWorldModel();
+	int GetWeaponID();
+
+	void PrecacheModels();
+	void PrecacheEvents();
+	void GiveFirstTimeSpawnDefaultAmmo();
+
+	const unsigned short& GetFireEvent() const;
+	const unsigned short& GetGrenadeLaunchEvent() const;
+
+	int GetBulletType();
+
+	int GetDeploySequence();
+	int GetHolsterSequence();
+	int GetReloadSequence();
+
+	float GetHolsterSequenceDuration();
+	float GetReloadSequenceDuration();
+
+	float PlayIdleAnimation();
+
+private:
+	unsigned short m_usMP5;
+	unsigned short m_usMP52;
+};
+#else
 class CMP5 : public CBasePlayerWeapon
 {
 public:
@@ -572,6 +809,9 @@ public:
 	void SecondaryAttack( void );
 	int SecondaryAmmoIndex( void );
 	BOOL Deploy( void );
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+	void Holster(int skiplocal = 0);
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 	void Reload( void );
 	void WeaponIdle( void );
 	float m_flNextAnimTime;
@@ -590,6 +830,7 @@ private:
 	unsigned short m_usMP5;
 	unsigned short m_usMP52;
 };
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
 class CCrossbow : public CBasePlayerWeapon
 {
@@ -625,6 +866,41 @@ private:
 	unsigned short m_usCrossbow2;
 };
 
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+// p->iSlot = 2;
+// p->iPosition = 2;
+class CShotgun : public CBaseWeaponShotgun
+{
+	typedef CBaseWeaponShotgun BaseClass;
+public:
+	int iItemSlot() { return 3; }
+	int GetItemInfo(ItemInfo *p);
+
+	int GetWeaponID();
+	const char* GetThirdpersonModel();
+	const char* GetViewModel();
+	const char* GetWorldModel();
+
+	void PrecacheModels();
+	void GiveFirstTimeSpawnDefaultAmmo();
+
+	int GetDeploySequence();
+	int GetHolsterSequence();
+	float GetHolsterSequenceDuration();
+
+	float PlayIdleAnimation();
+	float PlayReloadAnimation();
+	float PlayStartReloadAnimation();
+	float PlayPumpAnimation();
+
+	void PlayReloadSound();
+	void PlayPumpSound();
+
+private:
+
+	static const char* pReloadSounds[];
+};
+#else
 class CShotgun : public CBasePlayerWeapon
 {
 public:
@@ -645,6 +921,9 @@ public:
 	void PrimaryAttack( void );
 	void SecondaryAttack( void );
 	BOOL Deploy( );
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+	void Holster(int skiplocal = 0);
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 	void Reload( void );
 	void WeaponIdle( void );
 	int m_fInReload;
@@ -664,6 +943,7 @@ private:
 	unsigned short m_usDoubleFire;
 	unsigned short m_usSingleFire;
 };
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
 class CLaserSpot : public CBaseEntity
 {
@@ -892,7 +1172,32 @@ private:
 };
 
 
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+class CHandGrenade : public CBaseWeaponGrenade
+{
+public:
 
+	int iItemSlot(void) { return 5; }
+	int GetItemInfo(ItemInfo *p);
+
+	const char* GetThirdpersonModel();
+	const char* GetViewModel();
+	const char* GetWorldModel();
+	int GetWeaponID();
+
+	void PrecacheModels();
+	void GiveFirstTimeSpawnDefaultAmmo();
+
+	int GetDeploySequence();
+	int GetHolsterSequence();
+
+	float GetHolsterSequenceDuration();
+
+	float PlayPinPullAnimation();
+	float PlayThrowAnimation(float tossVelocity);
+	float PlayIdleAnimation();
+};
+#else
 class CHandGrenade : public CBasePlayerWeapon
 {
 public:
@@ -916,6 +1221,7 @@ public:
 #endif
 	}
 };
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
 class CSatchel : public CBasePlayerWeapon
 {
@@ -987,6 +1293,42 @@ private:
 
 };
 
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+class CSqueak : public CBaseWeaponWithThrowableMonster
+{
+	typedef CBaseWeaponWithThrowableMonster BaseClass;
+public:
+	int iItemSlot(void) { return 5; }
+	int GetItemInfo(ItemInfo *p);
+
+	const char* GetThirdpersonModel();
+	const char* GetViewModel();
+	const char* GetWorldModel();
+	int GetWeaponID();
+
+	void PrecacheModels();
+	void PrecacheSounds();
+	void PrecacheEvents();
+	void GiveFirstTimeSpawnDefaultAmmo();
+
+	const unsigned short& GetThrowEvent() const;
+	const char* GetClassnameOfMonsterToThrow();
+
+	int GetDeploySequence();
+	int GetHolsterSequence();
+	float GetHolsterSequenceDuration();
+
+	float PlayIdleAnimation();
+	void PlayDeploySound();
+	void PlayHuntSound();
+
+private:
+	unsigned short m_usSnarkFire;
+
+	static const char* pDeploySounds[];
+	static const char* pHuntSounds[];
+};
+#else
 class CSqueak : public CBasePlayerWeapon
 {
 public:
@@ -1014,6 +1356,403 @@ public:
 private:
 	unsigned short m_usSnarkFire;
 };
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+// p->iPosition = 1;
+class CBarney9MMHandgun : public CBaseWeaponPistol
+{
+	typedef CBaseWeaponPistol BaseClass;
+public:
+	int iItemSlot(void) { return 2; }
+	int GetItemInfo(ItemInfo *p);
+
+	const char* GetThirdpersonModel();
+	const char* GetViewModel();
+	const char* GetWorldModel();
+	int GetWeaponID();
+
+	void PrecacheModels();
+	void PrecacheEvents();
+
+	int GetBulletType();
+	void GiveFirstTimeSpawnDefaultAmmo();
+
+	const unsigned short& GetPrimaryFireEvent() const;
+	const unsigned short& GetSecondaryFireEvent() const;
+
+	int GetDeploySequence();
+	int GetReloadSequence();
+	int GetReloadEmptySequence();
+	int GetHolsterSequence();
+
+	float GetReloadSequenceDuration();
+	float GetReloadEmptySequenceDuration();
+	float GetHolsterSequenceDuration();
+
+	float PlayIdleAnimation();
+
+private:
+
+	unsigned short m_usFireHandgun1;
+	unsigned short m_usFireHandgun2;
+};
+
+// p->iPosition = 1;
+class CBarney9MMAR : public CBaseWeaponARWithGrenadeLauncher
+{
+	typedef CBaseWeaponARWithGrenadeLauncher BaseClass;
+public:
+	int iItemSlot(void) { return 3; }
+	int GetItemInfo(ItemInfo *p);
+
+	const char* GetThirdpersonModel();
+	const char* GetViewModel();
+	const char* GetWorldModel();
+	int GetWeaponID();
+
+	void PrecacheModels();
+	void PrecacheEvents();
+	void GiveFirstTimeSpawnDefaultAmmo();
+
+	const unsigned short& GetFireEvent() const;
+	const unsigned short& GetGrenadeLaunchEvent() const;
+
+	int GetBulletType();
+
+	int GetDeploySequence();
+	int GetHolsterSequence();
+	int GetReloadSequence();
+
+	float GetHolsterSequenceDuration();
+	float GetReloadSequenceDuration();
+
+	float PlayIdleAnimation();
+
+private:
+	unsigned short m_usBarney9MMAR;
+	unsigned short m_usBarney9MMAR2;
+};
+
+//p->iPosition = 3;
+class CBarneyShotgun : public CBaseWeaponShotgun
+{
+	typedef CBaseWeaponShotgun BaseClass;
+public:
+	int iItemSlot() { return 3; }
+	int GetItemInfo(ItemInfo *p);
+
+	int GetWeaponID();
+	const char* GetThirdpersonModel();
+	const char* GetViewModel();
+	const char* GetWorldModel();
+
+	void PrecacheModels();
+	void GiveFirstTimeSpawnDefaultAmmo();
+
+	int GetDeploySequence();
+	int GetHolsterSequence();
+	float GetHolsterSequenceDuration();
+
+	float PlayIdleAnimation();
+	float PlayReloadAnimation();
+	float PlayStartReloadAnimation();
+	float PlayPumpAnimation();
+
+	void PlayReloadSound();
+	void PlayPumpSound();
+
+private:
+
+	static const char* pReloadSounds[];
+};
+
+//p->iPosition = 1;
+class CBarneyHandGrenade : public CBaseWeaponGrenade
+{
+public:
+
+	int GetItemInfo(ItemInfo *p);
+
+	const char* GetThirdpersonModel();
+	const char* GetViewModel();
+	const char* GetWorldModel();
+	int GetWeaponID();
+
+	void PrecacheModels();
+	void GiveFirstTimeSpawnDefaultAmmo();
+
+	int GetDeploySequence();
+	int GetHolsterSequence();
+
+	float GetHolsterSequenceDuration();
+
+	float PlayPinPullAnimation();
+	float PlayThrowAnimation(float tossVelocity);
+	float PlayIdleAnimation();
+};
+
+class CPoolstick : public CBaseWeaponMelee
+{
+	typedef CBaseWeaponMelee BaseClass;
+public:
+	int GetItemInfo(ItemInfo *p);
+	int iItemSlot(void) { return 1; }
+
+	int GetWeaponID();
+	const char* GetThirdpersonModel();
+	const char* GetViewModel();
+	const char* GetWorldModel();
+	float GetMeleeDamage();
+	int GetBulletType();
+
+	void PrecacheModels();
+	void PrecacheSounds();
+	void PrecacheEvents();
+
+	const unsigned short& GetSwingEvent() const;
+
+	int GetDeploySequence();
+	int GetHolsterSequence();
+	float GetHolsterSequenceDuration();
+
+	void PlayMissAnimation();
+	void PlayMissSound();
+
+	void PlayHitAnimation();
+	void PlayHitBodySound();
+	void PlayHitWorldSound(float fvolbar);
+
+private:
+	unsigned short m_usPoolstick;
+
+	static const char* pMissSounds[];
+	static const char* pHitBodySounds[];
+	static const char* pHitWorldSounds[];
+};
+
+//p->iSlot = 1;
+//p->iPosition = 2;
+//
+//int iItemSlot(void) { return 2; }
+//
+class CBeretta : public CBaseWeaponPistol
+{
+	typedef CBaseWeaponPistol BaseClass;
+public:
+	int GetItemInfo(ItemInfo *p);
+	int iItemSlot(void) { return 2; }
+
+	const char* GetThirdpersonModel();
+	const char* GetViewModel();
+	const char* GetWorldModel();
+	int GetWeaponID();
+
+	void PrecacheModels();
+	void PrecacheEvents();
+
+	int GetBulletType();
+	void GiveFirstTimeSpawnDefaultAmmo();
+
+	const unsigned short& GetPrimaryFireEvent() const;
+	const unsigned short& GetSecondaryFireEvent() const;
+
+	int GetDeploySequence();
+	int GetReloadSequence();
+	int GetReloadEmptySequence();
+	int GetHolsterSequence();
+
+	float GetReloadSequenceDuration();
+	float GetReloadEmptySequenceDuration();
+	float GetHolsterSequenceDuration();
+
+	float PlayIdleAnimation();
+
+private:
+
+	unsigned short m_usFireBeretta1;
+	unsigned short m_usFireBeretta2;
+};
+
+class C9MMM41A : public CBaseWeaponARWithGrenadeLauncher
+{
+	typedef CBaseWeaponARWithGrenadeLauncher BaseClass;
+public:
+	int GetItemInfo(ItemInfo *p);
+	int iItemSlot(void) { return 3; }
+
+	const char* GetThirdpersonModel();
+	const char* GetViewModel();
+	const char* GetWorldModel();
+	int GetWeaponID();
+
+	void PrecacheModels();
+	void PrecacheEvents();
+	void GiveFirstTimeSpawnDefaultAmmo();
+
+	const unsigned short& GetFireEvent() const;
+	const unsigned short& GetGrenadeLaunchEvent() const;
+
+	int GetBulletType();
+
+	int GetDeploySequence();
+	int GetHolsterSequence();
+	int GetReloadSequence();
+
+	float GetHolsterSequenceDuration();
+	float GetReloadSequenceDuration();
+	float PlayIdleAnimation();
+
+private:
+	unsigned short m_us9MMM41A;
+	unsigned short m_us9MMM41A2;
+};
+
+class CKMedkitSentence;
+
+class CKMedkit : public CBasePlayerWeapon
+{
+public:
+
+#ifndef CLIENT_DLL
+	int		Save(CSave &save);
+	int		Restore(CRestore &restore);
+	static	TYPEDESCRIPTION m_SaveData[];
+#endif
+
+	void Spawn(void);
+	void Precache(void);
+	int iItemSlot(void) { return 1; }
+	int GetItemInfo(ItemInfo *p);
+
+	void PrimaryAttack(void);
+	void SecondaryAttack(void);
+	BOOL Deploy(void);
+	void Holster(int skiplocal = 0);
+	void WeaponIdle(void);
+
+	virtual BOOL UseDecrement(void)
+	{
+#if defined( CLIENT_WEAPONS )
+		return TRUE;
+#else
+		return FALSE;
+#endif
+	}
+
+	virtual BOOL CanDeploy(void) { return TRUE; }
+	virtual BOOL IsUseable(void) { return TRUE; }
+	virtual BOOL ShouldWeaponIdle(void);
+
+	float GetHealAmount() const;
+
+	BOOL HasAmmo(void);
+	void UseAmmo(int count);
+
+	float GetHealSequenceDuration() const;
+	float GetSayHealthSequenceDuration() const;
+
+	float GetStateHealDelay();
+	float GetStateVitalSignsDelay();
+
+	BOOL IsCurrentlyUsingMedkit() const;
+	BOOL IsAllowedToHealTarget(CBaseEntity* target);
+	BOOL IsAllowedToSayTargetHealth(CBaseEntity* target);
+	void StartPressButton(CBaseEntity* target, BOOL isSecondaryAttack);
+	void PlayMissSound();
+	void PlayHealSound();
+	void PlayBellSound();
+	void PlayVitalSignsSound(float* resultingSoundDuration);
+	void PlaySoundPercent(float* resultingSoundDuration);
+	void State_Heal();
+	void State_VitalSigns();
+	void State_HealthPercentage();
+	void State_SoundPercent();
+	void GetTextColorForHealth(const int health, byte& r, byte& g, byte& b);
+	void ResetVariables();
+
+	CBaseEntity* CheckForEntityInFrontOfPlayer(float maxDistance);
+
+	void ChooseAndExecuteUseState(int useState);
+
+protected:
+	void DisplayTargetHealth();
+
+	CKMedkitSentence* GetSentenceManager() const;
+
+private:
+	void SendMedkitAnim(int useType);
+	void SetNextAttack(float nextAttackTime);
+
+	void UpdateState();
+
+	enum KMedkitUseState
+	{
+		STATE_RESETVARIABLES = -1,
+		STATE_NONE = 0,
+		STATE_HEAL,
+		STATE_VITALSIGNS,
+		STATE_HEALTH_PERCENTAGE,
+		STATE_SOUND_PERCENT,
+	};
+
+	CBaseEntity* m_target;
+	int m_targetHealth;
+	int m_targetMaxHealth;
+	float m_delay;
+	int m_useState;
+	int m_healthPercentState;
+
+	unsigned short m_usMedkit;
+};
+
+class CToadWeaponMonster;
+
+class CToadWeapon : public CBaseWeaponWithThrowableMonster
+{
+	typedef CBaseWeaponWithThrowableMonster BaseClass;
+public:
+	void Spawn(void);
+	void Precache(void);
+
+	int iItemSlot(void) { return 5; }
+	int GetItemInfo(ItemInfo *p);
+
+	const char* GetThirdpersonModel();
+	const char* GetViewModel();
+	const char* GetWorldModel();
+	int GetWeaponID();
+
+	void PrecacheModels();
+	void PrecacheSounds();
+	void PrecacheEvents();
+	void GiveFirstTimeSpawnDefaultAmmo();
+
+	const unsigned short& GetThrowEvent() const;
+	const char* GetClassnameOfMonsterToThrow();
+
+	int GetDeploySequence();
+	int GetHolsterSequence();
+	float GetHolsterSequenceDuration();
+
+	float PlayIdleAnimation();
+	void PlayDeploySound();
+	void PlayHuntSound();
+
+	BOOL m_doNotSpawnToad;
+
+#if !defined ( CLIENT_DLL )
+protected:
+	virtual const char* GetClassnameOfMonsterToCreate();
+	void SpawnMonsterAndRemoveWeapon();
+#endif // !defined ( CLIENT_DLL )
+
+private:
+	unsigned short m_usToad;
+
+	static const char* pDeploySounds[];
+	static const char* pHuntSounds[];
+};
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
 #endif // WEAPONS_H

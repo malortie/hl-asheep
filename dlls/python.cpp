@@ -47,7 +47,11 @@ int CPython::GetItemInfo(ItemInfo *p)
 	p->iMaxClip = PYTHON_MAX_CLIP;
 	p->iFlags = 0;
 	p->iSlot = 1;
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+	p->iPosition = 3;
+#else
 	p->iPosition = 1;
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 	p->iId = m_iId = WEAPON_PYTHON;
 	p->iWeight = PYTHON_WEIGHT;
 
@@ -127,7 +131,11 @@ void CPython::Holster( int skiplocal /* = 0 */ )
 
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 1.0;
 	m_flTimeWeaponIdle = UTIL_SharedRandomFloat( m_pPlayer->random_seed, 10, 15 );
+#if defined ( ASHEEP_WEAPONHOLSTER )
+	DefaultHolster(PYTHON_HOLSTER, 16.0f / 30.0f, skiplocal, 0);
+#else
 	SendWeaponAnim( PYTHON_HOLSTER );
+#endif // defined ( ASHEEP_WEAPONHOLSTER )
 }
 
 void CPython::SecondaryAttack( void )
@@ -161,7 +169,11 @@ void CPython::PrimaryAttack()
 	if (m_pPlayer->pev->waterlevel == 3)
 	{
 		PlayEmptySound( );
+#if defined ( ASHEEP_CLIENT_WEAPONS )
 		m_flNextPrimaryAttack = 0.15;
+#else
+		m_flNextPrimaryAttack = GetNextAttackDelay(0.15);
+#endif // defined ( ASHEEP_CLIENT_WEAPONS )
 		return;
 	}
 
@@ -172,7 +184,11 @@ void CPython::PrimaryAttack()
 		else
 		{
 			EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_WEAPON, "weapons/357_cock1.wav", 0.8, ATTN_NORM);
+#if defined ( ASHEEP_CLIENT_WEAPONS )
 			m_flNextPrimaryAttack = 0.15;
+#else
+			m_flNextPrimaryAttack = GetNextAttackDelay(0.15);
+#endif // defined ( ASHEEP_CLIENT_WEAPONS )
 		}
 
 		return;
@@ -210,8 +226,13 @@ void CPython::PrimaryAttack()
 		// HEV suit - indicate out of ammo condition
 		m_pPlayer->SetSuitUpdate("!HEV_AMO0", FALSE, 0);
 
+#if defined ( ASHEEP_CLIENT_WEAPONS )
 	m_flNextPrimaryAttack = 0.75;
 	m_flTimeWeaponIdle = UTIL_SharedRandomFloat( m_pPlayer->random_seed, 10, 15 );
+#else
+	m_flNextPrimaryAttack = GetNextAttackDelay(0.75);
+	m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + UTIL_SharedRandomFloat( m_pPlayer->random_seed, 10, 15 );
+#endif // defined ( ASHEEP_CLIENT_WEAPONS )
 }
 
 

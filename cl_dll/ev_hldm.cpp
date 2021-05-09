@@ -74,6 +74,15 @@ void EV_SnarkFire( struct event_args_s *args  );
 
 
 void EV_TrainPitchAdjust( struct event_args_s *args );
+#if defined ( ASHEEP_CLIENT_DLL )
+void EV_FireBeretta1(struct event_args_s *args);
+void EV_FireBeretta2(struct event_args_s *args);
+void EV_Fire9MMM41A(struct event_args_s *args);
+void EV_Fire9MMM41A2(struct event_args_s *args);
+void EV_KMedkit(struct event_args_s *args);
+void EV_Poolstick(struct event_args_s *args);
+void EV_Toad(struct event_args_s *args);
+#endif // defined ( ASHEEP_CLIENT_DLL )
 }
 
 #define VECTOR_CONE_1DEGREES Vector( 0.00873, 0.00873, 0.00873 )
@@ -295,6 +304,12 @@ void EV_HLDM_DecalGunshot( pmtrace_t *pTrace, int iBulletType )
 		case BULLET_MONSTER_MP5:
 		case BULLET_PLAYER_BUCKSHOT:
 		case BULLET_PLAYER_357:
+#if defined ( ASHEEP_CLIENT_DLL )
+		case BULLET_PLAYER_9MMM41A:
+		case BULLET_MONSTER_9MMM41A:
+		case BULLET_PLAYER_BERETTA:
+		case BULLET_MONSTER_BERETTA:
+#endif // defined ( ASHEEP_CLIENT_DLL )
 		default:
 			// smoke and decal
 			EV_HLDM_GunshotDecalTrace( pTrace, EV_HLDM_DamageDecal( pe ) );
@@ -411,12 +426,18 @@ void EV_HLDM_FireBullets( int idx, float *forward, float *right, float *up, int 
 			{
 			default:
 			case BULLET_PLAYER_9MM:		
+#if defined ( ASHEEP_CLIENT_DLL )
+			case BULLET_PLAYER_BERETTA:
+#endif // defined ( ASHEEP_CLIENT_DLL )
 				
 				EV_HLDM_PlayTextureSound( idx, &tr, vecSrc, vecEnd, iBulletType );
 				EV_HLDM_DecalGunshot( &tr, iBulletType );
 			
 					break;
 			case BULLET_PLAYER_MP5:		
+#if defined ( ASHEEP_CLIENT_DLL )
+			case BULLET_PLAYER_9MMM41A:
+#endif // defined ( ASHEEP_CLIENT_DLL )
 				
 				if ( !tracer )
 				{
@@ -1418,6 +1439,7 @@ void EV_EgonFire( event_args_t *args )
 	if ( EV_IsLocal( idx ) )
 		gEngfuncs.pEventAPI->EV_WeaponAnimation ( g_fireAnims1[ gEngfuncs.pfnRandomLong( 0, 3 ) ], 1 );
 
+#if defined ( ASHEEP_CLIENT_WEAPONS )
 	if ( iStartup == 1 && EV_IsLocal( idx ) && !pBeam && !pBeam2 && cl_lw->value ) //Adrian: Added the cl_lw check for those lital people that hate weapon prediction.
 	{
 		vec3_t vecSrc, vecEnd, origin, angles, forward, right, up;
@@ -1469,6 +1491,7 @@ void EV_EgonFire( event_args_t *args )
 			pBeam2 = gEngfuncs.pEfxAPI->R_BeamEntPoint ( idx | 0x1000, tr.endpos, iBeamModelIndex, 99999, 5.0, 0.08, 0.7, 25, 0, 0, r, g, b );
 		}
 	}
+#endif // defined ( ASHEEP_CLIENT_WEAPONS )
 }
 
 void EV_EgonStop( event_args_t *args )
@@ -1702,3 +1725,410 @@ int EV_TFC_IsAllyTeam( int iTeam1, int iTeam2 )
 {
 	return 0;
 }
+
+#if defined ( ASHEEP_CLIENT_DLL )
+//======================
+//	    BERETTA START
+//======================
+
+enum beretta_e {
+	BERETTA_IDLE1 = 0,
+	BERETTA_IDLE2,
+	BERETTA_IDLE3,
+	BERETTA_SHOOT,
+	BERETTA_SHOOT_EMPTY,
+	BERETTA_RELOAD,
+	BERETTA_RELOAD_NOT_EMPTY,
+	BERETTA_DRAW,
+	BERETTA_HOLSTER,
+};
+
+void EV_FireBeretta1(struct event_args_s *args)
+{
+	int idx;
+	vec3_t origin;
+	vec3_t angles;
+	vec3_t velocity;
+	int empty;
+
+	vec3_t ShellVelocity;
+	vec3_t ShellOrigin;
+	int shell;
+	vec3_t vecSrc, vecAiming;
+	vec3_t up, right, forward;
+
+	idx = args->entindex;
+	VectorCopy(args->origin, origin);
+	VectorCopy(args->angles, angles);
+	VectorCopy(args->velocity, velocity);
+
+	empty = args->bparam1;
+	AngleVectors(angles, forward, right, up);
+
+	shell = gEngfuncs.pEventAPI->EV_FindModelIndex("models/shell.mdl");// brass shell
+
+	if (EV_IsLocal(idx))
+	{
+		EV_MuzzleFlash();
+		gEngfuncs.pEventAPI->EV_WeaponAnimation(empty ? BERETTA_SHOOT_EMPTY : BERETTA_SHOOT, 2);
+
+		V_PunchAxis(0, -2.0);
+	}
+
+	EV_GetDefaultShellInfo(args, origin, velocity, ShellVelocity, ShellOrigin, forward, right, up, 20, -12, 4);
+
+	EV_EjectBrass(ShellOrigin, ShellVelocity, angles[YAW], shell, TE_BOUNCE_SHELL);
+
+	gEngfuncs.pEventAPI->EV_PlaySound(idx, origin, CHAN_WEAPON, "weapons/beretta_fire1.wav", gEngfuncs.pfnRandomFloat(0.92, 1.0), ATTN_NORM, 0, 98 + gEngfuncs.pfnRandomLong(0, 3));
+
+	EV_GetGunPosition(args, vecSrc, origin);
+
+	VectorCopy(forward, vecAiming);
+
+	EV_HLDM_FireBullets(idx, forward, right, up, 1, vecSrc, vecAiming, 8192, BULLET_PLAYER_BERETTA, 0, 0, args->fparam1, args->fparam2);
+}
+
+//======================
+//	    BERETTA END
+//======================
+
+//======================
+//	    BERETTA2 START
+//======================
+
+void EV_FireBeretta2(struct event_args_s *args)
+{
+	int idx;
+	vec3_t origin;
+	vec3_t angles;
+	vec3_t velocity;
+
+	vec3_t ShellVelocity;
+	vec3_t ShellOrigin;
+	int shell;
+	vec3_t vecSrc, vecAiming;
+	vec3_t vecSpread;
+	vec3_t up, right, forward;
+
+	idx = args->entindex;
+	VectorCopy(args->origin, origin);
+	VectorCopy(args->angles, angles);
+	VectorCopy(args->velocity, velocity);
+
+	AngleVectors(angles, forward, right, up);
+
+	shell = gEngfuncs.pEventAPI->EV_FindModelIndex("models/shell.mdl");// brass shell
+
+	if (EV_IsLocal(idx))
+	{
+		// Add muzzle flash to current weapon model
+		EV_MuzzleFlash();
+		gEngfuncs.pEventAPI->EV_WeaponAnimation(BERETTA_SHOOT, 2);
+
+		V_PunchAxis(0, -2.0);
+	}
+
+	EV_GetDefaultShellInfo(args, origin, velocity, ShellVelocity, ShellOrigin, forward, right, up, 20, -12, 4);
+
+	EV_EjectBrass(ShellOrigin, ShellVelocity, angles[YAW], shell, TE_BOUNCE_SHELL);
+
+	gEngfuncs.pEventAPI->EV_PlaySound(idx, origin, CHAN_WEAPON, "weapons/beretta_fire1.wav", gEngfuncs.pfnRandomFloat(0.92, 1.0), ATTN_NORM, 0, 98 + gEngfuncs.pfnRandomLong(0, 3));
+
+	EV_GetGunPosition(args, vecSrc, origin);
+
+	VectorCopy(forward, vecAiming);
+
+	EV_HLDM_FireBullets(idx, forward, right, up, 1, vecSrc, vecAiming, 8192, BULLET_PLAYER_BERETTA, 0, &tracerCount[idx - 1], args->fparam1, args->fparam2);
+}
+
+//======================
+//	    BERETTA2 END
+//======================
+
+//======================
+//	    9MMM41A START
+//======================
+
+enum _9mmm41a_e
+{
+	_9MMM41A_LONGIDLE = 0,
+	_9MMM41A_IDLE1,
+	_9MMM41A_LAUNCH,
+	_9MMM41A_RELOAD,
+	_9MMM41A_DEPLOY,
+	_9MMM41A_FIRE1,
+	_9MMM41A_FIRE2,
+	_9MMM41A_FIRE3,
+};
+void EV_Fire9MMM41A(struct event_args_s *args)
+{
+	int idx;
+	vec3_t origin;
+	vec3_t angles;
+	vec3_t velocity;
+
+	vec3_t ShellVelocity;
+	vec3_t ShellOrigin;
+	int shell;
+	vec3_t vecSrc, vecAiming;
+	vec3_t up, right, forward;
+	float flSpread = 0.01;
+
+	idx = args->entindex;
+	VectorCopy(args->origin, origin);
+	VectorCopy(args->angles, angles);
+	VectorCopy(args->velocity, velocity);
+
+	AngleVectors(angles, forward, right, up);
+
+	shell = gEngfuncs.pEventAPI->EV_FindModelIndex("models/shell.mdl");// brass shell
+
+	if (EV_IsLocal(idx))
+	{
+		// Add muzzle flash to current weapon model
+		EV_MuzzleFlash();
+		gEngfuncs.pEventAPI->EV_WeaponAnimation(_9MMM41A_FIRE1 + gEngfuncs.pfnRandomLong(0, 2), 2);
+
+		V_PunchAxis(0, gEngfuncs.pfnRandomFloat(-2, 2));
+	}
+
+	EV_GetDefaultShellInfo(args, origin, velocity, ShellVelocity, ShellOrigin, forward, right, up, 20, -12, 4);
+
+	EV_EjectBrass(ShellOrigin, ShellVelocity, angles[YAW], shell, TE_BOUNCE_SHELL);
+
+	switch (gEngfuncs.pfnRandomLong(0, 1))
+	{
+	case 0:
+		gEngfuncs.pEventAPI->EV_PlaySound(idx, origin, CHAN_WEAPON, "weapons/m41ahks1.wav", 1, ATTN_NORM, 0, 94 + gEngfuncs.pfnRandomLong(0, 0xf));
+		break;
+	case 1:
+		gEngfuncs.pEventAPI->EV_PlaySound(idx, origin, CHAN_WEAPON, "weapons/m41ahks2.wav", 1, ATTN_NORM, 0, 94 + gEngfuncs.pfnRandomLong(0, 0xf));
+		break;
+	}
+
+	EV_GetGunPosition(args, vecSrc, origin);
+	VectorCopy(forward, vecAiming);
+
+	if (gEngfuncs.GetMaxClients() > 1)
+	{
+		EV_HLDM_FireBullets(idx, forward, right, up, 1, vecSrc, vecAiming, 8192, BULLET_PLAYER_9MMM41A, 2, &tracerCount[idx - 1], args->fparam1, args->fparam2);
+	}
+	else
+	{
+		EV_HLDM_FireBullets(idx, forward, right, up, 1, vecSrc, vecAiming, 8192, BULLET_PLAYER_9MMM41A, 2, &tracerCount[idx - 1], args->fparam1, args->fparam2);
+	}
+}
+
+//======================
+//	    9MMM41A END
+//======================
+
+//======================
+//	    9MMM41A GRENADE LAUNCH START
+//======================
+
+void EV_Fire9MMM41A2(struct event_args_s *args)
+{
+	int idx;
+	vec3_t origin;
+
+	idx = args->entindex;
+	VectorCopy(args->origin, origin);
+
+	if (EV_IsLocal(idx))
+	{
+		gEngfuncs.pEventAPI->EV_WeaponAnimation(_9MMM41A_LAUNCH, 2);
+		V_PunchAxis(0, -10);
+	}
+
+	switch (gEngfuncs.pfnRandomLong(0, 1))
+	{
+	case 0:
+		gEngfuncs.pEventAPI->EV_PlaySound(idx, origin, CHAN_WEAPON, "weapons/m41aglauncher.wav", 1, ATTN_NORM, 0, 94 + gEngfuncs.pfnRandomLong(0, 0xf));
+		break;
+	case 1:
+		gEngfuncs.pEventAPI->EV_PlaySound(idx, origin, CHAN_WEAPON, "weapons/m41aglauncher2.wav", 1, ATTN_NORM, 0, 94 + gEngfuncs.pfnRandomLong(0, 0xf));
+		break;
+	}
+}
+
+//======================
+//	    9MMM41A GRENADE LAUNCH END
+//======================
+
+//======================
+//	   KMEDKIT START
+//======================
+
+enum KMedkitUseType
+{
+	KMEDKIT_USE_NONE = 0,
+	KMEDKIT_USE_HEAL,
+	KMEDKIT_USE_SAYHEALTH,
+};
+
+enum KMedkitSound
+{
+	KMEDKIT_SOUND_NONE = 0,
+	KMEDKIT_SOUND_MISS,
+};
+
+enum kmedkit_e {
+	KMEDKIT_IDLE1 = 0,
+	KMEDKIT_IDLE2,
+	KMEDKIT_LONGIDLE,
+	KMEDKIT_LONGUSE,
+	KMEDKIT_SHORTUSE,
+	KMEDKIT_HOLSTER,
+	KMEDKIT_DEPLOY,
+};
+
+void EV_KMedkit(struct event_args_s *args) 
+{
+	int idx;
+	vec3_t origin;
+	vec3_t angles;
+	vec3_t velocity;
+
+	idx = args->entindex;
+	VectorCopy(args->origin, origin);
+	VectorCopy(args->angles, angles);
+	VectorCopy(args->velocity, velocity);
+
+	int useType = args->iparam1;
+	int soundToPlay = args->iparam2;
+
+	if (EV_IsLocal(idx))
+	{
+		switch (useType)
+		{
+		case KMEDKIT_USE_HEAL:
+			gEngfuncs.pEventAPI->EV_WeaponAnimation(KMEDKIT_SHORTUSE, 0);
+			break;
+		case KMEDKIT_USE_SAYHEALTH:
+			gEngfuncs.pEventAPI->EV_WeaponAnimation(KMEDKIT_LONGUSE, 0);
+			break;
+		default:
+			break;
+		}
+	}
+
+	switch (soundToPlay)
+	{
+	case KMEDKIT_SOUND_MISS:
+		gEngfuncs.pEventAPI->EV_PlaySound(idx, origin, CHAN_WEAPON, "weapons/kmedkit_miss.wav", 0.8, 
+			ATTN_NORM, 0, 90 + gEngfuncs.pfnRandomLong(1, 5) * gEngfuncs.pfnRandomLong(1, 2) * 2);
+		break;
+	default:
+		break;
+	}
+
+}
+
+//======================
+//	   KMEDKIT END
+//======================
+
+//======================
+//	   POOLSTICK START
+//======================
+
+enum poolstick_e {
+	POOLSTICK_IDLE = 0,
+	POOLSTICK_DRAW,
+	POOLSTICK_HOLSTER,
+	POOLSTICK_ATTACK1HIT,
+	POOLSTICK_ATTACK1MISS,
+	POOLSTICK_ATTACK2MISS,
+	POOLSTICK_ATTACK2HIT,
+	POOLSTICK_ATTACK3MISS,
+	POOLSTICK_ATTACK3HIT
+};
+
+int g_iPoolstickSwing;
+
+void EV_Poolstick(struct event_args_s *args) 
+{
+	int idx;
+	vec3_t origin;
+	vec3_t angles;
+	vec3_t velocity;
+
+	idx = args->entindex;
+	VectorCopy(args->origin, origin);
+
+	//Play Swing sound
+	gEngfuncs.pEventAPI->EV_PlaySound(idx, origin, CHAN_WEAPON, "weapons/pstk_miss1.wav", 1, ATTN_NORM, 0, PITCH_NORM);
+
+	if (EV_IsLocal(idx))
+	{
+		gEngfuncs.pEventAPI->EV_WeaponAnimation(POOLSTICK_ATTACK1MISS, 1);
+
+		switch ((g_iPoolstickSwing++) % 3)
+		{
+		case 0:
+			gEngfuncs.pEventAPI->EV_WeaponAnimation(POOLSTICK_ATTACK1MISS, 1); break;
+		case 1:
+			gEngfuncs.pEventAPI->EV_WeaponAnimation(POOLSTICK_ATTACK2MISS, 1); break;
+		case 2:
+			gEngfuncs.pEventAPI->EV_WeaponAnimation(POOLSTICK_ATTACK3MISS, 1); break;
+		}
+	}
+}
+
+//======================
+//	   POOLSTICK END 
+//======================
+
+//======================
+//	   TOAD START
+//======================
+enum toad_e {
+	TOAD_IDLE1 = 0,
+	TOAD_IDLE2,
+	TOAD_FIDGETFIT,
+	TOAD_FIDGETNIP,
+	TOAD_DOWN,
+	TOAD_UP,
+	TOAD_THROW
+};
+
+#define VEC_HULL_MIN		Vector(-16, -16, -36)
+#define VEC_DUCK_HULL_MIN	Vector(-16, -16, -18 )
+
+void EV_Toad(struct event_args_s *args) 
+{
+	int idx;
+	vec3_t vecSrc, angles, view_ofs, forward;
+	pmtrace_t tr;
+
+	idx = args->entindex;
+	VectorCopy(args->origin, vecSrc);
+	VectorCopy(args->angles, angles);
+
+	AngleVectors(angles, forward, NULL, NULL);
+
+	if (!EV_IsLocal(idx))
+		return;
+
+	if (args->ducking)
+		vecSrc = vecSrc - (VEC_HULL_MIN - VEC_DUCK_HULL_MIN);
+
+	// Store off the old count
+	gEngfuncs.pEventAPI->EV_PushPMStates();
+
+	// Now add in all of the players.
+	gEngfuncs.pEventAPI->EV_SetSolidPlayers(idx - 1);
+	gEngfuncs.pEventAPI->EV_SetTraceHull(2);
+	gEngfuncs.pEventAPI->EV_PlayerTrace(vecSrc + forward * 20, vecSrc + forward * 64, PM_NORMAL, -1, &tr);
+
+	//Find space to drop the thing.
+	if (tr.allsolid == 0 && tr.startsolid == 0 && tr.fraction > 0.25)
+		gEngfuncs.pEventAPI->EV_WeaponAnimation(TOAD_THROW, 0);
+
+	gEngfuncs.pEventAPI->EV_PopPMStates();
+}
+//======================
+//	   TOAD END
+//======================
+#endif // defined ( ASHEEP_CLIENT_DLL )

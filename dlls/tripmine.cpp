@@ -397,7 +397,11 @@ int CTripmine::GetItemInfo(ItemInfo *p)
 	p->iMaxAmmo2 = -1;
 	p->iMaxClip = WEAPON_NOCLIP;
 	p->iSlot = 4;
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+	p->iPosition = 3;
+#else
 	p->iPosition = 2;
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 	p->iId = m_iId = WEAPON_TRIPMINE;
 	p->iWeight = TRIPMINE_WEIGHT;
 	p->iFlags = ITEM_FLAG_LIMITINWORLD | ITEM_FLAG_EXHAUSTIBLE;
@@ -407,8 +411,13 @@ int CTripmine::GetItemInfo(ItemInfo *p)
 
 BOOL CTripmine::Deploy( )
 {
+#if defined ( ASHEEP_CLIENT_WEAPONS )
 	//pev->body = 0;
 	return DefaultDeploy( "models/v_tripmine.mdl", "models/p_tripmine.mdl", TRIPMINE_DRAW, "trip" );
+#else
+	pev->body = 0;
+	return DefaultDeploy( "models/v_tripmine.mdl", "models/p_tripmine.mdl", TRIPMINE_DRAW, "trip", UseDecrement(), pev->body );
+#endif // defined ( ASHEEP_CLIENT_WEAPONS )
 }
 
 
@@ -424,7 +433,11 @@ void CTripmine::Holster( int skiplocal /* = 0 */ )
 		pev->nextthink = gpGlobals->time + 0.1;
 	}
 
+#if defined ( ASHEEP_WEAPONHOLSTER )
+	DefaultHolster(TRIPMINE_HOLSTER, 16.0f / 30.0f, skiplocal, 0);
+#else
 	SendWeaponAnim( TRIPMINE_HOLSTER );
+#endif // defined ( ASHEEP_WEAPONHOLSTER )
 	EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_WEAPON, "common/null.wav", 1.0, ATTN_NORM);
 }
 
@@ -442,11 +455,19 @@ void CTripmine::PrimaryAttack( void )
 	UTIL_TraceLine( vecSrc, vecSrc + vecAiming * 128, dont_ignore_monsters, ENT( m_pPlayer->pev ), &tr );
 
 	int flags;
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 #ifdef CLIENT_WEAPONS
 	flags = FEV_NOTHOST;
 #else
 	flags = 0;
 #endif
+#else
+#ifdef CLIENT_WEAPONS
+	flags = FEV_NOTHOST;
+#else
+	flags = 0;
+#endif
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
 	PLAYBACK_EVENT_FULL( flags, m_pPlayer->edict(), m_usTripFire, 0.0, (float *)&g_vecZero, (float *)&g_vecZero, 0.0, 0.0, 0, 0, 0, 0 );
 

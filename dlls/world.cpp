@@ -33,6 +33,9 @@
 #include "weapons.h"
 #include "gamerules.h"
 #include "teamplay_gamerules.h"
+#if defined ( ASHEEP_DLL )
+#include "asheep_serverside_utils.h"
+#endif // defined ( ASHEEP_DLL )
 
 extern CGraph WorldGraph;
 extern CSoundEnt *pSoundEnt;
@@ -474,6 +477,9 @@ void CWorld :: Spawn( void )
 	g_fGameOver = FALSE;
 	Precache( );
 	g_flWeaponCheat = CVAR_GET_FLOAT( "sv_cheats" );  // Is the impulse 101 command allowed?
+#if defined ( ASHEEP_MAPFIXES )
+	MapFixes_ApplyAllPossibleFixes();
+#endif // defined ( ASHEEP_MAPFIXES )
 }
 
 void CWorld :: Precache( void )
@@ -510,6 +516,10 @@ void CWorld :: Precache( void )
 		ALERT ( at_console, "**COULD NOT CREATE SOUNDENT**\n" );
 	}
 
+#if defined ( ASHEEP_DLL )
+	Message_CreateAndSetupSingleton();
+	HevMediator_CreateAndSetupSingleton();
+#endif // defined ( ASHEEP_DLL )
 	InitBodyQue();
 	
 // init sentence group playback stuff from sentences.txt.
@@ -633,6 +643,10 @@ void CWorld :: Precache( void )
 	else
 		CVAR_SET_FLOAT( "sv_zmax", 4096 );
 
+#if defined ( ASHEEP_DLL )
+	if (Message_MessagesAllowedInCurrentMap())
+	{
+#endif // defined ( ASHEEP_DLL )
 	if ( pev->netname )
 	{
 		ALERT( at_aiconsole, "Chapter title: %s\n", STRING(pev->netname) );
@@ -646,6 +660,13 @@ void CWorld :: Precache( void )
 			pEntity->pev->spawnflags = SF_MESSAGE_ONCE;
 		}
 	}
+#if defined ( ASHEEP_DLL )
+	}
+	else
+	{
+		Message_RemoveTrainingMapMessages();
+	}
+#endif // defined ( ASHEEP_DLL )
 
 	if ( pev->spawnflags & SF_WORLD_DARK )
 		CVAR_SET_FLOAT( "v_dark", 1.0 );

@@ -135,6 +135,58 @@ struct skilldata_t
 	float plrStomach;
 	float plrLeg;
 	float plrArm;
+#if defined  ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+	float adrianHealth;
+	float adrianDmgKick;
+
+	float archerHealth;
+	float archerDmgShake;
+
+	float barnielHealth;
+
+	float expSlaveHealth;
+	float expSlaveDmgClaw;
+	float expSlaveDmgClawrake;
+	float expSlaveDmgZap;
+
+	float freemanHealth;
+
+	float hevbarneyHealth;
+
+	float kateHealth;
+	float kateDmgKick;
+	float kateDmgPunch;
+
+	float pantherHealth;
+	float pantherDmgClaw;
+	float pantherDmgClawrake;
+	float pantherDmgZap;
+
+	float ratHealth;
+	float ratDmgBite;
+
+	float spforceHealth;
+	float spforceDmgKick;
+
+	float terrorHealth;
+	float terrorDmgKick;
+
+	float toadHealth;
+	float toadDmgBite;
+	float toadDmgPop;
+
+	float workerHealth;
+
+	float zbarneyHealth;
+	float zbarneyDmgOneSlash;
+	float zbarneyDmgBothSlash;
+
+	float plrDmgPoolstick;
+	float plrDmgBeretta;
+	float plrDmg9mmM41A;
+
+	float kmedkitHeal;
+#endif // defined  ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 };
 
 extern	DLL_GLOBAL	skilldata_t	gSkillData;

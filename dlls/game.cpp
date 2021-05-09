@@ -49,6 +49,17 @@ cvar_t	*g_psv_aim = NULL;
 cvar_t	*g_footsteps = NULL;
 
 //CVARS FOR SKILL LEVEL SETTINGS
+#if defined ( ASHEEP_DLL )
+#define DEFINE_SKILL_CVAR( _cvarName, _defaultValue ) \
+	cvar_t	_cvarName##1 = { #_cvarName##"1" , #_defaultValue}; \
+	cvar_t	_cvarName##2 = { #_cvarName##"2", #_defaultValue }; \
+	cvar_t	_cvarName##3 = { #_cvarName##"3", #_defaultValue };
+
+#define REGISTER_SKILL_CVAR( _skillCVarVariable ) \
+	CVAR_REGISTER( &_skillCVarVariable##1 ); \
+	CVAR_REGISTER( &_skillCVarVariable##2 ); \
+	CVAR_REGISTER( &_skillCVarVariable##3 );
+#endif // defined ( ASHEEP_DLL )
 // Agrunt
 cvar_t	sk_agrunt_health1 = {"sk_agrunt_health1","0"};
 cvar_t	sk_agrunt_health2 = {"sk_agrunt_health2","0"};
@@ -448,6 +459,58 @@ cvar_t	sk_player_leg1	= { "sk_player_leg1","1" };
 cvar_t	sk_player_leg2	= { "sk_player_leg2","1" };
 cvar_t	sk_player_leg3	= { "sk_player_leg3","1" };
 
+#if defined ( ASHEEP_DLL )
+DEFINE_SKILL_CVAR(sk_adrian_health, 0);
+DEFINE_SKILL_CVAR(sk_adrian_kick, 0);
+
+DEFINE_SKILL_CVAR(sk_archer_health, 0);
+DEFINE_SKILL_CVAR(sk_archer_shake, 0);
+
+DEFINE_SKILL_CVAR(sk_barniel_health, 0);
+
+DEFINE_SKILL_CVAR(sk_freeman_health, 0);
+
+DEFINE_SKILL_CVAR(sk_exp_alien_slave_health, 0);
+DEFINE_SKILL_CVAR(sk_exp_alien_slave_dmg_claw, 0);
+DEFINE_SKILL_CVAR(sk_exp_alien_slave_dmg_clawrake, 0);
+DEFINE_SKILL_CVAR(sk_exp_alien_slave_dmg_zap, 0);
+
+DEFINE_SKILL_CVAR(sk_hev_barney_health, 0);
+
+DEFINE_SKILL_CVAR(sk_kate_health, 0);
+DEFINE_SKILL_CVAR(sk_kate_kick, 0);
+DEFINE_SKILL_CVAR(sk_kate_punch, 0);
+
+DEFINE_SKILL_CVAR(sk_panther_health, 0);
+DEFINE_SKILL_CVAR(sk_panther_dmg_claw, 0);
+DEFINE_SKILL_CVAR(sk_panther_dmg_clawrake, 0);
+DEFINE_SKILL_CVAR(sk_panther_dmg_zap, 0);
+
+DEFINE_SKILL_CVAR(sk_rat_health, 0);
+DEFINE_SKILL_CVAR(sk_rat_dmg_bite, 0);
+
+DEFINE_SKILL_CVAR(sk_spforce_health, 0);
+DEFINE_SKILL_CVAR(sk_spforce_kick, 0);
+
+DEFINE_SKILL_CVAR(sk_terror_health, 0);
+DEFINE_SKILL_CVAR(sk_terror_kick, 0);
+
+DEFINE_SKILL_CVAR(sk_toad_health, 0);
+DEFINE_SKILL_CVAR(sk_toad_dmg_bite, 0);
+DEFINE_SKILL_CVAR(sk_toad_dmg_pop, 0);
+
+DEFINE_SKILL_CVAR(sk_worker_health, 0);
+
+DEFINE_SKILL_CVAR(sk_zbarney_health, 0);
+DEFINE_SKILL_CVAR(sk_zbarney_dmg_one_slash, 0);
+DEFINE_SKILL_CVAR(sk_zbarney_dmg_both_slash, 0);
+
+DEFINE_SKILL_CVAR(sk_plr_poolstick, 0);
+DEFINE_SKILL_CVAR(sk_plr_beretta_bullet, 0);
+DEFINE_SKILL_CVAR(sk_plr_9mmM41A_bullet, 0);
+
+DEFINE_SKILL_CVAR(sk_kmedkit_heal, 0);
+#endif // defined ( ASHEEP_DLL )
 // END Cvars for Skill Level settings
 
 // Register your console variables here
@@ -883,8 +946,63 @@ void GameDLLInit( void )
 	CVAR_REGISTER ( &sk_player_leg1 );
 	CVAR_REGISTER ( &sk_player_leg2 );
 	CVAR_REGISTER ( &sk_player_leg3 );
+#if defined ( ASHEEP_DLL )
+	REGISTER_SKILL_CVAR(sk_adrian_health);
+	REGISTER_SKILL_CVAR(sk_adrian_kick);
+
+	REGISTER_SKILL_CVAR(sk_archer_health);
+	REGISTER_SKILL_CVAR(sk_archer_shake);
+
+	REGISTER_SKILL_CVAR(sk_barniel_health);
+
+	REGISTER_SKILL_CVAR(sk_freeman_health);
+
+	REGISTER_SKILL_CVAR(sk_exp_alien_slave_health);
+	REGISTER_SKILL_CVAR(sk_exp_alien_slave_dmg_claw);
+	REGISTER_SKILL_CVAR(sk_exp_alien_slave_dmg_clawrake);
+	REGISTER_SKILL_CVAR(sk_exp_alien_slave_dmg_zap);
+
+	REGISTER_SKILL_CVAR(sk_hev_barney_health);
+
+	REGISTER_SKILL_CVAR(sk_kate_health);
+	REGISTER_SKILL_CVAR(sk_kate_kick);
+	REGISTER_SKILL_CVAR(sk_kate_punch);
+
+	REGISTER_SKILL_CVAR(sk_panther_health);
+	REGISTER_SKILL_CVAR(sk_panther_dmg_claw);
+	REGISTER_SKILL_CVAR(sk_panther_dmg_clawrake);
+	REGISTER_SKILL_CVAR(sk_panther_dmg_zap);
+
+	REGISTER_SKILL_CVAR(sk_rat_health);
+	REGISTER_SKILL_CVAR(sk_rat_dmg_bite);
+
+	REGISTER_SKILL_CVAR(sk_spforce_health);
+	REGISTER_SKILL_CVAR(sk_spforce_kick);
+
+	REGISTER_SKILL_CVAR(sk_terror_health);
+	REGISTER_SKILL_CVAR(sk_terror_kick);
+
+	REGISTER_SKILL_CVAR(sk_toad_health);
+	REGISTER_SKILL_CVAR(sk_toad_dmg_bite);
+	REGISTER_SKILL_CVAR(sk_toad_dmg_pop);
+
+	REGISTER_SKILL_CVAR(sk_worker_health);
+
+	REGISTER_SKILL_CVAR(sk_zbarney_health);
+	REGISTER_SKILL_CVAR(sk_zbarney_dmg_one_slash);
+	REGISTER_SKILL_CVAR(sk_zbarney_dmg_both_slash);
+
+	REGISTER_SKILL_CVAR(sk_plr_poolstick);
+	REGISTER_SKILL_CVAR(sk_plr_beretta_bullet);
+	REGISTER_SKILL_CVAR(sk_plr_9mmM41A_bullet);
+
+	REGISTER_SKILL_CVAR(sk_kmedkit_heal);
+#endif // defined ( ASHEEP_DLL )
 // END REGISTER CVARS FOR SKILL LEVEL STUFF
 
 	SERVER_COMMAND( "exec skill.cfg\n" );
+#if defined ( ASHEEP_DLL )
+	SERVER_COMMAND( "exec skillasheep.cfg\n" );
+#endif // defined ( ASHEEP_DLL )
 }
 

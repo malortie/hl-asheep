@@ -28,6 +28,9 @@
 #include "skill.h"
 #include "items.h"
 #include "gamerules.h"
+#if defined ( ASHEEP_DLL )
+#include "asheep_serverside_utils.h"
+#endif // defined ( ASHEEP_DLL )
 
 extern int gmsgItemPickup;
 
@@ -176,24 +179,41 @@ class CItemSuit : public CItem
 	void Spawn( void )
 	{ 
 		Precache( );
+#if defined ( ASHEEP_DLL )
+		SET_MODEL(ENT(pev), "models/w_blue_suit.mdl");
+#else
 		SET_MODEL(ENT(pev), "models/w_suit.mdl");
+#endif // defined ( ASHEEP_DLL )
 		CItem::Spawn( );
 	}
 	void Precache( void )
 	{
+#if defined ( ASHEEP_DLL )
+		PRECACHE_MODEL("models/w_blue_suit.mdl");
+#else
 		PRECACHE_MODEL ("models/w_suit.mdl");
+#endif // defined ( ASHEEP_DLL )
 	}
 	BOOL MyTouch( CBasePlayer *pPlayer )
 	{
+#if defined ( ASHEEP_DLL )
+		if (UTIL_IsPlayerEquippedWithSuit(pPlayer))
+			return FALSE;
+		
+		PlayerMediator_AddSuitToPlayer(pPlayer);
+#else
 		if ( pPlayer->pev->weapons & (1<<WEAPON_SUIT) )
 			return FALSE;
+#endif // defined ( ASHEEP_DLL )
 
 		if ( pev->spawnflags & SF_SUIT_SHORTLOGON )
 			EMIT_SOUND_SUIT(pPlayer->edict(), "!HEV_A0");		// short version of suit logon,
 		else
 			EMIT_SOUND_SUIT(pPlayer->edict(), "!HEV_AAx");	// long version of suit logon
 
+#if !defined ( ASHEEP_DLL )
 		pPlayer->pev->weapons |= (1<<WEAPON_SUIT);
+#endif // !defined ( ASHEEP_DLL )
 		return TRUE;
 	}
 };
@@ -222,8 +242,12 @@ class CItemBattery : public CItem
 			return FALSE;
 		}
 
+#if defined ( ASHEEP_DLL )
+		if (HevMediator_PlayerAttemptToPickupSuitBattery(pPlayer, TRUE))
+#else
 		if ((pPlayer->pev->armorvalue < MAX_NORMAL_BATTERY) &&
 			(pPlayer->pev->weapons & (1<<WEAPON_SUIT)))
+#endif // defined ( ASHEEP_DLL )
 		{
 			int pct;
 			char szcharge[64];

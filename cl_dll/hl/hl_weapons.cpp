@@ -67,6 +67,23 @@ CSatchel g_Satchel;
 CTripmine g_Tripmine;
 CSqueak g_Snark;
 
+#if defined ( ASHEEP_CLIENT_DLL )
+CBarney9MMHandgun g_Barney9mmHg;
+CBarney9MMAR g_Barney9mmAr;
+CBarneyShotgun g_BarneyShotgun;
+CBarneyHandGrenade g_BarneyHandGrenade;
+CBeretta g_Beretta;
+C9MMM41A g_9mmM41a;
+CKMedkit g_Medkit;
+CPoolstick g_Poolstick;
+CToadWeapon g_Toad;
+#endif // defined ( ASHEEP_CLIENT_DLL )
+
+#if defined ( ASHEEP_WEAPONHOLSTER ) && defined ( ASHEEP_CLIENT_WEAPONS )
+static BOOL g_fPlayerHolsteringWeapon = FALSE;
+static CBasePlayerItem* g_pWeaponToSwitchTo = NULL;
+static int g_iWeaponToSwitchToID = -1;
+#endif // defined ( ASHEEP_WEAPONHOLSTER ) && defined ( ASHEEP_CLIENT_WEAPONS )
 
 /*
 ======================
@@ -619,6 +636,17 @@ void HUD_InitClientWeapons( void )
 	HUD_PrepEntity( &g_Satchel	, &player );
 	HUD_PrepEntity( &g_Tripmine	, &player );
 	HUD_PrepEntity( &g_Snark	, &player );
+#if defined ( ASHEEP_CLIENT_DLL )
+	HUD_PrepEntity( &g_Barney9mmHg, &player );
+	HUD_PrepEntity( &g_Barney9mmAr, &player );
+	HUD_PrepEntity( &g_BarneyShotgun, &player );
+	HUD_PrepEntity( &g_BarneyHandGrenade, &player );
+	HUD_PrepEntity( &g_Beretta, &player );
+	HUD_PrepEntity( &g_9mmM41a, &player );
+	HUD_PrepEntity( &g_Medkit, &player );
+	HUD_PrepEntity( &g_Poolstick, &player );
+	HUD_PrepEntity( &g_Toad, &player );
+#endif // defined ( ASHEEP_CLIENT_DLL )
 }
 
 /*
@@ -739,6 +767,43 @@ void HUD_WeaponsPostThink( local_state_s *from, local_state_s *to, usercmd_t *cm
 		case WEAPON_SNARK:
 			pWeapon = &g_Snark;
 			break;
+#if defined ( ASHEEP_CLIENT_DLL )
+		case WEAPON_BARNEY9MMHG:
+			pWeapon = &g_Barney9mmHg;
+			break;
+
+		case WEAPON_BARNEY9MMAR:
+			pWeapon = &g_Barney9mmAr;
+			break;
+
+		case WEAPON_BARNEYSHOTGUN:
+			pWeapon = &g_BarneyShotgun;
+			break;
+
+		case WEAPON_BARNEYHANDGRENADE:
+			pWeapon = &g_BarneyHandGrenade;
+			break;
+
+		case WEAPON_BERETTA:
+			pWeapon = &g_Beretta;
+			break;
+
+		case WEAPON_9MMM41A:
+			pWeapon = &g_9mmM41a;
+			break;
+
+		case WEAPON_KMEDKIT:
+			pWeapon = &g_Medkit;
+			break;
+
+		case WEAPON_POOLSTICK:
+			pWeapon = &g_Poolstick;
+			break;
+
+		case WEAPON_TOAD:
+			pWeapon = &g_Toad;
+			break;
+#endif // defined ( ASHEEP_CLIENT_DLL )
 	}
 
 	// Store pointer to our destination entity_state_t so we can get our origin, etc. from it
@@ -851,12 +916,22 @@ void HUD_WeaponsPostThink( local_state_s *from, local_state_s *to, usercmd_t *cm
 		 ( ( CRpg * )player.m_pActiveItem)->m_cActiveRockets = (int)from->client.vuser2[ 2 ];
 	}
 	
+#if defined ( ASHEEP_CLIENT_DLL )
+	else if ( player.m_pActiveItem->m_iId == WEAPON_KMEDKIT )
+	{
+		player.ammo_medshots = (int)from->client.vuser2[ 1 ];
+	}
+#endif // defined ( ASHEEP_CLIENT_DLL )
 	// Don't go firing anything if we have died or are spectating
 	// Or if we don't have a weapon model deployed
 	if ( ( player.pev->deadflag != ( DEAD_DISCARDBODY + 1 ) ) && 
 		 !CL_IsDead() && player.pev->viewmodel && !g_iUser1 )
 	{
+#if defined ( ASHEEP_WEAPONHOLSTER ) && defined ( ASHEEP_CLIENT_WEAPONS )
+		if ( !g_fPlayerHolsteringWeapon && player.m_flNextAttack <= 0 )
+#else
 		if ( player.m_flNextAttack <= 0 )
+#endif // defined ( ASHEEP_WEAPONHOLSTER ) && defined ( ASHEEP_CLIENT_WEAPONS )
 		{
 			pWeapon->ItemPostFrame();
 		}
@@ -878,6 +953,11 @@ void HUD_WeaponsPostThink( local_state_s *from, local_state_s *to, usercmd_t *cm
 				if (player.m_pActiveItem)
 					player.m_pActiveItem->Holster( );
 				
+#if defined ( ASHEEP_WEAPONHOLSTER ) && defined ( ASHEEP_CLIENT_WEAPONS )
+				g_fPlayerHolsteringWeapon = TRUE;
+				g_pWeaponToSwitchTo = pNew;
+				g_iWeaponToSwitchToID = cmd->weaponselect;
+#else
 				player.m_pLastItem = player.m_pActiveItem;
 				player.m_pActiveItem = pNew;
 
@@ -889,10 +969,32 @@ void HUD_WeaponsPostThink( local_state_s *from, local_state_s *to, usercmd_t *cm
 
 				// Update weapon id so we can predict things correctly.
 				to->client.m_iId = cmd->weaponselect;
+#endif // defined ( ASHEEP_WEAPONHOLSTER ) && defined ( ASHEEP_CLIENT_WEAPONS )
 			}
 		}
 	}
 
+#if defined ( ASHEEP_WEAPONHOLSTER ) && defined ( ASHEEP_CLIENT_WEAPONS )
+	if (g_fPlayerHolsteringWeapon && player.m_flNextAttack <= 0.0f)
+	{
+		player.m_pLastItem = player.m_pActiveItem;
+		player.m_pActiveItem = g_pWeaponToSwitchTo;
+
+		// Deploy new weapon
+		if (player.m_pActiveItem)
+		{
+			player.m_pActiveItem->Deploy();
+		}
+
+		// Update weapon id so we can predict things correctly.
+		to->client.m_iId = g_iWeaponToSwitchToID;
+
+		player.m_flNextAttack = UTIL_WeaponTimeBase() + 0.5f;
+		g_fPlayerHolsteringWeapon = FALSE;
+		g_pWeaponToSwitchTo = NULL;
+		g_iWeaponToSwitchToID = -1;
+	}
+#endif // defined ( ASHEEP_WEAPONHOLSTER ) && defined ( ASHEEP_CLIENT_WEAPONS )
 	// Copy in results of prediction code
 	to->client.viewmodel				= player.pev->viewmodel;
 	to->client.fov						= player.pev->fov;
@@ -918,6 +1020,12 @@ void HUD_WeaponsPostThink( local_state_s *from, local_state_s *to, usercmd_t *cm
 		 from->client.vuser2[ 1 ] = ( ( CRpg * )player.m_pActiveItem)->m_fSpotActive;
 		 from->client.vuser2[ 2 ] = ( ( CRpg * )player.m_pActiveItem)->m_cActiveRockets;
 	}
+#if defined ( ASHEEP_CLIENT_DLL )
+	else if ( player.m_pActiveItem->m_iId == WEAPON_KMEDKIT )
+	{
+		from->client.vuser2[ 1 ] = player.ammo_medshots;
+	}
+#endif // defined ( ASHEEP_CLIENT_DLL )
 
 	// Make sure that weapon animation matches what the game .dll is telling us
 	//  over the wire ( fixes some animation glitches )

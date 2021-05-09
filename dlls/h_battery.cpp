@@ -26,6 +26,9 @@
 #include "saverestore.h"
 #include "skill.h"
 #include "gamerules.h"
+#if defined ( ASHEEP_DLL )
+#include "asheep_serverside_utils.h"
+#endif // defined ( ASHEEP_DLL )
 
 class CRecharge : public CBaseToggle
 {
@@ -118,7 +121,11 @@ void CRecharge::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE use
 	}
 
 	// if the player doesn't have the suit, or there is no juice left, make the deny noise
+#if defined ( ASHEEP_DLL )
+	if(m_iJuice <= 0 || !HevMediator_PlayerAttemptToUseSuitCharger((CBasePlayer*)pActivator, TRUE))
+#else
 	if ((m_iJuice <= 0) || (!(pActivator->pev->weapons & (1<<WEAPON_SUIT))))
+#endif // defined ( ASHEEP_DLL )
 	{
 		if (m_flSoundTime <= gpGlobals->time)
 		{

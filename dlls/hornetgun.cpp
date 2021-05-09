@@ -118,8 +118,12 @@ BOOL CHgun::Deploy( )
 
 void CHgun::Holster( int skiplocal /* = 0 */ )
 {
+#if defined ( ASHEEP_WEAPONHOLSTER )
+	DefaultHolster(HGUN_DOWN, 19.0f / 16.0f, skiplocal, 0);
+#else
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5;
 	SendWeaponAnim( HGUN_DOWN );
+#endif // defined ( ASHEEP_WEAPONHOLSTER )
 
 	//!!!HACKHACK - can't select hornetgun if it's empty! no way to get ammo for it, either.
 	if ( !m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] )

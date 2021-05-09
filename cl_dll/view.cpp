@@ -90,6 +90,14 @@ cvar_t	*cl_bob;
 cvar_t	*cl_bobup;
 cvar_t	*cl_waterdist;
 cvar_t	*cl_chasedist;
+#if defined ( ASHEEP_VIEWBOB )
+cvar_t	*cl_viewbob_enabled;
+cvar_t	*cl_viewbob_x;
+cvar_t	*cl_viewbob_y;
+cvar_t	*cl_viewbob_z;
+cvar_t	*cl_viewroll_enabled;
+cvar_t	*cl_viewroll_angle;
+#endif // defined ( ASHEEP_VIEWBOB )
 
 // These cvars are not registered (so users can't cheat), so set the ->value field directly
 // Register these cvars in V_Init() if needed for easy tweaking
@@ -354,6 +362,24 @@ void V_DriftPitch ( struct ref_params_s *pparams )
 ============================================================================== 
 */ 
 
+#if defined ( ASHEEP_VIEWBOB )
+static float g_viewmodelBob = 0.0f;
+
+void V_ApplyViewModelBob(cl_entity_t *viewModel)
+{
+	if (cl_viewbob_enabled->value == 0)
+		return;
+
+	viewModel->angles[YAW] -= g_viewmodelBob * cl_viewbob_y->value;
+	viewModel->angles[ROLL] -= g_viewmodelBob * cl_viewbob_z->value;
+	viewModel->angles[PITCH] -= g_viewmodelBob * cl_viewbob_x->value;
+	/*gEngfuncs.Con_Printf("bob: %.2f view angles: %.2f %.2f %.2f\n",
+		g_viewmodelBob, 
+		viewModel->angles[PITCH], 
+		viewModel->angles[YAW], 
+		viewModel->angles[ROLL]);*/
+}
+#endif // defined ( ASHEEP_VIEWBOB )
 /*
 ==================
 V_CalcGunAngle
@@ -375,6 +401,9 @@ void V_CalcGunAngle ( struct ref_params_s *pparams )
 	viewent->angles[PITCH] -= v_idlescale * sin(pparams->time*v_ipitch_cycle.value) * (v_ipitch_level.value * 0.5);
 	viewent->angles[YAW]   -= v_idlescale * sin(pparams->time*v_iyaw_cycle.value) * v_iyaw_level.value;
 
+#if defined ( ASHEEP_VIEWBOB )
+	V_ApplyViewModelBob(viewent);
+#endif // defined ( ASHEEP_VIEWBOB )
 	VectorCopy( viewent->angles, viewent->curstate.angles );
 	VectorCopy( viewent->angles, viewent->latched.prevangles );
 }
@@ -393,6 +422,31 @@ void V_AddIdle ( struct ref_params_s *pparams )
 	pparams->viewangles[YAW] += v_idlescale * sin(pparams->time*v_iyaw_cycle.value) * v_iyaw_level.value;
 }
 
+#if defined ( ASHEEP_VIEWBOB )
+float V_CalcRoll2(vec3_t angles, vec3_t velocity, float maxspeed)
+{
+	if (cl_viewroll_enabled->value == 0)
+		return 0;
+
+	float   sign;
+	float   side;
+	vec3_t  forward, right, up;
+
+	AngleVectors(angles, forward, right, up);
+
+	side = DotProduct(velocity, right);
+	sign = side < 0 ? -1 : 1;
+	side = fabs(side);
+
+	float speedProportion = side / maxspeed;
+	float angle = speedProportion * cl_viewroll_angle->value;
+
+	/*gEngfuncs.Con_Printf("side: %.2f sign: %.2f angle * sign: %.2f\n", 
+		side, sign, angle * sign);*/
+
+	return angle * sign;
+}
+#endif // defined ( ASHEEP_VIEWBOB )
  
 /*
 ==============
@@ -410,7 +464,11 @@ void V_CalcViewRoll ( struct ref_params_s *pparams )
 	if ( !viewentity )
 		return;
 
+#if defined ( ASHEEP_VIEWBOB )
+	side = V_CalcRoll2 ( viewentity->angles, pparams->simvel, pparams->movevars->maxspeed );
+#else
 	side = V_CalcRoll ( viewentity->angles, pparams->simvel, pparams->movevars->rollangle, pparams->movevars->rollspeed );
+#endif // defined ( ASHEEP_VIEWBOB )
 
 	pparams->viewangles[ROLL] += side;
 
@@ -519,6 +577,9 @@ void V_CalcNormalRefdef ( struct ref_params_s *pparams )
 	// transform the view offset by the model's matrix to get the offset from
 	// model origin for the view
 	bob = V_CalcBob ( pparams );
+#if defined ( ASHEEP_VIEWBOB )
+	g_viewmodelBob = bob;
+#endif // defined ( ASHEEP_VIEWBOB )
 
 	// refresh position
 	VectorCopy ( pparams->simorg, pparams->vieworg );
@@ -1716,6 +1777,14 @@ void V_Init (void)
 	cl_bobup			= gEngfuncs.pfnRegisterVariable( "cl_bobup","0.5", 0 );
 	cl_waterdist		= gEngfuncs.pfnRegisterVariable( "cl_waterdist","4", 0 );
 	cl_chasedist		= gEngfuncs.pfnRegisterVariable( "cl_chasedist","112", 0 );
+#if defined ( ASHEEP_VIEWBOB )
+	cl_viewbob_enabled	= gEngfuncs.pfnRegisterVariable( "cl_viewbob_enabled","0", 0 );
+	cl_viewbob_x		= gEngfuncs.pfnRegisterVariable( "cl_viewbob_x","0.3", 0 );
+	cl_viewbob_y		= gEngfuncs.pfnRegisterVariable( "cl_viewbob_y","0.5", 0 );
+	cl_viewbob_z		= gEngfuncs.pfnRegisterVariable( "cl_viewbob_z","1", 0 );
+	cl_viewroll_enabled	= gEngfuncs.pfnRegisterVariable( "cl_viewroll_enabled","0", 0 );
+	cl_viewroll_angle	= gEngfuncs.pfnRegisterVariable( "cl_viewroll_angle","2", 0 );
+#endif // defined ( ASHEEP_VIEWBOB )
 }
 
 

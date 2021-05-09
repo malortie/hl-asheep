@@ -258,6 +258,10 @@ BOOL CBaseMonster :: HasHumanGibs( void )
 	int myClass = Classify();
 
 	if ( myClass == CLASS_HUMAN_MILITARY ||
+#if defined ( ASHEEP_DLL )
+		myClass == CLASS_KATE ||
+		myClass == CLASS_SPECIAL_FORCE ||
+#endif // defined ( ASHEEP_DLL )
 		 myClass == CLASS_PLAYER_ALLY	||
 		 myClass == CLASS_HUMAN_PASSIVE  ||
 		 myClass == CLASS_PLAYER )
@@ -276,6 +280,10 @@ BOOL CBaseMonster :: HasAlienGibs( void )
 		 myClass == CLASS_ALIEN_MONSTER	||
 		 myClass == CLASS_ALIEN_PASSIVE  ||
 		 myClass == CLASS_INSECT  ||
+#if defined ( ASHEEP_DLL )
+		 myClass == CLASS_ARCHER ||
+		 myClass == CLASS_RAT ||
+#endif // defined ( ASHEEP_DLL )
 		 myClass == CLASS_ALIEN_PREDATOR  ||
 		 myClass == CLASS_ALIEN_PREY )
 
@@ -593,6 +601,9 @@ void CBaseMonster :: Killed( entvars_t *pevAttacker, int iGib )
 	unsigned int	cCount = 0;
 	BOOL			fDone = FALSE;
 
+#if defined ( ASHEEP_DLL )
+	NotifyAlliesOfDeath(CBaseEntity::Instance(pevAttacker));
+#endif // defined ( ASHEEP_DLL )
 	if ( HasMemory( bits_MEMORY_KILLED ) )
 	{
 		if ( ShouldGibMonster( iGib ) )
@@ -1564,6 +1575,15 @@ Vector CBaseEntity::FireBulletsPlayer ( ULONG cShots, Vector vecSrc, Vector vecD
 			case BULLET_PLAYER_357:		
 				pEntity->TraceAttack(pevAttacker, gSkillData.plrDmg357, vecDir, &tr, DMG_BULLET); 
 				break;
+#if defined ( ASHEEP_DLL )
+			case BULLET_PLAYER_9MMM41A:
+				pEntity->TraceAttack(pevAttacker, gSkillData.plrDmg9mmM41A, vecDir, &tr, DMG_BULLET);
+				break;
+
+			case BULLET_PLAYER_BERETTA:
+				pEntity->TraceAttack(pevAttacker, gSkillData.plrDmgBeretta, vecDir, &tr, DMG_BULLET);
+				break;
+#endif // defined ( ASHEEP_DLL )
 				
 			case BULLET_NONE: // FIX 
 				pEntity->TraceAttack(pevAttacker, 50, vecDir, &tr, DMG_CLUB);

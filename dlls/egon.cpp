@@ -109,8 +109,12 @@ int CEgon::AddToPlayer( CBasePlayer *pPlayer )
 
 void CEgon::Holster( int skiplocal /* = 0 */ )
 {
+#if defined ( ASHEEP_WEAPONHOLSTER )
+	DefaultHolster(EGON_HOLSTER, 16.0f / 30.0f, skiplocal, 0);
+#else
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5;
 	SendWeaponAnim( EGON_HOLSTER );
+#endif // defined ( ASHEEP_WEAPONHOLSTER )
 
     EndAttack();
 }
@@ -395,6 +399,9 @@ void CEgon::UpdateEffect( const Vector &startPoint, const Vector &endPoint, floa
 	m_pBeam->SetStartPos( endPoint );
 	m_pBeam->SetBrightness( 255 - (timeBlend*180) );
 	m_pBeam->SetWidth( 40 - (timeBlend*20) );
+#if !defined ( ASHEEP_CLIENT_WEAPONS )
+	m_pBeam->RelinkBeam();
+#endif // !defined ( ASHEEP_CLIENT_WEAPONS )
 
 	if ( m_fireMode == FIRE_WIDE )
 		m_pBeam->SetColor( 30 + (25*timeBlend), 30 + (30*timeBlend), 64 + 80*fabs(sin(gpGlobals->time*10)) );
@@ -408,6 +415,9 @@ void CEgon::UpdateEffect( const Vector &startPoint, const Vector &endPoint, floa
 		m_pSprite->pev->frame = 0;
 
 	m_pNoise->SetStartPos( endPoint );
+#if !defined ( ASHEEP_CLIENT_WEAPONS )
+	m_pNoise->RelinkBeam();
+#endif // !defined ( ASHEEP_CLIENT_WEAPONS )
 
 #endif
 
@@ -424,7 +434,9 @@ void CEgon::CreateEffect( void )
 	m_pBeam->SetFlags( BEAM_FSINE );
 	m_pBeam->SetEndAttachment( 1 );
 	m_pBeam->pev->spawnflags |= SF_BEAM_TEMPORARY;	// Flag these to be destroyed on save/restore or level transition
+#if defined ( ASHEEP_CLIENT_WEAPONS )
 	m_pBeam->pev->flags |= FL_SKIPLOCALHOST;
+#endif // defined ( ASHEEP_CLIENT_WEAPONS )
 	m_pBeam->pev->owner = m_pPlayer->edict();
 
 	m_pNoise = CBeam::BeamCreate( EGON_BEAM_SPRITE, 55 );
@@ -433,7 +445,9 @@ void CEgon::CreateEffect( void )
 	m_pNoise->SetBrightness( 100 );
 	m_pNoise->SetEndAttachment( 1 );
 	m_pNoise->pev->spawnflags |= SF_BEAM_TEMPORARY;
+#if defined ( ASHEEP_CLIENT_WEAPONS )
 	m_pNoise->pev->flags |= FL_SKIPLOCALHOST;
+#endif // defined ( ASHEEP_CLIENT_WEAPONS )
 	m_pNoise->pev->owner = m_pPlayer->edict();
 
 	m_pSprite = CSprite::SpriteCreate( EGON_FLARE_SPRITE, pev->origin, FALSE );
@@ -494,8 +508,13 @@ void CEgon::WeaponIdle( void )
 {
 	ResetEmptySound( );
 
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+	if ( m_flTimeWeaponIdle > UTIL_WeaponTimeBase() )
+		return;
+#else
 	if ( m_flTimeWeaponIdle > gpGlobals->time )
 		return;
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
 	if ( m_fireState != FIRE_OFF )
 		 EndAttack();

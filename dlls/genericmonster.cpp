@@ -23,6 +23,9 @@
 
 // For holograms, make them not solid so the player can walk through them
 #define	SF_GENERICMONSTER_NOTSOLID					4 
+#if defined ( ASHEEP_DLL )
+#define	SF_GENERICMONSTER_DONTBLEED		8
+#endif // defined ( ASHEEP_DLL )
 
 //=========================================================
 // Monster's Anim Events Go Here
@@ -37,6 +40,10 @@ public:
 	int  Classify ( void );
 	void HandleAnimEvent( MonsterEvent_t *pEvent );
 	int ISoundMask ( void );
+#if defined ( ASHEEP_DLL )
+	BOOL AllowedToBleed();
+	void TraceAttack(entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType);
+#endif // defined ( ASHEEP_DLL )
 };
 LINK_ENTITY_TO_CLASS( monster_generic, CGenericMonster );
 
@@ -113,7 +120,14 @@ void CGenericMonster :: Spawn()
 
 	pev->solid			= SOLID_SLIDEBOX;
 	pev->movetype		= MOVETYPE_STEP;
+#if defined ( ASHEEP_DLL )
+	if (AllowedToBleed())
+		m_bloodColor = BLOOD_COLOR_RED;
+	else
+		m_bloodColor = DONT_BLEED;
+#else
 	m_bloodColor		= BLOOD_COLOR_RED;
+#endif // defined ( ASHEEP_DLL )
 	pev->health			= 8;
 	m_flFieldOfView		= 0.5;// indicates the width of this monster's forward view cone ( as a dotproduct result )
 	m_MonsterState		= MONSTERSTATE_NONE;
@@ -135,6 +149,22 @@ void CGenericMonster :: Precache()
 	PRECACHE_MODEL( (char *)STRING(pev->model) );
 }	
 
+#if defined ( ASHEEP_DLL )
+BOOL CGenericMonster::AllowedToBleed()
+{
+	return (pev->spawnflags & SF_GENERICMONSTER_DONTBLEED) == 0;
+}
+
+void CGenericMonster::TraceAttack(entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType)
+{
+	if (!AllowedToBleed())
+	{
+		UTIL_Ricochet(ptr->vecEndPos, 1.0f);
+	}
+
+	CBaseMonster::TraceAttack(pevAttacker, flDamage, vecDir, ptr, bitsDamageType);
+}
+#endif // defined ( ASHEEP_DLL )
 //=========================================================
 // AI Schedules Specific to this monster
 //=========================================================

@@ -427,11 +427,19 @@ void WeaponsResource :: SelectSlot( int iSlot, int fAdvance, int iDirection )
 	if ( gHUD.m_fPlayerDead || gHUD.m_iHideHUDDisplay & ( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
 		return;
 
+#if defined ( ASHEEP_CLIENT_DLL )
+	if (!(gHUD.m_iWeaponBits & (1 << (WEAPON_ARMOR))) && !(gHUD.m_iWeaponBits & (1 << (WEAPON_SUIT))))
+		return;
+
+	if (!(gHUD.m_iWeaponBits & ~(1 << (WEAPON_ARMOR))) && !(gHUD.m_iWeaponBits & ~(1 << (WEAPON_SUIT))))
+		return;
+#else
 	if (!(gHUD.m_iWeaponBits & (1<<(WEAPON_SUIT)) ))
 		return;
 
 	if ( ! ( gHUD.m_iWeaponBits & ~(1<<(WEAPON_SUIT)) ))
 		return;
+#endif // defined ( ASHEEP_CLIENT_DLL )
 
 	WEAPON *p = NULL;
 	bool fastSwitch = CVAR_GET_FLOAT( "hud_fastswitch" ) != 0;
@@ -833,8 +841,13 @@ int CHudAmmo::Draw(float flTime)
 	int a, x, y, r, g, b;
 	int AmmoWidth;
 
+#if defined ( ASHEEP_CLIENT_DLL )
+	if (!(gHUD.m_iWeaponBits & (1 << (WEAPON_ARMOR))) && !(gHUD.m_iWeaponBits & (1 << (WEAPON_SUIT))))
+		return 1;
+#else
 	if (!(gHUD.m_iWeaponBits & (1<<(WEAPON_SUIT)) ))
 		return 1;
+#endif // defined ( ASHEEP_CLIENT_DLL )
 
 	if ( (gHUD.m_iHideHUDDisplay & ( HIDEHUD_WEAPONS | HIDEHUD_ALL )) )
 		return 1;
@@ -867,7 +880,11 @@ int CHudAmmo::Draw(float flTime)
 	if (m_fFade > 0)
 		m_fFade -= (gHUD.m_flTimeDelta * 20);
 
+#if defined ( ASHEEP_CLIENT_DLL )
+	UnpackRGB(r, g, b, RGB_BLUEISH);
+#else
 	UnpackRGB(r,g,b, RGB_YELLOWISH);
+#endif // defined ( ASHEEP_CLIENT_DLL )
 
 	ScaleColors(r, g, b, a );
 
@@ -896,7 +913,11 @@ int CHudAmmo::Draw(float flTime)
 
 			x += AmmoWidth/2;
 
+#if defined ( ASHEEP_CLIENT_DLL )
+			UnpackRGB(r, g, b, RGB_BLUEISH);
+#else
 			UnpackRGB(r,g,b, RGB_YELLOWISH);
+#endif // defined ( ASHEEP_CLIENT_DLL )
 
 			// draw the | bar
 			FillRGBA(x, y, iBarWidth, gHUD.m_iFontHeight, r, g, b, a);
@@ -963,13 +984,22 @@ int DrawBar(int x, int y, int width, int height, float f)
 		// Always show at least one pixel if we have ammo.
 		if (w <= 0)
 			w = 1;
+#if defined ( ASHEEP_CLIENT_DLL )
+		UnpackRGB(r, g, b, RGB_LIGHTBLUEISH);
+		FillRGBA(x, y, w, height, r, g, b, 192);
+#else
 		UnpackRGB(r, g, b, RGB_GREENISH);
 		FillRGBA(x, y, w, height, r, g, b, 255);
+#endif // defined ( ASHEEP_CLIENT_DLL )
 		x += w;
 		width -= w;
 	}
 
+#if defined ( ASHEEP_CLIENT_DLL )
+	UnpackRGB(r, g, b, RGB_BLUEISH);
+#else
 	UnpackRGB(r, g, b, RGB_YELLOWISH);
+#endif // defined ( ASHEEP_CLIENT_DLL )
 
 	FillRGBA(x, y, width, height, r, g, b, 128);
 
@@ -1045,7 +1075,11 @@ int CHudAmmo::DrawWList(float flTime)
 	{
 		int iWidth;
 
+#if defined ( ASHEEP_CLIENT_DLL )
+		UnpackRGB(r, g, b, RGB_BLUEISH);
+#else
 		UnpackRGB(r,g,b, RGB_YELLOWISH);
+#endif
 	
 		if ( iActiveSlot == i )
 			a = 255;
@@ -1097,7 +1131,11 @@ int CHudAmmo::DrawWList(float flTime)
 				if ( !p || !p->iId )
 					continue;
 
+#if defined ( ASHEEP_CLIENT_DLL )
+				UnpackRGB(r, g, b, RGB_BLUEISH);
+#else
 				UnpackRGB( r,g,b, RGB_YELLOWISH );
+#endif // defined ( ASHEEP_CLIENT_DLL )
 			
 				// if active, then we must have ammo.
 
@@ -1139,7 +1177,11 @@ int CHudAmmo::DrawWList(float flTime)
 		{
 			// Draw Row of weapons.
 
+#if defined ( ASHEEP_CLIENT_DLL )
+			UnpackRGB(r, g, b, RGB_BLUEISH);
+#else
 			UnpackRGB(r,g,b, RGB_YELLOWISH);
+#endif // defined ( ASHEEP_CLIENT_DLL )
 
 			for ( int iPos = 0; iPos < MAX_WEAPON_POSITIONS; iPos++ )
 			{
@@ -1150,7 +1192,11 @@ int CHudAmmo::DrawWList(float flTime)
 
 				if ( gWR.HasAmmo(p) )
 				{
+#if defined ( ASHEEP_CLIENT_DLL )
+					UnpackRGB(r, g, b, RGB_BLUEISH);
+#else
 					UnpackRGB(r,g,b, RGB_YELLOWISH);
+#endif // defined ( ASHEEP_CLIENT_DLL )
 					a = 128;
 				}
 				else

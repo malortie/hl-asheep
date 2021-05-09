@@ -1638,6 +1638,18 @@ void UTIL_StripToken( const char *pKey, char *pDest )
 	pDest[i] = 0;
 }
 
+#if defined ( ASHEEP_DLL )
+void UTIL_MakeMonstersWithClassnameEnemyOfPlayer(const char*classname)
+{
+	// Every monster with specific classname against the player now.
+	CBaseMonster* monsterEntity = NULL;
+	while ((monsterEntity = dynamic_cast<CBaseMonster*>(
+		UTIL_FindEntityByClassname(monsterEntity, classname))) != NULL)
+	{
+		monsterEntity->BecomeEnemyOfPlayer();
+	}
+}
+#endif // defined ( ASHEEP_DLL )
 
 // --------------------------------------------------------------
 //

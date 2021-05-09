@@ -332,6 +332,11 @@ public:
 	BOOL CineCleanup( );
 
 	CBaseEntity* DropItem ( char *pszItemName, const Vector &vecPos, const Vector &vecAng );// drop an item.
+#if defined ( ASHEEP_DLL )
+	virtual BOOL ShouldTreatMonsterAsPlayerAlly() { return FALSE; }
+	virtual void NotifyAlliesOfDeath( CBaseEntity* pAttacker ) {}
+	virtual void BecomeEnemyOfPlayer() {}
+#endif // defined ( ASHEEP_DLL )
 };
 
 

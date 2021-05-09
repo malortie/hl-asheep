@@ -186,6 +186,9 @@ void DecalGunshot( TraceResult *pTrace, int iBulletType )
 			UTIL_GunshotDecalTrace( pTrace, DamageDecal( pEntity, DMG_BULLET ) );
 			break;
 		case BULLET_PLAYER_CROWBAR:
+#if defined ( ASHEEP_DLL )
+		case BULLET_PLAYER_POOLSTICK:
+#endif // defined ( ASHEEP_DLL )
 			// wall decal
 			UTIL_DecalTrace( pTrace, DamageDecal( pEntity, DMG_CLUB ) );
 			break;
@@ -392,6 +395,18 @@ void W_Precache(void)
 	}
 #endif
 
+#if defined ( ASHEEP_DLL )
+	UTIL_PrecacheOther( "item_armor" );
+	UTIL_PrecacheOtherWeapon( "weapon_barney9mmhg" );
+	UTIL_PrecacheOtherWeapon( "weapon_barney9mmar" );
+	UTIL_PrecacheOtherWeapon( "weapon_barneyshotgun" );
+	UTIL_PrecacheOtherWeapon( "weapon_barneyhandgrenade" );
+	UTIL_PrecacheOtherWeapon( "weapon_beretta" );
+	UTIL_PrecacheOtherWeapon( "weapon_9mmm41a" );
+	UTIL_PrecacheOtherWeapon( "weapon_kmedkit" );
+	UTIL_PrecacheOtherWeapon( "weapon_poolstick" );
+	UTIL_PrecacheOtherWeapon( "weapon_toad" );
+#endif // defined ( ASHEEP_DLL )
 	g_sModelIndexFireball = PRECACHE_MODEL ("sprites/zerogxplode.spr");// fireball
 	g_sModelIndexWExplosion = PRECACHE_MODEL ("sprites/WXplo1.spr");// underwater fireball
 	g_sModelIndexSmoke = PRECACHE_MODEL ("sprites/steam1.spr");// smoke
@@ -1576,6 +1591,16 @@ TYPEDESCRIPTION	CRpgRocket::m_SaveData[] =
 };
 IMPLEMENT_SAVERESTORE( CRpgRocket, CGrenade );
 
+#if defined ( ASHEEP_DLL )
+TYPEDESCRIPTION	CBaseWeaponShotgun::m_SaveData[] = 
+{
+	DEFINE_FIELD( CBaseWeaponShotgun, m_flNextReload, FIELD_TIME ),
+	DEFINE_FIELD( CBaseWeaponShotgun, m_fInSpecialReload, FIELD_INTEGER ),
+	DEFINE_FIELD( CBaseWeaponShotgun, m_flNextReload, FIELD_TIME ),
+	DEFINE_FIELD( CBaseWeaponShotgun, m_flPumpTime, FIELD_TIME ),
+};
+IMPLEMENT_SAVERESTORE( CBaseWeaponShotgun, CBasePlayerWeapon );
+#else
 TYPEDESCRIPTION	CShotgun::m_SaveData[] = 
 {
 	DEFINE_FIELD( CShotgun, m_flNextReload, FIELD_TIME ),
@@ -1585,6 +1610,7 @@ TYPEDESCRIPTION	CShotgun::m_SaveData[] =
 	DEFINE_FIELD( CShotgun, m_flPumpTime, FIELD_TIME ),
 };
 IMPLEMENT_SAVERESTORE( CShotgun, CBasePlayerWeapon );
+#endif // defined ( ASHEEP_DLL )
 
 TYPEDESCRIPTION	CGauss::m_SaveData[] = 
 {
@@ -1615,3 +1641,14 @@ TYPEDESCRIPTION	CSatchel::m_SaveData[] =
 };
 IMPLEMENT_SAVERESTORE( CSatchel, CBasePlayerWeapon );
 
+#if defined ( ASHEEP_DLL )
+TYPEDESCRIPTION	CKMedkit::m_SaveData[] =
+{
+	DEFINE_FIELD(CKMedkit, m_target, FIELD_CLASSPTR),
+	DEFINE_FIELD(CKMedkit, m_targetHealth, FIELD_INTEGER),
+	DEFINE_FIELD(CKMedkit, m_delay, FIELD_TIME),
+	DEFINE_FIELD(CKMedkit, m_useState, FIELD_INTEGER),
+	DEFINE_FIELD(CKMedkit, m_healthPercentState, FIELD_INTEGER),
+};
+IMPLEMENT_SAVERESTORE(CKMedkit, CBasePlayerWeapon);
+#endif // defined ( ASHEEP_DLL )

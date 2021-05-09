@@ -41,6 +41,15 @@ void EV_SnarkFire( struct event_args_s *args );
 
 
 void EV_TrainPitchAdjust( struct event_args_s *args );
+#if defined ( ASHEEP_CLIENT_DLL )
+void EV_FireBeretta1(struct event_args_s *args);
+void EV_FireBeretta2(struct event_args_s *args);
+void EV_Fire9MMM41A(struct event_args_s *args);
+void EV_Fire9MMM41A2(struct event_args_s *args);
+void EV_KMedkit(struct event_args_s *args);
+void EV_Poolstick(struct event_args_s *args);
+void EV_Toad(struct event_args_s *args);
+#endif // defined ( ASHEEP_CLIENT_DLL )
 }
 
 /*
@@ -77,4 +86,13 @@ void Game_HookEvents( void )
 	gEngfuncs.pfnHookEvent( "events/firehornet.sc",				EV_HornetGunFire );
 	gEngfuncs.pfnHookEvent( "events/tripfire.sc",				EV_TripmineFire );
 	gEngfuncs.pfnHookEvent( "events/snarkfire.sc",				EV_SnarkFire );
+#if defined ( ASHEEP_CLIENT_DLL )
+	gEngfuncs.pfnHookEvent( "events/beretta1.sc",				EV_FireBeretta1 );
+	gEngfuncs.pfnHookEvent( "events/beretta2.sc",				EV_FireBeretta2 );
+	gEngfuncs.pfnHookEvent( "events/m41a.sc",					EV_Fire9MMM41A );
+	gEngfuncs.pfnHookEvent( "events/m41a2.sc",					EV_Fire9MMM41A2 );
+	gEngfuncs.pfnHookEvent( "events/kmedkit.sc",				EV_KMedkit );
+	gEngfuncs.pfnHookEvent( "events/poolstick.sc",				EV_Poolstick );
+	gEngfuncs.pfnHookEvent( "events/toad.sc",					EV_Toad );
+#endif // defined ( ASHEEP_CLIENT_DLL )
 }

@@ -22,11 +22,17 @@
 #include "cbase.h"
 #include "monsters.h"
 #include "saverestore.h"
+#if defined ( ASHEEP_DLL )
+#include "spawnereffect.h"
+#endif // defined ( ASHEEP_DLL )
 
 // Monstermaker spawnflags
 #define	SF_MONSTERMAKER_START_ON	1 // start active ( if has targetname )
 #define	SF_MONSTERMAKER_CYCLIC		4 // drop one monster every time fired.
 #define SF_MONSTERMAKER_MONSTERCLIP	8 // Children are blocked by monsterclip
+#if defined ( ASHEEP_DLL )
+#define SF_MONSTERMAKER_SPAWNER_EFFECT	16
+#endif // defined ( ASHEEP_DLL )
 
 //=========================================================
 // MonsterMaker - this ent creates monsters during the game.
@@ -232,6 +238,26 @@ void CMonsterMaker::MakeMonster( void )
 		SetThink( NULL );
 		SetUse( NULL );
 	}
+#if defined ( ASHEEP_DLL )
+	if (pev->spawnflags & SF_MONSTERMAKER_SPAWNER_EFFECT)
+	{
+		CBaseEntity* pInstance = CBaseEntity::Instance(pent);
+
+		SpawnerEffectSpawnType spawnType;
+		if (!FClassnameIs(pInstance->pev, "monster_exp_alien_slave"))
+		{
+			// Default greenish spawn alien effect.
+			spawnType = SPAWNTYPE_GREEN;
+		}
+		else
+		{
+			// Pink/reddish alien spawn effect.
+			spawnType = SPAWNTYPE_RED;
+		}
+
+		AlienSpawnEffect_CreateAndSpawn(this, this, pInstance->Center(), pInstance, spawnType);
+	}
+#endif // defined ( ASHEEP_DLL )
 }
 
 //=========================================================

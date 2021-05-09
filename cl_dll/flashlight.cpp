@@ -102,8 +102,13 @@ int CHudFlashlight::Draw(float flTime)
 	int r, g, b, x, y, a;
 	wrect_t rc;
 
+#if defined ( ASHEEP_CLIENT_DLL )
+	if (!(gHUD.m_iWeaponBits & (1 << (WEAPON_ARMOR))) && !(gHUD.m_iWeaponBits & (1 << (WEAPON_SUIT))))
+		return 1;
+#else
 	if (!(gHUD.m_iWeaponBits & (1<<(WEAPON_SUIT)) ))
 		return 1;
+#endif // defined ( ASHEEP_CLIENT_DLL )
 
 	if (m_fOn)
 		a = 225;
@@ -113,7 +118,11 @@ int CHudFlashlight::Draw(float flTime)
 	if (m_flBat < 0.20)
 		UnpackRGB(r,g,b, RGB_REDISH);
 	else
+#if defined ( ASHEEP_CLIENT_DLL )
+		UnpackRGB(r, g, b, RGB_BLUEISH);
+#else
 		UnpackRGB(r,g,b, RGB_YELLOWISH);
+#endif // defined ( ASHEEP_CLIENT_DLL )
 
 	ScaleColors(r, g, b, a);
 

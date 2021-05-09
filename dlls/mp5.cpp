@@ -23,6 +23,145 @@
 #include "soundent.h"
 #include "gamerules.h"
 
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+enum mp5_e
+{
+	MP5_LONGIDLE = 0,
+	MP5_IDLE1,
+	MP5_LAUNCH,
+	MP5_RELOAD,
+	MP5_DEPLOY,
+	MP5_FIRE1,
+	MP5_FIRE2,
+	MP5_FIRE3,
+	MP5_HOLSTER,
+};
+
+LINK_ENTITY_TO_CLASS(weapon_mp5, CMP5);
+LINK_ENTITY_TO_CLASS(weapon_9mmAR, CMP5);
+
+void CMP5::Spawn()
+{
+	pev->classname = MAKE_STRING("weapon_9mmAR"); // hack to allow for old names
+	BaseClass::Spawn();
+}
+
+int CMP5::GetItemInfo(ItemInfo *p)
+{
+	p->pszName = STRING(pev->classname);
+	p->pszAmmo1 = "9mm";
+	p->iMaxAmmo1 = _9MM_MAX_CARRY;
+	p->pszAmmo2 = "ARgrenades";
+	p->iMaxAmmo2 = M203_GRENADE_MAX_CARRY;
+	p->iMaxClip = MP5_MAX_CLIP;
+	p->iSlot = 2;
+	p->iPosition = 0;
+	p->iFlags = 0;
+	p->iId = m_iId = GetWeaponID();
+	p->iWeight = MP5_WEIGHT;
+
+	return 1;
+}
+
+int CMP5::GetWeaponID()
+{
+	return WEAPON_MP5;
+}
+
+const char* CMP5::GetThirdpersonModel()
+{
+	return "models/p_9mmAR.mdl";
+}
+
+const char* CMP5::GetViewModel()
+{
+	return "models/v_9mmAR.mdl";
+}
+
+const char* CMP5::GetWorldModel()
+{
+	return "models/w_9mmAR.mdl";
+}
+
+void CMP5::PrecacheModels()
+{
+	BaseClass::PrecacheModels();
+
+	PRECACHE_MODEL("models/v_9mmAR.mdl");
+	PRECACHE_MODEL("models/w_9mmAR.mdl");
+	PRECACHE_MODEL("models/p_9mmAR.mdl");
+}
+
+void CMP5::PrecacheEvents()
+{
+	m_usMP5 = PRECACHE_EVENT(1, "events/mp5.sc");
+	m_usMP52 = PRECACHE_EVENT(1, "events/mp52.sc");
+}
+
+void CMP5::GiveFirstTimeSpawnDefaultAmmo()
+{
+	m_iDefaultAmmo = MP5_DEFAULT_GIVE;
+}
+
+const unsigned short& CMP5::GetFireEvent() const
+{
+	return m_usMP5;
+}
+
+const unsigned short& CMP5::GetGrenadeLaunchEvent() const
+{
+	return m_usMP52;
+}
+
+int CMP5::GetBulletType()
+{
+	return BULLET_PLAYER_MP5;
+}
+
+int CMP5::GetDeploySequence()
+{
+	return MP5_DEPLOY;
+}
+
+int CMP5::GetHolsterSequence()
+{
+	return MP5_HOLSTER;
+}
+
+int CMP5::GetReloadSequence()
+{
+	return MP5_RELOAD;
+}
+
+float CMP5::GetHolsterSequenceDuration()
+{
+	return 16.0f / 30.0f;
+}
+
+float CMP5::GetReloadSequenceDuration()
+{
+	return 1.5;
+}
+
+float CMP5::PlayIdleAnimation()
+{
+	int iAnim;
+	switch (RANDOM_LONG(0, 1))
+	{
+	case 0:
+		iAnim = MP5_LONGIDLE;
+		break;
+
+	default:
+	case 1:
+		iAnim = MP5_IDLE1;
+		break;
+	}
+
+	SendWeaponAnim(iAnim);
+	return UTIL_SharedRandomFloat(m_pPlayer->random_seed, 10, 15);
+}
+#else
 enum mp5_e
 {
 	MP5_LONGIDLE = 0,
@@ -201,7 +340,11 @@ void CMP5::SecondaryAttack( void )
 	if (m_pPlayer->pev->waterlevel == 3)
 	{
 		PlayEmptySound( );
+#if defined ( ASHEEP_CLIENT_WEAPONS )
 		m_flNextPrimaryAttack = 0.15;
+#else
+		m_flNextPrimaryAttack = GetNextAttackDelay(0.15);
+#endif // defined ( ASHEEP_CLIENT_WEAPONS )
 		return;
 	}
 
@@ -284,6 +427,7 @@ void CMP5::WeaponIdle( void )
 }
 
 
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
 class CMP5AmmoClip : public CBasePlayerAmmo
 {

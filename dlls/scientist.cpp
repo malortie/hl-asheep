@@ -26,7 +26,313 @@
 #include	"scripted.h"
 #include	"animation.h"
 #include	"soundent.h"
+#if defined ( ASHEEP_DLL )
+#include	"talkmonsterwithscientistai.h"
+#include	"scientist.h"
 
+enum
+{
+	TASK_SAY_HEAL = LAST_TALKMONSTER_WITH_AI_TASK + 1,
+	TASK_HEAL,
+};
+
+//=========================================================
+// Monster's Anim Events Go Here
+//=========================================================
+#define		SCIENTIST_AE_HEAL		( 1 )
+#define		SCIENTIST_AE_NEEDLEON	( 2 )
+#define		SCIENTIST_AE_NEEDLEOFF	( 3 )
+
+//=======================================================
+// Scientist
+//=======================================================
+
+class CScientist : public CTalkMonsterWithScientistAI
+{
+	typedef CTalkMonsterWithScientistAI BaseClass;
+
+	float m_healTime;
+public:
+	virtual int		Save(CSave &save);
+	virtual int		Restore(CRestore &restore);
+	static	TYPEDESCRIPTION m_SaveData[];
+
+	CUSTOM_SCHEDULES;
+
+	BOOL	CanHeal(void);
+	void	Heal(void);
+protected:
+	virtual void PrecacheModels();
+	virtual void PrecacheSounds();
+	virtual void SetModel();
+	virtual void SetSkinAndBodygroups();
+	virtual int GetFirstTimeSpawnHealth() const;
+
+	virtual void SetFriendsSpeechOrder();
+	virtual void InitSentenceGroup();
+	virtual void SetDefaultVoicePitch();
+
+	virtual void SpeakDeclineFollowing();
+	virtual void SpeakScream();
+	virtual void SpeakFearEnemy();
+	virtual void SpeakFearPlayer();
+	virtual void SpeakHealPlayer();
+
+	virtual void RunTask(Task_t *pTask);
+	virtual void StartTask(Task_t *pTask);
+	virtual void HandleAnimEvent(MonsterEvent_t *pEvent);
+
+	virtual Schedule_t* GetHealSchedule();
+};
+
+LINK_ENTITY_TO_CLASS(monster_scientist, CScientist);
+
+TYPEDESCRIPTION	CScientist::m_SaveData[] =
+{
+	DEFINE_FIELD(CScientist, m_healTime, FIELD_TIME),
+};
+
+IMPLEMENT_SAVERESTORE(CScientist, CTalkMonsterWithScientistAI);
+
+void CScientist::PrecacheModels()
+{
+	PRECACHE_MODEL("models/scientist.mdl");
+}
+
+void CScientist::PrecacheSounds()
+{
+	PRECACHE_SOUND("scientist/sci_pain1.wav");
+	PRECACHE_SOUND("scientist/sci_pain2.wav");
+	PRECACHE_SOUND("scientist/sci_pain3.wav");
+	PRECACHE_SOUND("scientist/sci_pain4.wav");
+	PRECACHE_SOUND("scientist/sci_pain5.wav");
+}
+
+void CScientist::SetModel()
+{
+	SET_MODEL(ENT(pev), "models/scientist.mdl");
+}
+
+void CScientist::SetSkinAndBodygroups()
+{
+	// White hands
+	pev->skin = 0;
+
+	if (pev->body == -1)
+	{// -1 chooses a random head
+		pev->body = RANDOM_LONG(0, NUM_SCIENTIST_HEADS - 1);// pick a head, any head
+	}
+
+	// Luther is black, make his hands black
+	if (pev->body == HEAD_LUTHER)
+		pev->skin = 1;
+}
+
+int CScientist::GetFirstTimeSpawnHealth() const
+{
+	return gSkillData.scientistHealth;
+}
+
+void CScientist::SetFriendsSpeechOrder()
+{
+	// scientist will try to talk to friends in this order:
+
+	m_szFriends[0] = "monster_scientist";
+	m_szFriends[1] = "monster_sitting_scientist";
+	m_szFriends[2] = "monster_barney";
+}
+
+void CScientist::InitSentenceGroup()
+{
+	// scientists speach group names (group names are in sentences.txt)
+
+	m_szGrp[TLK_ANSWER] = "SC_ANSWER";
+	m_szGrp[TLK_QUESTION] = "SC_QUESTION";
+	m_szGrp[TLK_IDLE] = "SC_IDLE";
+	m_szGrp[TLK_STARE] = "SC_STARE";
+	m_szGrp[TLK_USE] = "SC_OK";
+	m_szGrp[TLK_UNUSE] = "SC_WAIT";
+	m_szGrp[TLK_STOP] = "SC_STOP";
+	m_szGrp[TLK_NOSHOOT] = "SC_SCARED";
+	m_szGrp[TLK_HELLO] = "SC_HELLO";
+
+	m_szGrp[TLK_PLHURT1] = "!SC_CUREA";
+	m_szGrp[TLK_PLHURT2] = "!SC_CUREB";
+	m_szGrp[TLK_PLHURT3] = "!SC_CUREC";
+
+	m_szGrp[TLK_PHELLO] = "SC_PHELLO";
+	m_szGrp[TLK_PIDLE] = "SC_PIDLE";
+	m_szGrp[TLK_PQUESTION] = "SC_PQUEST";
+	m_szGrp[TLK_SMELL] = "SC_SMELL";
+
+	m_szGrp[TLK_WOUND] = "SC_WOUND";
+	m_szGrp[TLK_MORTAL] = "SC_MORTAL";
+}
+
+void CScientist::SetDefaultVoicePitch()
+{
+	// get voice for head
+	switch (pev->body % 3)
+	{
+	default:
+	case HEAD_GLASSES:	m_voicePitch = 105; break;	//glasses
+	case HEAD_EINSTEIN: m_voicePitch = 100; break;	//einstein
+	case HEAD_LUTHER:	m_voicePitch = 95;  break;	//luther
+	case HEAD_SLICK:	m_voicePitch = 100;  break;//slick
+	}
+}
+
+void CScientist::SpeakDeclineFollowing()
+{
+	PlaySentence("SC_POK", 2, VOL_NORM, ATTN_NORM);
+}
+
+void CScientist::SpeakScream()
+{
+	PlaySentence("SC_SCREAM", RANDOM_FLOAT(3, 6), VOL_NORM, ATTN_NORM);
+}
+
+void CScientist::SpeakFearEnemy()
+{
+	PlaySentence("SC_FEAR", 5, VOL_NORM, ATTN_NORM);
+}
+
+void CScientist::SpeakFearPlayer()
+{
+	PlaySentence("SC_PLFEAR", 5, VOL_NORM, ATTN_NORM);
+}
+
+void CScientist::SpeakHealPlayer() {
+	PlaySentence("SC_HEAL", 2, VOL_NORM, ATTN_IDLE);
+}
+
+void CScientist::HandleAnimEvent(MonsterEvent_t *pEvent)
+{
+	switch (pEvent->event)
+	{
+	case SCIENTIST_AE_HEAL:		// Heal my target (if within range)
+		Heal();
+		break;
+	case SCIENTIST_AE_NEEDLEON:
+	{
+		int oldBody = pev->body;
+		pev->body = (oldBody % NUM_SCIENTIST_HEADS) + NUM_SCIENTIST_HEADS * 1;
+	}
+	break;
+	case SCIENTIST_AE_NEEDLEOFF:
+	{
+		int oldBody = pev->body;
+		pev->body = (oldBody % NUM_SCIENTIST_HEADS) + NUM_SCIENTIST_HEADS * 0;
+	}
+	break;
+	default:
+		BaseClass::HandleAnimEvent(pEvent);
+	}
+}
+
+void CScientist::StartTask(Task_t *pTask)
+{
+	switch (pTask->iTask)
+	{
+	case TASK_SAY_HEAL:
+		Talk(2);
+		m_hTalkTarget = m_hTargetEnt;
+		SpeakHealPlayer();
+
+		TaskComplete();
+		break;
+
+	case TASK_HEAL:
+		m_IdealActivity = ACT_MELEE_ATTACK1;
+		break;
+
+	default:
+		BaseClass::StartTask(pTask);
+		break;
+	}
+}
+
+void CScientist::RunTask(Task_t *pTask)
+{
+	switch (pTask->iTask)
+	{
+	case TASK_HEAL:
+		if (m_fSequenceFinished)
+		{
+			TaskComplete();
+		}
+		else
+		{
+			if (TargetDistance() > 90)
+				TaskComplete();
+			pev->ideal_yaw = UTIL_VecToYaw(m_hTargetEnt->pev->origin - pev->origin);
+			ChangeYaw(pev->yaw_speed);
+		}
+		break;
+	default:
+		BaseClass::RunTask(pTask);
+		break;
+	}
+}
+
+BOOL CScientist::CanHeal(void)
+{
+	if ((m_healTime > gpGlobals->time) || (m_hTargetEnt == NULL) || (m_hTargetEnt->pev->health > (m_hTargetEnt->pev->max_health * 0.5)))
+		return FALSE;
+
+	return TRUE;
+}
+
+void CScientist::Heal(void)
+{
+	if (!CanHeal())
+		return;
+
+	Vector target = m_hTargetEnt->pev->origin - pev->origin;
+	if (target.Length() > 100)
+		return;
+
+	m_hTargetEnt->TakeHealth(gSkillData.scientistHeal, DMG_GENERIC);
+	// Don't heal again for 1 minute
+	m_healTime = gpGlobals->time + 60;
+}
+
+Task_t	tlHeal[] =
+{
+	{ TASK_MOVE_TO_TARGET_RANGE,(float)50 },	// Move within 60 of target ent (client)
+	{ TASK_SET_FAIL_SCHEDULE,	(float)SCHED_TARGET_CHASE },	// If you fail, catch up with that guy! (change this to put syringe away and then chase)
+	{ TASK_FACE_IDEAL,			(float)0 },
+	{ TASK_SAY_HEAL,			(float)0 },
+	{ TASK_PLAY_SEQUENCE_FACE_TARGET,		(float)ACT_ARM },			// Whip out the needle
+	{ TASK_HEAL,				(float)0 },	// Put it in the player
+	{ TASK_PLAY_SEQUENCE_FACE_TARGET,		(float)ACT_DISARM },			// Put away the needle
+};
+
+Schedule_t	slHeal[] =
+{
+	{
+		tlHeal,
+		ARRAYSIZE(tlHeal),
+		0,	// Don't interrupt or he'll end up running around with a needle all the time
+		0,
+		"Heal"
+	},
+};
+
+DEFINE_CUSTOM_SCHEDULES(CScientist)
+{
+	slHeal,
+};
+IMPLEMENT_CUSTOM_SCHEDULES(CScientist, CTalkMonsterWithScientistAI);
+
+Schedule_t* CScientist::GetHealSchedule()
+{
+	if (CanHeal())
+		return slHeal;
+	else
+		return NULL;
+}
+#else
 
 #define		NUM_SCIENTIST_HEADS		4 // four heads available for scientist model
 enum { HEAD_GLASSES = 0, HEAD_EINSTEIN = 1, HEAD_LUTHER = 2, HEAD_SLICK = 3 };
@@ -1157,6 +1463,7 @@ void CDeadScientist :: Spawn( )
 	MonsterInitDead();
 }
 
+#endif // defined ( ASHEEP_DLL )
 
 //=========================================================
 // Sitting Scientist PROP

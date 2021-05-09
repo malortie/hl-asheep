@@ -145,6 +145,11 @@ TYPEDESCRIPTION	CBasePlayer::m_playerSaveData[] =
 	//DEFINE_FIELD( CBasePlayer, m_fOnTarget, FIELD_BOOLEAN ), // Don't need to restore
 	//DEFINE_FIELD( CBasePlayer, m_nCustomSprayFrames, FIELD_INTEGER ), // Don't need to restore
 	
+#if defined ( ASHEEP_WEAPONHOLSTER )
+	DEFINE_FIELD(CBasePlayer, m_iSwitchWeaponMethod, FIELD_INTEGER),
+	DEFINE_FIELD(CBasePlayer, m_iSwitchWeaponState, FIELD_INTEGER),
+	DEFINE_FIELD(CBasePlayer, m_pWeaponToSwitchTo, FIELD_CLASSPTR),
+#endif // defined ( ASHEEP_WEAPONHOLSTER )
 };	
 
 
@@ -1134,6 +1139,9 @@ void CBasePlayer::TabulateAmmo()
 	ammo_rockets = AmmoInventory( GetAmmoIndex( "rockets" ) );
 	ammo_uranium = AmmoInventory( GetAmmoIndex( "uranium" ) );
 	ammo_hornets = AmmoInventory( GetAmmoIndex( "Hornets" ) );
+#if defined ( ASHEEP_DLL )
+	ammo_medshots = AmmoInventory(GetAmmoIndex("Medkit"));
+#endif // defined ( ASHEEP_DLL )
 }
 
 
@@ -2937,6 +2945,11 @@ void CBasePlayer::Spawn( void )
 	
 	m_flNextChatTime = gpGlobals->time;
 
+#if defined ( ASHEEP_WEAPONHOLSTER )
+	m_iSwitchWeaponMethod = 0;
+	m_iSwitchWeaponState = SwitchWeaponState::STATE_NONE;
+	m_pWeaponToSwitchTo = NULL;
+#endif // defined ( ASHEEP_WEAPONHOLSTER )
 	g_pGameRules->PlayerSpawn( this );
 }
 
@@ -3105,6 +3118,9 @@ void CBasePlayer::SelectNextItem( int iItem )
 		m_pActiveItem->Holster( );
 	}
 	
+#if defined ( ASHEEP_WEAPONHOLSTER )
+	BeginSwitchWeapon(pItem, SwitchWeaponMethod::SWITCH_SELECTNEXTWEAPON);
+#else
 	m_pActiveItem = pItem;
 
 	if (m_pActiveItem)
@@ -3112,6 +3128,7 @@ void CBasePlayer::SelectNextItem( int iItem )
 		m_pActiveItem->Deploy( );
 		m_pActiveItem->UpdateItemInfo( );
 	}
+#endif // defined ( ASHEEP_WEAPONHOLSTER )
 }
 
 void CBasePlayer::SelectItem(const char *pstr)
@@ -3152,6 +3169,9 @@ void CBasePlayer::SelectItem(const char *pstr)
 	if (m_pActiveItem)
 		m_pActiveItem->Holster( );
 	
+#if defined ( ASHEEP_WEAPONHOLSTER )
+	BeginSwitchWeapon(pItem, SwitchWeaponMethod::SWITCH_SELECTWEAPON);
+#else
 	m_pLastItem = m_pActiveItem;
 	m_pActiveItem = pItem;
 
@@ -3160,6 +3180,7 @@ void CBasePlayer::SelectItem(const char *pstr)
 		m_pActiveItem->Deploy( );
 		m_pActiveItem->UpdateItemInfo( );
 	}
+#endif // defined ( ASHEEP_WEAPONHOLSTER )
 }
 
 
@@ -3181,11 +3202,15 @@ void CBasePlayer::SelectLastItem(void)
 	if (m_pActiveItem)
 		m_pActiveItem->Holster( );
 	
+#if defined ( ASHEEP_WEAPONHOLSTER )
+	BeginSwitchWeapon(m_pLastItem, SwitchWeaponMethod::SWITCH_SELECTLASTWEAPON);
+#else
 	CBasePlayerItem *pTemp = m_pActiveItem;
 	m_pActiveItem = m_pLastItem;
 	m_pLastItem = pTemp;
 	m_pActiveItem->Deploy( );
 	m_pActiveItem->UpdateItemInfo( );
+#endif // defined ( ASHEEP_WEAPONHOLSTER )
 }
 
 //==============================================
@@ -3334,6 +3359,16 @@ void CBasePlayer::GiveNamedItem( const char *pszName )
 	VARS( pent )->origin = pev->origin;
 	pent->v.spawnflags |= SF_NORESPAWN;
 
+#if defined ( ASHEEP_DLL )
+	// Specify that this toad weapon should not spawn
+	// a toad upon spawning.
+	if (FStrEq(pszName, "weapon_toad"))
+	{
+		CToadWeapon* toadWeapon = reinterpret_cast<CToadWeapon*>(CBaseEntity::Instance(pent));
+		if(toadWeapon != NULL)
+			toadWeapon->m_doNotSpawnToad = TRUE;
+	}
+#endif // defined ( ASHEEP_DLL )
 	DispatchSpawn( pent );
 	DispatchTouch( pent, ENT( pev ) );
 }
@@ -3368,7 +3403,11 @@ void CBasePlayer :: FlashlightTurnOn( void )
 		return;
 	}
 
+#if defined ( ASHEEP_DLL )
+	if ( (pev->weapons & (1<<WEAPON_ARMOR)) || (pev->weapons & (1 << WEAPON_SUIT)))
+#else
 	if ( (pev->weapons & (1<<WEAPON_SUIT)) )
+#endif // defined ( ASHEEP_DLL )
 	{
 		EMIT_SOUND_DYN( ENT(pev), CHAN_WEAPON, SOUND_FLASHLIGHT_ON, 1.0, ATTN_NORM, 0, PITCH_NORM );
 		SetBits(pev->effects, EF_DIMLIGHT);
@@ -3561,6 +3600,17 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 		GiveNamedItem( "weapon_snark" );
 		GiveNamedItem( "weapon_hornetgun" );
 #endif
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+		GiveNamedItem( "weapon_barney9mmhg" );
+		GiveNamedItem( "weapon_barney9mmar" );
+		GiveNamedItem( "weapon_barneyshotgun" );
+		GiveNamedItem( "weapon_barneyhandgrenade" );
+		GiveNamedItem( "weapon_9mmm41a" );
+		GiveNamedItem( "weapon_beretta" );
+		GiveNamedItem( "weapon_kmedkit" );
+		GiveNamedItem( "weapon_poolstick" );
+		GiveNamedItem( "weapon_toad" );
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 		gEvilImpulse101 = FALSE;
 		break;
 
@@ -3878,6 +3928,13 @@ void CBasePlayer::ItemPostFrame()
 
 	ImpulseCommands();
 
+#if defined ( ASHEEP_WEAPONHOLSTER )
+	if (IsSwitchingWeapon())
+	{
+		UpdateWeaponSwitching();
+		return;
+	}
+#endif // defined ( ASHEEP_WEAPONHOLSTER )
 	if (!m_pActiveItem)
 		return;
 
@@ -4654,6 +4711,22 @@ BOOL CBasePlayer :: SwitchWeapon( CBasePlayerItem *pWeapon )
 	
 	ResetAutoaim( );
 	
+#if defined ( ASHEEP_WEAPONHOLSTER )
+	if (!m_pActiveItem)
+	{
+		m_pActiveItem = pWeapon;
+		pWeapon->Deploy();
+	}
+	else
+	{
+		if (m_pActiveItem)
+		{
+			m_pActiveItem->Holster();
+		}
+
+		BeginSwitchWeapon(pWeapon, SwitchWeaponMethod::SWITCH_EXPLICIT);
+	}
+#else
 	if (m_pActiveItem)
 	{
 		m_pActiveItem->Holster( );
@@ -4661,6 +4734,7 @@ BOOL CBasePlayer :: SwitchWeapon( CBasePlayerItem *pWeapon )
 
 	m_pActiveItem = pWeapon;
 	pWeapon->Deploy( );
+#endif // defined ( ASHEEP_WEAPONHOLSTER )
 
 	return TRUE;
 }

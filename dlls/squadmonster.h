@@ -12,6 +12,8 @@
 *   use or distribution of this code by or to any unlicensed person is illegal.
 *
 ****/
+#ifndef SQUADMONSTER_H__
+#define SQUADMONSTER_H__
 //=========================================================
 // CSquadMonster - all the extra data for monsters that
 // form squads.
@@ -118,3 +120,4 @@ public:
 	Schedule_t	*GetScheduleOfType ( int iType );
 };
 
+#endif // SQUADMONSTER_H__

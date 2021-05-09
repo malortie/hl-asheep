@@ -323,6 +323,30 @@ public:
 	
 	float m_flNextChatTime;
 	
+#if defined ( ASHEEP_WEAPONHOLSTER )
+	enum SwitchWeaponMethod
+	{
+		SWITCH_SELECTWEAPON = 0,
+		SWITCH_SELECTNEXTWEAPON,
+		SWITCH_SELECTLASTWEAPON,
+		SWITCH_EXPLICIT,
+	};
+
+	enum SwitchWeaponState
+	{
+		STATE_NONE = 0,
+		STATE_DEPLOY,
+		STATE_RESETVARIABLES,
+	};
+
+	BOOL IsSwitchingWeapon() const { return m_iSwitchWeaponState != SwitchWeaponState::STATE_NONE; }
+	void BeginSwitchWeapon(CBasePlayerItem* weaponToSwitchTo, int switchWeaponMethod);
+	void ResetSwitchWeaponVariables();
+	void UpdateWeaponSwitching();
+	int m_iSwitchWeaponState;
+	int m_iSwitchWeaponMethod;
+	CBasePlayerItem* m_pWeaponToSwitchTo;
+#endif // defined ( ASHEEP_WEAPONHOLSTER )
 };
 
 #define AUTOAIM_2DEGREES  0.0348994967025

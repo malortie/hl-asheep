@@ -27,6 +27,9 @@
 #include "saverestore.h"
 #include "trains.h"			// trigger_camera has train functionality
 #include "gamerules.h"
+#if defined ( ASHEEP_DLL )
+#include "asheep_serverside_utils.h"
+#endif // defined ( ASHEEP_DLL )
 
 #define	SF_TRIGGER_PUSH_START_OFF	2//spawnflag that makes trigger_push spawn turned OFF
 #define SF_TRIGGER_HURT_TARGETONCE	1// Only fire hurt target once
@@ -1059,6 +1062,13 @@ LINK_ENTITY_TO_CLASS( trigger_multiple, CTriggerMultiple );
 
 void CTriggerMultiple :: Spawn( void )
 {
+#if defined ( ASHEEP_MAPFIXES )
+	if (MapFixes_CheckIfOnlyKateShouldActivateTrigger(this))
+	{
+		ALERT(at_aiconsole, "Applying kate only trigger fixes.\n");
+		pev->spawnflags = SF_TRIGGER_NOCLIENTS | SF_TRIGGER_KATEONLY;
+	}
+#endif // defined ( ASHEEP_MAPFIXES )
 	if (m_flWait == 0)
 		m_flWait = 0.2;
 
@@ -1106,6 +1116,23 @@ public:
 LINK_ENTITY_TO_CLASS( trigger_once, CTriggerOnce );
 void CTriggerOnce::Spawn( void )
 {
+#if defined ( ASHEEP_DLL )
+	if (!FStringNull(pev->message) && !Message_MessagesAllowedInCurrentMap())
+		pev->message = iStringNull;
+#endif // defined ( ASHEEP_DLL )
+
+#if defined ( ASHEEP_MAPFIXES )
+	if (MapFixes_CheckIfOnlyKateShouldActivateTrigger(this))
+	{
+		ALERT(at_aiconsole, "Applying kate only trigger fixes.\n");
+		pev->spawnflags = SF_TRIGGER_NOCLIENTS | SF_TRIGGER_KATEONLY;
+	}
+	if (MapFixes_CheckIfShouldTeleportKateToHealingSequence(this))
+	{
+		ALERT(at_aiconsole, "Applying kate healing sequence fix.\n");
+		MapFixes_FixupTriggerForAsmap06KateHealingSequence(this);
+	}
+#endif // defined ( ASHEEP_MAPFIXES )
 	m_flWait = -1;
 	
 	CTriggerMultiple :: Spawn();
@@ -1122,6 +1149,10 @@ void CBaseTrigger :: MultiTouch( CBaseEntity *pOther )
 	// Only touch clients, monsters, or pushables (depending on flags)
 	if ( ((pevToucher->flags & FL_CLIENT) && !(pev->spawnflags & SF_TRIGGER_NOCLIENTS)) ||
 		 ((pevToucher->flags & FL_MONSTER) && (pev->spawnflags & SF_TRIGGER_ALLOWMONSTERS)) ||
+#if defined ( ASHEEP_DLL )
+		((pevToucher->flags & FL_MONSTER) && (pev->spawnflags & SF_TRIGGER_KATEONLY) && 
+			FClassnameIs(ENT(pevToucher), "monster_kate")) ||
+#endif // defined ( ASHEEP_DLL )
 		 (pev->spawnflags & SF_TRIGGER_PUSHABLES) && FClassnameIs(pevToucher,"func_pushable") )
 	{
 
@@ -1880,10 +1911,19 @@ void CBaseTrigger :: TeleportTouch( CBaseEntity *pOther )
  	
 	if ( !( pev->spawnflags & SF_TRIGGER_ALLOWMONSTERS ) )
 	{// no monsters allowed!
+#if defined ( ASHEEP_DLL )
+		if ( FBitSet( pevToucher->flags, FL_MONSTER ) && 
+			!((pev->spawnflags & SF_TRIGGER_KATEONLY) && FClassnameIs(ENT(pevToucher), "monster_kate"))) 
+			// Unless it's kate and only kate can fire this trigger.
+		{
+			return;
+		}
+#else
 		if ( FBitSet( pevToucher->flags, FL_MONSTER ) )
 		{
 			return;
 		}
+#endif // defined ( ASHEEP_DLL )
 	}
 
 	if ( ( pev->spawnflags & SF_TRIGGER_NOCLIENTS ) )
@@ -2428,3 +2468,67 @@ void CTriggerCamera::Move()
 	float fraction = 2 * gpGlobals->frametime;
 	pev->velocity = ((pev->movedir * pev->speed) * fraction) + (pev->velocity * (1-fraction));
 }
+#if defined ( ASHEEP_DLL )
+class CTriggerSound : public CBaseTrigger
+{
+public:
+	void Spawn(void);
+	virtual void Use(CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value);
+	void Touch(CBaseEntity *pOther);
+};
+
+LINK_ENTITY_TO_CLASS(trigger_sound, CTriggerSound);
+
+void CTriggerSound::Touch(CBaseEntity *pOther)
+{
+	if (!pOther->IsPlayer())
+		return;
+}
+
+void CTriggerSound::Spawn(void)
+{
+	InitTrigger();
+}
+
+void CTriggerSound::Use(CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value)
+{
+}
+#endif // defined ( ASHEEP_DLL )
+
+#if defined ( ASHEEP_MAPFIXES )
+class CTriggerTeleportUsePlayerAngles : public CBaseTrigger
+{
+public:
+	void Spawn(void);
+	void EXPORT TeleportUsePlayerAnglesTouch(CBaseEntity* pOther);
+};
+LINK_ENTITY_TO_CLASS(trigger_teleportuseplayerangles, CTriggerTeleportUsePlayerAngles);
+
+void CTriggerTeleportUsePlayerAngles::Spawn(void)
+{
+	InitTrigger();
+
+	SetTouch(&CTriggerTeleportUsePlayerAngles::TeleportUsePlayerAnglesTouch);
+}
+
+void EXPORT CTriggerTeleportUsePlayerAngles::TeleportUsePlayerAnglesTouch(CBaseEntity* pOther)
+{
+	if (pOther == NULL || !pOther->IsPlayer() || FStringNull(pev->target))
+		return;
+
+	CBaseEntity* pTarget = UTIL_FindEntityByTargetname(NULL, STRING(pev->target));
+	if (pTarget != NULL)
+	{
+		ALERT(at_aiconsole, "Teleporting to: %s\n", STRING(pev->target));
+
+		// Set target destination angles identical
+		// to toucher's.
+		pTarget->pev->angles = pOther->pev->v_angle;
+
+		// Zero out toucher's velocity.
+		pOther->pev->velocity = g_vecZero;
+
+		TeleportTouch(pOther);
+	}
+}
+#endif // defined ( ASHEEP_MAPFIXES )

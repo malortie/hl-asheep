@@ -23,7 +23,48 @@
 #include	"cbase.h"
 #include	"monsters.h"
 #include	"schedule.h"
+#if defined ( ASHEEP_DLL )
+#include	"basemonsterwithzombieai.h"
 
+class CZombie : public CBaseMonsterWithZombieAI
+{
+protected:
+
+	virtual void PrecacheModels();
+	virtual void SetModel();
+	virtual int GetFirstTimeSpawnHealth() const;
+
+	virtual int GetOneSlashAttackDamage() const;
+	virtual int GetBothSlashAttackDamage() const;
+};
+
+LINK_ENTITY_TO_CLASS(monster_zombie, CZombie);
+
+void CZombie::PrecacheModels()
+{
+	PRECACHE_MODEL("models/zombie.mdl");
+}
+
+void CZombie::SetModel()
+{
+	SET_MODEL(ENT(pev), "models/zombie.mdl");
+}
+
+int CZombie::GetFirstTimeSpawnHealth() const
+{
+	return gSkillData.zombieHealth;
+}
+
+int CZombie::GetOneSlashAttackDamage() const
+{
+	return gSkillData.zombieDmgOneSlash;
+}
+
+int CZombie::GetBothSlashAttackDamage() const
+{
+	return gSkillData.zombieDmgBothSlash;
+}
+#else
 
 //=========================================================
 // Monster's Anim Events Go Here
@@ -346,3 +387,4 @@ int CZombie::IgnoreConditions ( void )
 	return iIgnore;
 	
 }
+#endif // defined ( ASHEEP_DLL )

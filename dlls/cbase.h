@@ -103,6 +103,12 @@ typedef void (CBaseEntity::*USEPTR)( CBaseEntity *pActivator, CBaseEntity *pCall
 #define CLASS_PLAYER_ALLY		11
 #define CLASS_PLAYER_BIOWEAPON	12 // hornets and snarks.launched by players
 #define CLASS_ALIEN_BIOWEAPON	13 // hornets and snarks.launched by the alien menace
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+#define CLASS_ARCHER			14
+#define CLASS_KATE				15
+#define CLASS_SPECIAL_FORCE		16
+#define CLASS_RAT				17
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 #define	CLASS_BARNACLE			99 // special because no one pays attention to it, and it eats a wide cross-section of creatures.
 
 class CBaseEntity;
@@ -234,6 +240,9 @@ public:
 		pev->flags |= FL_KILLME;
 	};
 #endif
+#if defined ( ASHEEP_DLL )
+	virtual void OnRemove() {}
+#endif // defined( ASHEEP_DLL )
 
 	void UpdateOnRemove( void );
 
@@ -352,6 +361,9 @@ public:
 	int ammo_uranium;
 	int ammo_hornets;
 	int ammo_argrens;
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+	int ammo_medshots;
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 	//Special stuff for grenades and satchels.
 	float m_flStartThrow;
 	float m_flReleaseThrow;

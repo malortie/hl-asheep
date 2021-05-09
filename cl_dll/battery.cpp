@@ -103,10 +103,19 @@ int CHudBattery::Draw(float flTime)
 	rc.top  += m_iHeight * ((float)(100-(min(100,m_iBat))) * 0.01);	// battery can go from 0 to 100 so * 0.01 goes from 0 to 1
 #endif
 
+#if defined ( ASHEEP_CLIENT_DLL )
+	UnpackRGB(r, g, b, RGB_BLUEISH);
+#else
 	UnpackRGB(r,g,b, RGB_YELLOWISH);
+#endif //  defined ( ASHEEP_CLIENT_DLL )
 
+#if defined ( ASHEEP_CLIENT_DLL )
+	if (!(gHUD.m_iWeaponBits & (1 << (WEAPON_ARMOR))) && !(gHUD.m_iWeaponBits & (1 << (WEAPON_SUIT))))
+		return 1;
+#else
 	if (!(gHUD.m_iWeaponBits & (1<<(WEAPON_SUIT)) ))
 		return 1;
+#endif // defined ( ASHEEP_CLIENT_DLL )
 
 	// Has health changed? Flash the health #
 	if (m_fFade)

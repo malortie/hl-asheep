@@ -245,7 +245,11 @@ int CSatchel::GetItemInfo(ItemInfo *p)
 	p->iMaxAmmo2 = -1;
 	p->iMaxClip = WEAPON_NOCLIP;
 	p->iSlot = 4;
+#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
+	p->iPosition = 2;
+#else
 	p->iPosition = 1;
+#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 	p->iFlags = ITEM_FLAG_SELECTONEMPTY | ITEM_FLAG_LIMITINWORLD | ITEM_FLAG_EXHAUSTIBLE;
 	p->iId = m_iId = WEAPON_SATCHEL;
 	p->iWeight = SATCHEL_WEIGHT;
@@ -309,6 +313,16 @@ void CSatchel::Holster( int skiplocal /* = 0 */ )
 {
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5;
 	
+#if defined ( ASHEEP_WEAPONHOLSTER )
+	if (m_chargeReady)
+	{
+		DefaultHolster(SATCHEL_RADIO_HOLSTER, 16.0f / 30.0f, skiplocal, 0);
+	}
+	else
+	{
+		DefaultHolster(SATCHEL_DROP, 16.0f / 30.0f, skiplocal, 0);
+	}
+#else
 	if ( m_chargeReady )
 	{
 		SendWeaponAnim( SATCHEL_RADIO_HOLSTER );
@@ -317,6 +331,7 @@ void CSatchel::Holster( int skiplocal /* = 0 */ )
 	{
 		SendWeaponAnim( SATCHEL_DROP );
 	}
+#endif // defined ( ASHEEP_WEAPONHOLSTER )
 	EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_WEAPON, "common/null.wav", 1.0, ATTN_NORM);
 
 	if ( !m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] && !m_chargeReady )

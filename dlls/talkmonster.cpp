@@ -50,12 +50,21 @@ TYPEDESCRIPTION	CTalkMonster::m_SaveData[] =
 IMPLEMENT_SAVERESTORE( CTalkMonster, CBaseMonster );
 
 // array of friend names
+#if defined ( ASHEEP_DLL )
 char *CTalkMonster::m_szFriends[TLK_CFRIENDS] = 
 {
 	"monster_barney",
 	"monster_scientist",
 	"monster_sitting_scientist",
 };
+#else
+char *CTalkMonster::m_szFriends[TLK_CFRIENDS] = 
+{
+	"monster_barney",
+	"monster_scientist",
+	"monster_sitting_scientist",
+};
+#endif // defined ( ASHEEP_DLL )
 
 
 //=========================================================
