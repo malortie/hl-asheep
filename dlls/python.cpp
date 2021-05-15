@@ -160,7 +160,7 @@ void CPython::SecondaryAttack( void )
 		m_pPlayer->pev->fov = m_pPlayer->m_iFOV = 40;
 	}
 
-	m_flNextSecondaryAttack = 0.5;
+	m_flNextSecondaryAttack = GetNextAttackDelay(0.5);
 }
 
 void CPython::PrimaryAttack()
