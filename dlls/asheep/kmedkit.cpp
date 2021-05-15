@@ -240,7 +240,7 @@ void CKMedkitSentence::PlaySentence(CBasePlayer* player, const char* sentence, f
 #if !defined ( CLIENT_DLL )
 	char szSentence[128];
 	std::strcpy(szSentence, "!");
-	strncat(szSentence, sentence, ARRAYSIZE(szSentence));
+	std::strncat(szSentence, sentence, ARRAYSIZE(szSentence));
 
 	EMIT_SOUND_DYN(player->edict(), CHAN_VOICE, szSentence, 0.8, ATTN_NORM, 0, 100);
 
@@ -262,7 +262,7 @@ void CKMedkitSentence::PlaySentenceFromPercentage(
 	if (percent == 100)
 	{
 		std::strcpy(szPercent, "!");
-		strncat(szPercent, GetSentenceOneHundred(), ARRAYSIZE(szPercent));
+		std::strncat(szPercent, GetSentenceOneHundred(), ARRAYSIZE(szPercent));
 	}
 	else
 	{
