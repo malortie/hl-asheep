@@ -588,7 +588,7 @@ float CBaseMonsterWithIchthyosaurAI::VectorToPitch(const Vector &vec)
 		pitch = 0;
 	else
 	{
-		pitch = (int)(std::atan2(vec.z, sqrt(vec.x*vec.x + vec.y*vec.y)) * 180 / M_PI);
+		pitch = (int)(std::atan2(vec.z, std::sqrt(vec.x*vec.x + vec.y*vec.y)) * 180 / M_PI);
 		if (pitch < 0)
 			pitch += 360;
 	}
