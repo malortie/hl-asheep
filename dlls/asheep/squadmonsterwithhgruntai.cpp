@@ -246,11 +246,6 @@ int CSquadMonsterWithHGruntAI :: ISoundMask ( void )
 //=========================================================
 BOOL CSquadMonsterWithHGruntAI :: FOkToSpeak( void )
 {
-#if defined ( ASHEEP_DLL )
-	// Do not speak on outro level.
-	if (GetAsheepGlobalsSingleton()->IsMapOutro())
-		return FALSE;
-#endif // defined ( ASHEEP_DLL )
 
 // if someone else is talking, don't speak
 	if (gpGlobals->time <= CTalkMonster::g_talkWaitTime)

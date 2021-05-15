@@ -1,7 +1,6 @@
 #ifndef ASHEEP_SERVERSIDE_UTILS_H__
 #define ASHEEP_SERVERSIDE_UTILS_H__
 
-#include "asheep_globals.h"
 #include "asheep_messages.h"
 #include "hev_mediator.h"
 

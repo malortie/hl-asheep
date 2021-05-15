@@ -1109,10 +1109,6 @@ public:
 LINK_ENTITY_TO_CLASS( trigger_once, CTriggerOnce );
 void CTriggerOnce::Spawn( void )
 {
-#if defined ( ASHEEP_DLL )
-	if (!FStringNull(pev->message) && !Message_MessagesAllowedInCurrentMap())
-		pev->message = iStringNull;
-#endif // defined ( ASHEEP_DLL )
 
 	m_flWait = -1;
 	

@@ -209,15 +209,6 @@ void CApache :: Killed( entvars_t *pevAttacker, int iGib )
 	pev->health = 0;
 	pev->takedamage = DAMAGE_NO;
 
-#if defined ( ASHEEP_DLL )
-	// On map asmap00b, force the apache to keep falling
-	// until it hits the ground.
-	if (GetAsheepGlobalsSingleton()->IsMapAsmap00b())
-	{
-		m_flNextRocket = gpGlobals->time + 15.0;
-		return;
-	}
-#endif // defined ( ASHEEP_DLL )
 	if (pev->spawnflags & SF_NOWRECKAGE)
 	{
 		m_flNextRocket = gpGlobals->time + 4.0;

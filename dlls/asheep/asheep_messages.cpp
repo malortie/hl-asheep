@@ -111,7 +111,3 @@ void Message_RemoveTrainingMapMessages()
 		pRemoveMessageEntities->Spawn();
 }
 
-BOOL Message_MessagesAllowedInCurrentMap()
-{
-	return !GetAsheepGlobalsSingleton()->IsMapPartOfTraining();
-}
