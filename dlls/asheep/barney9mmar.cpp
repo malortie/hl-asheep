@@ -92,7 +92,7 @@ void CBarney9MMAR::PrecacheEvents()
 
 void CBarney9MMAR::GiveFirstTimeSpawnDefaultAmmo()
 {
-	m_iDefaultAmmo = MP5_DEFAULT_GIVE;
+	m_iDefaultAmmo = BARNEY9MMAR_DEFAULT_GIVE;
 }
 
 const unsigned short& CBarney9MMAR::GetFireEvent() const
