@@ -130,8 +130,8 @@ void CPython::Holster( int skiplocal /* = 0 */ )
 	}
 
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 1.0;
-	m_flTimeWeaponIdle = UTIL_SharedRandomFloat( m_pPlayer->random_seed, 10, 15 );
 #if defined ( ASHEEP_WEAPONHOLSTER )
+	m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + UTIL_SharedRandomFloat( m_pPlayer->random_seed, 10, 15 );
 	DefaultHolster(PYTHON_HOLSTER, 16.0f / 30.0f, skiplocal, 0);
 #else
 	SendWeaponAnim( PYTHON_HOLSTER );
@@ -272,22 +272,22 @@ void CPython::WeaponIdle( void )
 	if (flRand <= 0.5)
 	{
 		iAnim = PYTHON_IDLE1;
-		m_flTimeWeaponIdle = (70.0/30.0);
+		m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + (70.0/30.0);
 	}
 	else if (flRand <= 0.7)
 	{
 		iAnim = PYTHON_IDLE2;
-		m_flTimeWeaponIdle = (60.0/30.0);
+		m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + (60.0/30.0);
 	}
 	else if (flRand <= 0.9)
 	{
 		iAnim = PYTHON_IDLE3;
-		m_flTimeWeaponIdle = (88.0/30.0);
+		m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + (88.0/30.0);
 	}
 	else
 	{
 		iAnim = PYTHON_FIDGET;
-		m_flTimeWeaponIdle = (170.0/30.0);
+		m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + (170.0/30.0);
 	}
 	
 	int bUseScope = FALSE;
