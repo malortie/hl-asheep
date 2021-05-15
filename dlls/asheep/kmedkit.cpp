@@ -36,7 +36,6 @@ public:
 
 	virtual void Init();
 	virtual float GetSentenceDuration(char* sentence);
-	BOOL IsSentenceValid(const char* sentence);
 	BOOL ShouldPercentageSentenceBePlayedInTwoParts(int percent);
 
 	virtual const char* GetSentenceSayHealth() const;
@@ -226,18 +225,6 @@ float CKMedkitSentence::GetSentenceDuration(char* sentence)
 		length = 0;
 
 	return length;
-}
-
-BOOL CKMedkitSentence::IsSentenceValid(const char* sentence)
-{
-	BOOL foundSentence = FALSE;
-	for (size_t i = 0; i < ARRAYSIZE(m_KMedkitSentences) && !foundSentence; i++)
-	{
-		if (std::strcmp(sentence, m_KMedkitSentences[i]))
-			foundSentence = TRUE;
-	}
-
-	return foundSentence;
 }
 
 BOOL CKMedkitSentence::ShouldPercentageSentenceBePlayedInTwoParts(int percent)
