@@ -670,7 +670,7 @@ void CKMedkit::DisplayTargetHealth()
 	static char formattedTargetHealth[64];
 	static hudtextparms_t params;
 
-	memset(formattedTargetHealth, 0, ARRAYSIZE(formattedTargetHealth));
+	std::memset(formattedTargetHealth, 0, ARRAYSIZE(formattedTargetHealth));
 	std::snprintf(formattedTargetHealth, ARRAYSIZE(formattedTargetHealth), "Kate's Health: %d", m_targetHealth);
 
 	GetTextColorForHealth(m_targetHealth, params.r1, params.g1, params.b1);
