@@ -44,6 +44,7 @@ LINK_ENTITY_TO_CLASS(toadweaponmonster, CToadWeaponMonster);
 TYPEDESCRIPTION CToadWeaponMonster::m_SaveData[] = 
 {
 	DEFINE_FIELD(CToadWeaponMonster, m_iMode, FIELD_INTEGER),
+	DEFINE_FIELD(CToadWeaponMonster, m_scaryEntity, FIELD_EHANDLE),
 	DEFINE_FIELD(CToadWeaponMonster, m_flNextSoundTime, FIELD_TIME),
 };
 
