@@ -187,7 +187,7 @@ void CBaseWeaponARWithGrenadeLauncher::SecondaryAttack( void )
 	PLAYBACK_EVENT( flags, m_pPlayer->edict(), GetGrenadeLaunchEvent());
 	
 	m_flNextPrimaryAttack = GetNextAttackDelay(GetSecondaryFireRate());
-	m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + GetSecondaryFireRate();
+	m_flNextSecondaryAttack = GetNextAttackDelay(GetSecondaryFireRate());
 	m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 5;// idle pretty soon after shooting.
 
 	if (!HasSecondaryAmmo() && IsAllowedToNotifyOutOfAmmo())
