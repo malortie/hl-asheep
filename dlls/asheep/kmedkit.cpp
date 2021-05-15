@@ -160,67 +160,67 @@ float CKMedkitSentence::GetSentenceDuration(char* sentence)
 
 	float length = 0;
 
-	if (!strcmp(sentence, GetSentenceSayHealth()))
+	if (!std::strcmp(sentence, GetSentenceSayHealth()))
 		length = 1.618f;
-	else if (!strcmp(sentence, GetSentenceVitalSigns()))
+	else if (!std::strcmp(sentence, GetSentenceVitalSigns()))
 		length = 2.274f;
-	else if (!strcmp(sentence, GetSentencePercent()))
+	else if (!std::strcmp(sentence, GetSentencePercent()))
 		length = 0.762f;
-	else if (!strcmp(sentence, GetSentenceOne()))
+	else if (!std::strcmp(sentence, GetSentenceOne()))
 		length = 0.703f;
-	else if (!strcmp(sentence, GetSentenceTwo()))
+	else if (!std::strcmp(sentence, GetSentenceTwo()))
 		length = 0.674f;
-	else if (!strcmp(sentence, GetSentenceThree()))
+	else if (!std::strcmp(sentence, GetSentenceThree()))
 		length = 0.776f;
-	else if (!strcmp(sentence, GetSentenceFour()))
+	else if (!std::strcmp(sentence, GetSentenceFour()))
 		length = 0.776f;
-	else if (!strcmp(sentence, GetSentenceFive()))
+	else if (!std::strcmp(sentence, GetSentenceFive()))
 		length = 0.879f;
-	else if (!strcmp(sentence, GetSentenceSix()))
+	else if (!std::strcmp(sentence, GetSentenceSix()))
 		length = 0.832f;
-	else if (!strcmp(sentence, GetSentenceSeven()))
+	else if (!std::strcmp(sentence, GetSentenceSeven()))
 		length = 0.774f;
-	else if (!strcmp(sentence, GetSentenceEight()))
+	else if (!std::strcmp(sentence, GetSentenceEight()))
 		length = 0.58f;
-	else if (!strcmp(sentence, GetSentenceNine()))
+	else if (!std::strcmp(sentence, GetSentenceNine()))
 		length = 0.832f;
-	else if (!strcmp(sentence, GetSentenceTen()))
+	else if (!std::strcmp(sentence, GetSentenceTen()))
 		length = 0.582f;
-	else if (!strcmp(sentence, GetSentenceEleven()))
+	else if (!std::strcmp(sentence, GetSentenceEleven()))
 		length = 0.744f;
-	else if (!strcmp(sentence, GetSentenceTwelve()))
+	else if (!std::strcmp(sentence, GetSentenceTwelve()))
 		length = 0.8f;
-	else if (!strcmp(sentence, GetSentenceThirteen()))
+	else if (!std::strcmp(sentence, GetSentenceThirteen()))
 		length = 0.996f;
-	else if (!strcmp(sentence, GetSentenceFourteen()))
+	else if (!std::strcmp(sentence, GetSentenceFourteen()))
 		length = 0.940f;
-	else if (!strcmp(sentence, GetSentenceFifteen()))
+	else if (!std::strcmp(sentence, GetSentenceFifteen()))
 		length = 0.982f;
-	else if (!strcmp(sentence, GetSentenceSixteen()))
+	else if (!std::strcmp(sentence, GetSentenceSixteen()))
 		length = 1.038f;
-	else if (!strcmp(sentence, GetSentenceSeventeen()))
+	else if (!std::strcmp(sentence, GetSentenceSeventeen()))
 		length = 1.059f;
-	else if (!strcmp(sentence, GetSentenceEighteen()))
+	else if (!std::strcmp(sentence, GetSentenceEighteen()))
 		length = 0.809f;
-	else if (!strcmp(sentence, GetSentenceNineteen()))
+	else if (!std::strcmp(sentence, GetSentenceNineteen()))
 		length = 0.906f;
-	else if (!strcmp(sentence, GetSentenceTwenty()))
+	else if (!std::strcmp(sentence, GetSentenceTwenty()))
 		length = 0.822f;
-	else if (!strcmp(sentence, GetSentenceThirty()))
+	else if (!std::strcmp(sentence, GetSentenceThirty()))
 		length = 0.867f;
-	else if (!strcmp(sentence, GetSentenceFourty()))
+	else if (!std::strcmp(sentence, GetSentenceFourty()))
 		length = 0.903f;
-	else if (!strcmp(sentence, GetSentenceFifty()))
+	else if (!std::strcmp(sentence, GetSentenceFifty()))
 		length = 0.998f;
-	else if (!strcmp(sentence, GetSentenceSixty()))
+	else if (!std::strcmp(sentence, GetSentenceSixty()))
 		length = 0.991f;
-	else if (!strcmp(sentence, GetSentenceSeventy()))
+	else if (!std::strcmp(sentence, GetSentenceSeventy()))
 		length = 0.956f;
-	else if (!strcmp(sentence, GetSentenceEighty()))
+	else if (!std::strcmp(sentence, GetSentenceEighty()))
 		length = 0.708f;
-	else if (!strcmp(sentence, GetSentenceNinety()))
+	else if (!std::strcmp(sentence, GetSentenceNinety()))
 		length = 0.956f;
-	else if (!strcmp(sentence, GetSentenceOneHundred()))
+	else if (!std::strcmp(sentence, GetSentenceOneHundred()))
 		length = 0.987f;
 	else
 		length = 0;
@@ -233,7 +233,7 @@ BOOL CKMedkitSentence::IsSentenceValid(const char* sentence)
 	BOOL foundSentence = FALSE;
 	for (size_t i = 0; i < ARRAYSIZE(m_KMedkitSentences) && !foundSentence; i++)
 	{
-		if (strcmp(sentence, m_KMedkitSentences[i]))
+		if (std::strcmp(sentence, m_KMedkitSentences[i]))
 			foundSentence = TRUE;
 	}
 
@@ -443,12 +443,7 @@ void CKMedkit::SecondaryAttack(void)
 void CKMedkit::Holster(int skiplocal /*= 0*/)
 {
 	ResetVariables();
-#if defined ( ASHEEP_WEAPONHOLSTER )
 	DefaultHolster(KMEDKIT_HOLSTER, 16.0f / 30.0f, skiplocal, 0);
-#else
-	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5;
-	SendWeaponAnim(KMEDKIT_HOLSTER);
-#endif // defined ( ASHEEP_WEAPONHOLSTER )
 }
 
 void CKMedkit::WeaponIdle(void)
