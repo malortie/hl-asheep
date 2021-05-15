@@ -1596,7 +1596,6 @@ TYPEDESCRIPTION	CBaseWeaponShotgun::m_SaveData[] =
 {
 	DEFINE_FIELD( CBaseWeaponShotgun, m_flNextReload, FIELD_TIME ),
 	DEFINE_FIELD( CBaseWeaponShotgun, m_fInSpecialReload, FIELD_INTEGER ),
-	DEFINE_FIELD( CBaseWeaponShotgun, m_flNextReload, FIELD_TIME ),
 	DEFINE_FIELD( CBaseWeaponShotgun, m_flPumpTime, FIELD_TIME ),
 };
 IMPLEMENT_SAVERESTORE( CBaseWeaponShotgun, CBasePlayerWeapon );
