@@ -166,5 +166,5 @@ void CTriggerKateHealth::HealKate()
 	if (kate)
 		kate->TakeHealth(kate->pev->max_health, DMG_GENERIC);
 	else
-		ALERT(at_error, "Failed to find entity named %s.\n", STRING(pev->targetname));
+		ALERT(at_error, "Failed to find entity named %s.\n", STRING(m_kateName));
 }
