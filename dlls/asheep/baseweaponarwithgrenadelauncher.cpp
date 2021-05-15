@@ -155,6 +155,7 @@ void CBaseWeaponARWithGrenadeLauncher::SecondaryAttack( void )
 	if (m_pPlayer->m_rgAmmo[m_iSecondaryAmmoType] == 0)
 	{
 		PlayEmptySound( );
+		m_flNextSecondaryAttack = GetNextAttackDelay(0.15);
 		return;
 	}
 
