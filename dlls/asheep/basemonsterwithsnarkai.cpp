@@ -53,10 +53,8 @@ int CBaseMonsterWithSnarkAI::Classify(void)
 		case CLASS_PLAYER:
 		case CLASS_HUMAN_PASSIVE:
 		case CLASS_HUMAN_MILITARY:
-#if defined ( ASHEEP_DLL )
 		case CLASS_KATE:
 		case CLASS_SPECIAL_FORCE:
-#endif // defined ( ASHEEP_DLL )
 			m_iMyClass = 0;
 			return CLASS_ALIEN_MILITARY; // barney's get mad, grunts get mad at it
 		}
@@ -363,7 +361,7 @@ void CBaseMonsterWithSnarkAI::SetVoicePitch()
 float CBaseMonsterWithSnarkAI::GetVoicePitch()
 {
 	// higher pitch as squeeker gets closer to detonation time
-	return fabs(m_maxVoicePitch - m_minVoicePitch * ((m_flDie - gpGlobals->time) / GetDetonateDelay()));
+	return std::abs(m_maxVoicePitch - m_minVoicePitch * ((m_flDie - gpGlobals->time) / GetDetonateDelay()));
 }
 
 void CBaseMonsterWithSnarkAI::GibSound()
