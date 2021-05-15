@@ -318,7 +318,7 @@ void CRpg::Reload( void )
 	if ( m_pSpot && m_fSpotActive )
 	{
 		m_pSpot->Suspend( 2.1 );
-		m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + 2.1;
+		m_flNextSecondaryAttack = GetNextAttackDelay(2.1);
 	}
 #endif
 
@@ -506,7 +506,7 @@ void CRpg::SecondaryAttack()
 	}
 #endif
 
-	m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + 0.2;
+	m_flNextSecondaryAttack = GetNextAttackDelay(0.2);
 }
 
 
