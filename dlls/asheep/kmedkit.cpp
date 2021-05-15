@@ -275,7 +275,7 @@ void CKMedkitSentence::PlaySentenceFromPercentage(
 				percent %= 10; // Get Ones digit + digit 0 in number.
 		}
 
-		snprintf(szPercent, ARRAYSIZE(szPercent), "!KA_HEALTH%d", percent);
+		std::snprintf(szPercent, ARRAYSIZE(szPercent), "!KA_HEALTH%d", percent);
 	}
 
 	EMIT_SOUND_DYN(player->edict(), CHAN_AUTO, szPercent, 0.8, ATTN_NORM, 0, 100);
@@ -671,7 +671,7 @@ void CKMedkit::DisplayTargetHealth()
 	static hudtextparms_t params;
 
 	memset(formattedTargetHealth, 0, ARRAYSIZE(formattedTargetHealth));
-	snprintf(formattedTargetHealth, ARRAYSIZE(formattedTargetHealth), "Kate's Health: %d", m_targetHealth);
+	std::snprintf(formattedTargetHealth, ARRAYSIZE(formattedTargetHealth), "Kate's Health: %d", m_targetHealth);
 
 	GetTextColorForHealth(m_targetHealth, params.r1, params.g1, params.b1);
 	params.a1 = 255;
