@@ -24,8 +24,6 @@
 #include "weapons.h"
 #include "toadweaponmonster.h"
 
-float Square(float x) { return x * x; }
-
 #define TOAD_LOOK_DISTANCE		200
 #define TOAD_WALK_FRAMERATE		3.0f
 
