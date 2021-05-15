@@ -92,7 +92,7 @@ void C9MMM41A::PrecacheEvents()
 
 void C9MMM41A::GiveFirstTimeSpawnDefaultAmmo()
 {
-	m_iDefaultAmmo = MP5_DEFAULT_GIVE;
+	m_iDefaultAmmo = _9MMM41A_DEFAULT_GIVE;
 }
 
 const unsigned short& C9MMM41A::GetFireEvent() const
