@@ -88,8 +88,6 @@ void CGarbage::Spawn()
 	SetThink(&CGarbage::SUB_DoNothing);
 }
 
-int GetModelCountForBodyGroup(edict_t* edict, int iBodyGroup);
-
 const char* CGarbage::ChooseModel()
 {
 	switch (pev->body)
