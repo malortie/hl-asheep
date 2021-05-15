@@ -97,18 +97,6 @@ BOOL CBasePlayerWeapon::HasSecondaryAmmo()
 	return FALSE;
 }
 
-BOOL CBasePlayerWeapon::HasAnyAmmo()
-{
-	// If I don't use ammo of any kind, I can always fire
-	if (!UsesPrimaryAmmo() && !UsesSecondaryAmmo())
-		return TRUE;
-
-	// Otherwise, I need ammo of either type
-	return (HasPrimaryAmmo() || HasSecondaryAmmo()) 
-		? TRUE : FALSE;
-}
-
-
 BOOL CBasePlayerWeapon::UsesClipsForAmmo()
 {
 	return iMaxClip() != WEAPON_NOCLIP;

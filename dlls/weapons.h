@@ -456,7 +456,6 @@ public:
 	BOOL HasPrimaryAmmo();
 	BOOL HasSecondaryAmmo();
 	BOOL UsesClipsForAmmo();
-	BOOL HasAnyAmmo();
 	int GetPrimaryAmmoCount();
 	int GetSecondaryAmmoCount();
 	BOOL IsAllowedToNotifyOutOfAmmo();
