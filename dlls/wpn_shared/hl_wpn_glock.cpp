@@ -160,7 +160,7 @@ float CGlock::PlayIdleAnimation()
 	if (flRand <= 0.3 + 0 * 0.75)
 	{
 		iAnim = GLOCK_IDLE3;
-		duration = 49.0 / 16;
+		duration = 49.0 / 16.0;
 	}
 	else if (flRand <= 0.6 + 0 * 0.875)
 	{
