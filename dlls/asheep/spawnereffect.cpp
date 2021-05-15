@@ -173,7 +173,7 @@ void CSpawnerEffect::KeyValue(KeyValueData* pkvd)
 	}
 	else if (FStrEq(pkvd->szKeyName, "spritescale"))
 	{
-		m_spriteScale = (float)atof(pkvd->szValue);
+		m_spriteScale = std::atof(pkvd->szValue);
 		pkvd->fHandled = TRUE;
 	}
 	else if (FStrEq(pkvd->szKeyName, "spawnsoundrad"))
@@ -183,7 +183,7 @@ void CSpawnerEffect::KeyValue(KeyValueData* pkvd)
 	}
 	else if (FStrEq(pkvd->szKeyName, "spawnvol"))
 	{
-		m_spawnVolume = (float)atof(pkvd->szValue);
+		m_spawnVolume = std::atof(pkvd->szValue);
 		pkvd->fHandled = TRUE;
 	}
 	else if (FStrEq(pkvd->szKeyName, "lightrad"))
