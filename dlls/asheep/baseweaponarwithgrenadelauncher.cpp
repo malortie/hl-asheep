@@ -148,7 +148,7 @@ void CBaseWeaponARWithGrenadeLauncher::SecondaryAttack( void )
 	if (m_pPlayer->pev->waterlevel == 3)
 	{
 		PlayEmptySound( );
-		m_flNextPrimaryAttack = 0.15;
+		m_flNextSecondaryAttack = GetNextAttackDelay(0.15);
 		return;
 	}
 
