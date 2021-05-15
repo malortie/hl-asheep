@@ -163,12 +163,12 @@ void CSpawnerEffect::KeyValue(KeyValueData* pkvd)
 {
 	if (FStrEq(pkvd->szKeyName, "spawntype"))
 	{
-		m_spawnType = atoi(pkvd->szValue);
+		m_spawnType = std::atoi(pkvd->szValue);
 		pkvd->fHandled = TRUE;
 	}
 	else if (FStrEq(pkvd->szKeyName, "beamcount"))
 	{
-		m_beamCount = atoi(pkvd->szValue);
+		m_beamCount = std::atoi(pkvd->szValue);
 		pkvd->fHandled = TRUE;
 	}
 	else if (FStrEq(pkvd->szKeyName, "spritescale"))
@@ -178,7 +178,7 @@ void CSpawnerEffect::KeyValue(KeyValueData* pkvd)
 	}
 	else if (FStrEq(pkvd->szKeyName, "spawnsoundrad"))
 	{
-		m_spawnSoundRadius = atoi(pkvd->szValue);
+		m_spawnSoundRadius = std::atoi(pkvd->szValue);
 		pkvd->fHandled = TRUE;
 	}
 	else if (FStrEq(pkvd->szKeyName, "spawnvol"))
@@ -188,7 +188,7 @@ void CSpawnerEffect::KeyValue(KeyValueData* pkvd)
 	}
 	else if (FStrEq(pkvd->szKeyName, "lightrad"))
 	{
-		m_lightRadius = atoi(pkvd->szValue);
+		m_lightRadius = std::atoi(pkvd->szValue);
 		pkvd->fHandled = TRUE;
 	}
 	else
