@@ -446,7 +446,7 @@ void CCrossbow::FireBolt()
 
 	m_flNextPrimaryAttack = GetNextAttackDelay(0.75);
 
-	m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + 0.75;
+	m_flNextSecondaryAttack = GetNextAttackDelay(0.75);
 
 	if (m_iClip != 0)
 		m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 5.0;
@@ -469,7 +469,7 @@ void CCrossbow::SecondaryAttack()
 	}
 	
 	pev->nextthink = UTIL_WeaponTimeBase() + 0.1;
-	m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + 1.0;
+	m_flNextSecondaryAttack = GetNextAttackDelay(1.0);
 }
 
 
