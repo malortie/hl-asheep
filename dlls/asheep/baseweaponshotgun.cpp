@@ -240,7 +240,7 @@ void CBaseWeaponShotgun::Reload(void)
 		m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + animDuration;
 		m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + animDuration;
 		m_flNextPrimaryAttack = GetNextAttackDelay(GetNextAttackDelayAfterStartReload());
-		m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + GetNextAttackDelayAfterStartReload();
+		m_flNextSecondaryAttack = GetNextAttackDelay(GetNextAttackDelayAfterStartReload());
 		return;
 	}
 	else if (m_fInSpecialReload == 1)
