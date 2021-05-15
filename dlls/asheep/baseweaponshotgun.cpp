@@ -136,7 +136,7 @@ void CBaseWeaponShotgun::PrimaryAttack()
 		m_flPumpTime = gpGlobals->time + GetPumpSoundDelayAfterSingleFire();
 
 	m_flNextPrimaryAttack = GetNextAttackDelay(GetPrimaryFireRate());
-	m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + GetPrimaryFireRate();
+	m_flNextSecondaryAttack = GetNextAttackDelay(GetPrimaryFireRate());
 	if (m_iClip != 0)
 		m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + GetIdleAnimationDelayAfterPrimaryAttackWithNoEmptyClip();
 	else
