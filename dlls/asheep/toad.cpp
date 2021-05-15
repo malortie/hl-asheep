@@ -80,8 +80,8 @@ void CToad::SetModel()
 
 void CToad::SetVoicePitch()
 {
-	m_minVoicePitch = 60.0;
-	m_maxVoicePitch = 155.0;
+	m_minVoicePitch = 60;
+	m_maxVoicePitch = 155;
 }
 
 float CToad::GetFirstTimeSpawnHealth()
