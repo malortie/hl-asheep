@@ -163,7 +163,7 @@ float CToadWeapon::PlayIdleAnimation()
 	if (flRand <= 0.75)
 	{
 		iAnim = TOADWEAPON_IDLE1;
-		duration = 30.0 / 16 * (2);
+		duration = 30.0 / 16.0;
 	}
 	else if (flRand <= 0.875)
 	{
