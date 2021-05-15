@@ -477,9 +477,6 @@ void CWorld :: Spawn( void )
 	g_fGameOver = FALSE;
 	Precache( );
 	g_flWeaponCheat = CVAR_GET_FLOAT( "sv_cheats" );  // Is the impulse 101 command allowed?
-#if defined ( ASHEEP_MAPFIXES )
-	MapFixes_ApplyAllPossibleFixes();
-#endif // defined ( ASHEEP_MAPFIXES )
 }
 
 void CWorld :: Precache( void )

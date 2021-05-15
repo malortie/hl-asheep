@@ -23,9 +23,6 @@
 #include	"schedule.h"
 #if defined ( ASHEEP_DLL )
 #include "basemonsterwithheadcrabai.h"
-#if defined ( ASHEEP_MAPFIXES )
-#include "asheep_serverside_utils.h"
-#endif // defined ( ASHEEP_MAPFIXES )
 
 class CRat : public CBaseMonsterWithHeadCrabAI
 {

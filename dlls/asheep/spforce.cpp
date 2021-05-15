@@ -28,9 +28,6 @@
 #include	"customentity.h"
 #include	"squadmonsterwithhgruntai.h"
 #include	"spforce.h"
-#if defined ( ASHEEP_MAPFIXES )
-#include	"asheep_serverside_utils.h"
-#endif // defined ( ASHEEP_MAPFIXES )
 
 #define	SPFORCE_WEAPON1_CLIP_SIZE 36
 #define	SPFORCE_WEAPON2_CLIP_SIZE 15
@@ -145,14 +142,6 @@ int	CSpForce::Classify(void)
 
 int CSpForce::IRelationship(CBaseEntity *pTarget)
 {
-#if defined ( ASHEEP_MAPFIXES )
-	// Used to make it shoot at the jeep in
-	// the end scene level.
-	if (MapFixes_CheckIfEntityIsOutroJeep(pTarget))
-	{
-		return R_NM;
-	}
-#endif // defined ( ASHEEP_MAPFIXES )
 
 	return BaseClass::IRelationship(pTarget);
 }

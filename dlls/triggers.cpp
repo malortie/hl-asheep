@@ -1062,13 +1062,6 @@ LINK_ENTITY_TO_CLASS( trigger_multiple, CTriggerMultiple );
 
 void CTriggerMultiple :: Spawn( void )
 {
-#if defined ( ASHEEP_MAPFIXES )
-	if (MapFixes_CheckIfOnlyKateShouldActivateTrigger(this))
-	{
-		ALERT(at_aiconsole, "Applying kate only trigger fixes.\n");
-		pev->spawnflags = SF_TRIGGER_NOCLIENTS | SF_TRIGGER_KATEONLY;
-	}
-#endif // defined ( ASHEEP_MAPFIXES )
 	if (m_flWait == 0)
 		m_flWait = 0.2;
 
@@ -1121,18 +1114,6 @@ void CTriggerOnce::Spawn( void )
 		pev->message = iStringNull;
 #endif // defined ( ASHEEP_DLL )
 
-#if defined ( ASHEEP_MAPFIXES )
-	if (MapFixes_CheckIfOnlyKateShouldActivateTrigger(this))
-	{
-		ALERT(at_aiconsole, "Applying kate only trigger fixes.\n");
-		pev->spawnflags = SF_TRIGGER_NOCLIENTS | SF_TRIGGER_KATEONLY;
-	}
-	if (MapFixes_CheckIfShouldTeleportKateToHealingSequence(this))
-	{
-		ALERT(at_aiconsole, "Applying kate healing sequence fix.\n");
-		MapFixes_FixupTriggerForAsmap06KateHealingSequence(this);
-	}
-#endif // defined ( ASHEEP_MAPFIXES )
 	m_flWait = -1;
 	
 	CTriggerMultiple :: Spawn();
@@ -2495,40 +2476,4 @@ void CTriggerSound::Use(CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE 
 }
 #endif // defined ( ASHEEP_DLL )
 
-#if defined ( ASHEEP_MAPFIXES )
-class CTriggerTeleportUsePlayerAngles : public CBaseTrigger
-{
-public:
-	void Spawn(void);
-	void EXPORT TeleportUsePlayerAnglesTouch(CBaseEntity* pOther);
-};
-LINK_ENTITY_TO_CLASS(trigger_teleportuseplayerangles, CTriggerTeleportUsePlayerAngles);
 
-void CTriggerTeleportUsePlayerAngles::Spawn(void)
-{
-	InitTrigger();
-
-	SetTouch(&CTriggerTeleportUsePlayerAngles::TeleportUsePlayerAnglesTouch);
-}
-
-void EXPORT CTriggerTeleportUsePlayerAngles::TeleportUsePlayerAnglesTouch(CBaseEntity* pOther)
-{
-	if (pOther == NULL || !pOther->IsPlayer() || FStringNull(pev->target))
-		return;
-
-	CBaseEntity* pTarget = UTIL_FindEntityByTargetname(NULL, STRING(pev->target));
-	if (pTarget != NULL)
-	{
-		ALERT(at_aiconsole, "Teleporting to: %s\n", STRING(pev->target));
-
-		// Set target destination angles identical
-		// to toucher's.
-		pTarget->pev->angles = pOther->pev->v_angle;
-
-		// Zero out toucher's velocity.
-		pOther->pev->velocity = g_vecZero;
-
-		TeleportTouch(pOther);
-	}
-}
-#endif // defined ( ASHEEP_MAPFIXES )
