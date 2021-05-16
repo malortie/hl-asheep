@@ -14,8 +14,6 @@ enum TalkmonsterWithScientistAITasks
 	LAST_TALKMONSTER_WITH_AI_TASK, // Must be last.
 };
 
-class CTalkMonsterWithScientistAIUtil;
-
 class CTalkMonsterWithScientistAI : public CTalkMonster
 {
 	float m_painTime;
