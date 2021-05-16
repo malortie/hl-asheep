@@ -105,6 +105,11 @@ const unsigned short& C9MMM41A::GetGrenadeLaunchEvent() const
 	return m_us9MMM41A2;
 }
 
+float C9MMM41A::GetGrenadeDamage()
+{
+	return gSkillData.plrDmg9mmM41AGrenade;
+}
+
 int C9MMM41A::GetBulletType()
 {
 	return BULLET_PLAYER_9MMM41A;

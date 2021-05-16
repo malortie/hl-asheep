@@ -44,6 +44,7 @@ public:
 	virtual float GetPrimaryFireRate();
 	virtual float GetSecondaryFireRate();
 	virtual float GetGrenadeTossSpeed();
+	virtual float GetGrenadeDamage();
 	virtual int GetBulletType() = 0;
 
 	virtual const char* GetShellBrassModel();

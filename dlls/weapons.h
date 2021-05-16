@@ -31,7 +31,7 @@ public:
 	typedef enum { SATCHEL_DETONATE = 0, SATCHEL_RELEASE } SATCHELCODE;
 
 	static CGrenade *ShootTimed( entvars_t *pevOwner, Vector vecStart, Vector vecVelocity, float time );
-	static CGrenade *ShootContact( entvars_t *pevOwner, Vector vecStart, Vector vecVelocity );
+	static CGrenade *ShootContact( entvars_t *pevOwner, Vector vecStart, Vector vecVelocity, float flGrenadeDamage );
 	static CGrenade *ShootSatchelCharge( entvars_t *pevOwner, Vector vecStart, Vector vecVelocity );
 	static void UseSatchelCharges( entvars_t *pevOwner, SATCHELCODE code );
 
@@ -1416,7 +1416,7 @@ public:
 
 	const unsigned short& GetFireEvent() const;
 	const unsigned short& GetGrenadeLaunchEvent() const;
-
+	float GetGrenadeDamage();
 	int GetBulletType();
 
 	int GetDeploySequence();

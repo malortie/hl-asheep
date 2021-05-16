@@ -112,6 +112,7 @@ public:
 	virtual CSquadMonsterWithHGruntAIUtil* GetSharedUtils() const;
 
 	virtual int		GetKickDamage() const = 0;
+	virtual float	GetLaunchedGrenadeDamage() const;
 
 protected:
 

@@ -175,7 +175,7 @@ void CBaseWeaponARWithGrenadeLauncher::SecondaryAttack( void )
 	// we don't add in player velocity anymore.
 	CGrenade::ShootContact( m_pPlayer->pev, 
 							m_pPlayer->pev->origin + m_pPlayer->pev->view_ofs + gpGlobals->v_forward * 16, 
-							gpGlobals->v_forward * GetGrenadeTossSpeed() );
+							gpGlobals->v_forward * GetGrenadeTossSpeed(), GetGrenadeDamage() );
 
 	int flags;
 #if defined( CLIENT_WEAPONS )
@@ -247,6 +247,11 @@ float CBaseWeaponARWithGrenadeLauncher::GetSecondaryFireRate()
 float CBaseWeaponARWithGrenadeLauncher::GetGrenadeTossSpeed()
 {
 	return 800;	
+}
+
+float CBaseWeaponARWithGrenadeLauncher::GetGrenadeDamage()
+{
+	return gSkillData.plrDmgM203Grenade;
 }
 
 const char* CBaseWeaponARWithGrenadeLauncher::GetShellBrassModel()

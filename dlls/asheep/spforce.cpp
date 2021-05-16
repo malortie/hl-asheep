@@ -53,6 +53,7 @@ public:
 	virtual int IRelationship(CBaseEntity *pTarget);
 
 	virtual int GetKickDamage() const;
+	float GetLaunchedGrenadeDamage() const;
 	virtual BOOL IsWearingHelmet();
 
 	virtual BOOL IsUsingSecondaryWeapon() const;
@@ -149,6 +150,11 @@ int CSpForce::IRelationship(CBaseEntity *pTarget)
 int CSpForce::GetKickDamage() const
 {
 	return gSkillData.spforceDmgKick;
+}
+
+float CSpForce::GetLaunchedGrenadeDamage() const
+{
+	return gSkillData.plrDmg9mmM41AGrenade;
 }
 
 BOOL CSpForce::IsWearingHelmet()

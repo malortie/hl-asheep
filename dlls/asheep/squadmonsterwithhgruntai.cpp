@@ -2190,7 +2190,7 @@ void CSquadMonsterWithHGruntAI::PrecacheSounds()
 
 void CSquadMonsterWithHGruntAI::LaunchGrenade(const Vector& launchPosition, const Vector& launchVelocity)
 {
-	CGrenade::ShootContact(pev, launchPosition, launchVelocity);
+	CGrenade::ShootContact(pev, launchPosition, launchVelocity, GetLaunchedGrenadeDamage());
 }
 
 void CSquadMonsterWithHGruntAI::ShootEffects()
@@ -2227,6 +2227,11 @@ BOOL CSquadMonsterWithHGruntAI::HasWeapons(int weaponFlags) const
 Vector	CSquadMonsterWithHGruntAI::GetTossGrenadeOffset() const
 {
 	return GRENADE_THROW_OFFSET;
+}
+
+float CSquadMonsterWithHGruntAI::GetLaunchedGrenadeDamage() const
+{
+	return gSkillData.plrDmgM203Grenade;
 }
 
 CBaseEntity* CSquadMonsterWithHGruntAI::DropWeapon1()
