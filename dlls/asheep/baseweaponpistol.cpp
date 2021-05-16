@@ -189,7 +189,7 @@ void CBaseWeaponPistol::PrecacheModels()
 
 void CBaseWeaponPistol::PrecacheSounds()
 {
-	GetSharedUtils()->PrecacheCommonShotgunSounds();
+	GetSharedUtils()->PrecacheCommonPistolSounds();
 }
 
 void CBaseWeaponPistol::SetModel()
