@@ -351,6 +351,7 @@ void CGameRules::RefreshSkillData ( void )
 	gSkillData.plrDmgPoolstick = GetSkillCvar("sk_plr_poolstick");
 	gSkillData.plrDmgBeretta = GetSkillCvar("sk_plr_beretta_bullet");
 	gSkillData.plrDmg9mmM41A = GetSkillCvar("sk_plr_9mmM41A_bullet");
+	gSkillData.plrDmg9mmM41AGrenade = GetSkillCvar("sk_plr_9mmM41A_grenade");
 
 	gSkillData.kmedkitHeal = GetSkillCvar("sk_kmedkit_heal");
 #endif // defined  ( ASHEEP_DLL )

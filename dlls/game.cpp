@@ -50,10 +50,10 @@ cvar_t	*g_footsteps = NULL;
 
 //CVARS FOR SKILL LEVEL SETTINGS
 #if defined ( ASHEEP_DLL )
-#define DEFINE_SKILL_CVAR( _cvarName, _defaultValue ) \
-	cvar_t	_cvarName##1 = { #_cvarName##"1" , #_defaultValue}; \
-	cvar_t	_cvarName##2 = { #_cvarName##"2", #_defaultValue }; \
-	cvar_t	_cvarName##3 = { #_cvarName##"3", #_defaultValue };
+#define DEFINE_SKILL_CVAR( _cvarName, _skill1Value, _skill2Value, _skill3Value ) \
+	cvar_t	_cvarName##1 = { #_cvarName##"1" , #_skill1Value}; \
+	cvar_t	_cvarName##2 = { #_cvarName##"2", #_skill2Value }; \
+	cvar_t	_cvarName##3 = { #_cvarName##"3", #_skill3Value };
 
 #define REGISTER_SKILL_CVAR( _skillCVarVariable ) \
 	CVAR_REGISTER( &_skillCVarVariable##1 ); \
@@ -460,57 +460,58 @@ cvar_t	sk_player_leg2	= { "sk_player_leg2","1" };
 cvar_t	sk_player_leg3	= { "sk_player_leg3","1" };
 
 #if defined ( ASHEEP_DLL )
-DEFINE_SKILL_CVAR(sk_adrian_health, 0);
-DEFINE_SKILL_CVAR(sk_adrian_kick, 0);
+DEFINE_SKILL_CVAR(sk_adrian_health, 100, 100, 100);
+DEFINE_SKILL_CVAR(sk_adrian_kick, 5, 5, 5);
 
-DEFINE_SKILL_CVAR(sk_archer_health, 0);
-DEFINE_SKILL_CVAR(sk_archer_shake, 0);
+DEFINE_SKILL_CVAR(sk_archer_health, 200, 200, 400);
+DEFINE_SKILL_CVAR(sk_archer_shake, 20, 35, 50);
 
-DEFINE_SKILL_CVAR(sk_barniel_health, 0);
+DEFINE_SKILL_CVAR(sk_barniel_health, 35, 35, 35);
 
-DEFINE_SKILL_CVAR(sk_freeman_health, 0);
+DEFINE_SKILL_CVAR(sk_freeman_health, 100, 100, 100);
 
-DEFINE_SKILL_CVAR(sk_exp_alien_slave_health, 0);
-DEFINE_SKILL_CVAR(sk_exp_alien_slave_dmg_claw, 0);
-DEFINE_SKILL_CVAR(sk_exp_alien_slave_dmg_clawrake, 0);
-DEFINE_SKILL_CVAR(sk_exp_alien_slave_dmg_zap, 0);
+DEFINE_SKILL_CVAR(sk_exp_alien_slave_health, 30, 30, 60);
+DEFINE_SKILL_CVAR(sk_exp_alien_slave_dmg_claw, 8, 10, 10);
+DEFINE_SKILL_CVAR(sk_exp_alien_slave_dmg_clawrake, 25, 25, 25);
+DEFINE_SKILL_CVAR(sk_exp_alien_slave_dmg_zap, 10, 10, 15);
 
-DEFINE_SKILL_CVAR(sk_hev_barney_health, 0);
+DEFINE_SKILL_CVAR(sk_hev_barney_health, 35, 35, 35);
 
-DEFINE_SKILL_CVAR(sk_kate_health, 0);
-DEFINE_SKILL_CVAR(sk_kate_kick, 0);
-DEFINE_SKILL_CVAR(sk_kate_punch, 0);
+DEFINE_SKILL_CVAR(sk_kate_health, 100, 100, 100);
+DEFINE_SKILL_CVAR(sk_kate_kick, 5, 5, 5);
+DEFINE_SKILL_CVAR(sk_kate_punch, 5, 5, 5);
 
-DEFINE_SKILL_CVAR(sk_panther_health, 0);
-DEFINE_SKILL_CVAR(sk_panther_dmg_claw, 0);
-DEFINE_SKILL_CVAR(sk_panther_dmg_clawrake, 0);
-DEFINE_SKILL_CVAR(sk_panther_dmg_zap, 0);
+DEFINE_SKILL_CVAR(sk_panther_health, 800, 800, 1000);
+DEFINE_SKILL_CVAR(sk_panther_dmg_claw, 16, 20, 20);
+DEFINE_SKILL_CVAR(sk_panther_dmg_clawrake, 25, 25, 25);
+DEFINE_SKILL_CVAR(sk_panther_dmg_zap, 40, 40, 45);
 
-DEFINE_SKILL_CVAR(sk_rat_health, 0);
-DEFINE_SKILL_CVAR(sk_rat_dmg_bite, 0);
+DEFINE_SKILL_CVAR(sk_rat_health, 10, 10, 20);
+DEFINE_SKILL_CVAR(sk_rat_dmg_bite, 5, 10, 10);
 
-DEFINE_SKILL_CVAR(sk_spforce_health, 0);
-DEFINE_SKILL_CVAR(sk_spforce_kick, 0);
+DEFINE_SKILL_CVAR(sk_spforce_health, 50, 50, 80);
+DEFINE_SKILL_CVAR(sk_spforce_kick, 5, 10, 10);
 
-DEFINE_SKILL_CVAR(sk_terror_health, 0);
-DEFINE_SKILL_CVAR(sk_terror_kick, 0);
+DEFINE_SKILL_CVAR(sk_terror_health, 50, 50, 80);
+DEFINE_SKILL_CVAR(sk_terror_kick, 5, 10, 10);
 
-DEFINE_SKILL_CVAR(sk_toad_health, 0);
-DEFINE_SKILL_CVAR(sk_toad_dmg_bite, 0);
-DEFINE_SKILL_CVAR(sk_toad_dmg_pop, 0);
+DEFINE_SKILL_CVAR(sk_toad_health, 4, 4, 4);
+DEFINE_SKILL_CVAR(sk_toad_dmg_bite, 16, 16, 16);
+DEFINE_SKILL_CVAR(sk_toad_dmg_pop, 8, 8, 8);
 
-DEFINE_SKILL_CVAR(sk_worker_health, 0);
+DEFINE_SKILL_CVAR(sk_worker_health, 20, 20, 20);
 
-DEFINE_SKILL_CVAR(sk_zbarney_health, 0);
-DEFINE_SKILL_CVAR(sk_zbarney_dmg_one_slash, 0);
-DEFINE_SKILL_CVAR(sk_zbarney_dmg_both_slash, 0);
+DEFINE_SKILL_CVAR(sk_zbarney_health, 50, 50, 100);
+DEFINE_SKILL_CVAR(sk_zbarney_dmg_one_slash, 10, 20, 20);
+DEFINE_SKILL_CVAR(sk_zbarney_dmg_both_slash, 25, 40, 40);
 
-DEFINE_SKILL_CVAR(sk_plr_poolstick, 0);
-DEFINE_SKILL_CVAR(sk_plr_beretta_bullet, 0);
-DEFINE_SKILL_CVAR(sk_plr_9mmM41A_bullet, 0);
+DEFINE_SKILL_CVAR(sk_plr_poolstick, 5, 5, 5);
+DEFINE_SKILL_CVAR(sk_plr_beretta_bullet, 10, 10, 10);
+DEFINE_SKILL_CVAR(sk_plr_9mmM41A_bullet, 8, 8, 8);
+DEFINE_SKILL_CVAR(sk_plr_9mmM41A_grenade, 105, 105, 105);
 
-DEFINE_SKILL_CVAR(sk_kmedkit_heal, 0);
 #endif // defined ( ASHEEP_DLL )
+DEFINE_SKILL_CVAR(sk_kmedkit_heal, 15, 15, 10);
 // END Cvars for Skill Level settings
 
 // Register your console variables here
@@ -995,14 +996,12 @@ void GameDLLInit( void )
 	REGISTER_SKILL_CVAR(sk_plr_poolstick);
 	REGISTER_SKILL_CVAR(sk_plr_beretta_bullet);
 	REGISTER_SKILL_CVAR(sk_plr_9mmM41A_bullet);
+	REGISTER_SKILL_CVAR(sk_plr_9mmM41A_grenade);
 
 	REGISTER_SKILL_CVAR(sk_kmedkit_heal);
 #endif // defined ( ASHEEP_DLL )
 // END REGISTER CVARS FOR SKILL LEVEL STUFF
 
 	SERVER_COMMAND( "exec skill.cfg\n" );
-#if defined ( ASHEEP_DLL )
-	SERVER_COMMAND( "exec skillasheep.cfg\n" );
-#endif // defined ( ASHEEP_DLL )
 }
 

@@ -184,6 +184,7 @@ struct skilldata_t
 	float plrDmgPoolstick;
 	float plrDmgBeretta;
 	float plrDmg9mmM41A;
+	float plrDmg9mmM41AGrenade;
 
 	float kmedkitHeal;
 #endif // defined  ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
