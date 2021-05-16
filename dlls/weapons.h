@@ -1416,7 +1416,7 @@ public:
 
 	const unsigned short& GetFireEvent() const;
 	const unsigned short& GetGrenadeLaunchEvent() const;
-	float GetGrenadeDamage();
+
 	int GetBulletType();
 
 	int GetDeploySequence();
@@ -1591,7 +1591,7 @@ public:
 
 	const unsigned short& GetFireEvent() const;
 	const unsigned short& GetGrenadeLaunchEvent() const;
-
+	float GetGrenadeDamage();
 	int GetBulletType();
 
 	int GetDeploySequence();
