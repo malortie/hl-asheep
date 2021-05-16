@@ -40,8 +40,6 @@ class CBarney : public CTalkMonsterWithBarneyAI
 {
 	typedef CTalkMonsterWithBarneyAI BaseClass;
 
-	static const char* pPainSounds[];
-
 public:
 	void Spawn(void);
 protected:
