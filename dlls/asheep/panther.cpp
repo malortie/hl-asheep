@@ -473,7 +473,7 @@ void CPanther::RunTask(Task_t *pTask)
 				UTIL_MakeVectorsPrivate(Vector(0, pev->angles.y, 0), bodyDirection, NULL, NULL);
 
 				float yawDot = DotProduct(dirToEnemy, bodyDirection);
-				angles.y = acosf(yawDot) * 180.0f / M_PI;
+				angles.y = std::acos(yawDot) * 180.0f / M_PI;
 				angles.y = clamp(angles.y, -PANTHER_SPINE_YAW_MAX_VALUE, PANTHER_SPINE_YAW_MAX_VALUE);
 
 				// On which side is our enemy?
