@@ -30,6 +30,7 @@
 #if defined ( ASHEEP_DLL )
 #include "asheep_serverside_utils.h"
 #endif // defined ( ASHEEP_DLL )
+#include "room_type.h"
 
 #define	SF_TRIGGER_PUSH_START_OFF	2//spawnflag that makes trigger_push spawn turned OFF
 #define SF_TRIGGER_HURT_TARGETONCE	1// Only fire hurt target once
@@ -2452,6 +2453,7 @@ public:
 	void Spawn(void);
 	virtual void Use(CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value);
 	void Touch(CBaseEntity *pOther);
+	void SetPlayerRoomType();
 };
 
 LINK_ENTITY_TO_CLASS(trigger_sound, CTriggerSound);
@@ -2460,6 +2462,8 @@ void CTriggerSound::Touch(CBaseEntity *pOther)
 {
 	if (!pOther->IsPlayer())
 		return;
+
+	SetPlayerRoomType();
 }
 
 void CTriggerSound::Spawn(void)
@@ -2469,6 +2473,39 @@ void CTriggerSound::Spawn(void)
 
 void CTriggerSound::Use(CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value)
 {
+	SetPlayerRoomType();
+}
+
+void CTriggerSound::SetPlayerRoomType()
+{
+	CBasePlayer* pPlayer = (CBasePlayer*)UTIL_FindEntityByClassname(NULL, "player");
+	if (!pPlayer)
+		return;
+
+	// Only change the room type if it's different from the player's.
+	if (pev->health != pPlayer->m_flSndRoomtype)
+	{
+		if (pPlayer->pev->waterlevel == 3)
+		{
+			// Do not change the room type if player is underwater.
+			ALERT(at_aiconsole, "trigger_sound: underwater not setting to %d - %s\n", static_cast<int>(pev->health), GetRoomTypeDescriptionById(static_cast<RoomType>(pev->health)));
+		}
+		else
+		{
+			ALERT(at_aiconsole, "trigger_sound: set to %d - %s \n", static_cast<int>(pev->health), GetRoomTypeDescriptionById(static_cast<RoomType>(pev->health)));
+
+			// Set the room type.
+			pPlayer->m_flSndRoomtype = pev->health;
+			// Set the range to 0 to allow env_sound entities to immediately
+			// change the room type if needed.
+			pPlayer->m_flSndRange = 0;
+
+			// send room_type command to player's server.
+			MESSAGE_BEGIN(MSG_ONE, SVC_ROOMTYPE, NULL, pPlayer->pev);
+				WRITE_SHORT((short)pev->health); // Room type
+			MESSAGE_END();
+		}
+	}
 }
 #endif // defined ( ASHEEP_DLL )
 

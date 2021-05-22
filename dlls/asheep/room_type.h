@@ -1,0 +1,49 @@
+#ifndef ROOM_TYPE_H
+#define ROOM_TYPE_H
+
+enum RoomType
+{
+    NORMAL_OFF = 0,
+
+    GENERIC,
+
+    METAL_SMALL,
+    METAL_MEDIUM,
+    METAL_LARGE,
+
+    TUNNEL_SMALL,
+    TUNNEL_MEDIUM,
+    TUNNEL_LARGE,
+
+    CHAMBER_SMALL,
+    CHAMBER_MEDIUM,
+    CHAMBER_LARGE,
+
+    BRIGHT_SMALL,
+    BRIGHT_MEDIUM,
+    BRIGHT_LARGE,
+
+    WATER_1,
+    WATER_2,
+    WATER_3,
+
+    CONCRETE_SMALL,
+    CONCRETE_MEDIUM,
+    CONCRETE_LARGE,
+
+    BIG_1,
+    BIG_2,
+    BIG_3,
+
+    CAVERN_SMALL,
+    CAVERN_MEDIUM,
+    CAVERN_LARGE,
+
+    PIPE_MEDIUM,
+    PIPE_SMALL,
+    PIPE_BIG,
+};
+
+const char* GetRoomTypeDescriptionById(RoomType roomType);
+
+#endif // ROOM_TYPE_H

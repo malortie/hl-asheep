@@ -23,6 +23,7 @@
 #include "player.h"
 #include "talkmonster.h"
 #include "gamerules.h"
+#include "room_type.h"
 
 #if !defined ( _WIN32 )
 #include <ctype.h>
@@ -943,6 +944,8 @@ void CEnvSound :: Think( void )
 	{
 		if (flRange < pPlayer->m_flSndRange || pPlayer->m_flSndRange == 0) 
 		{
+			ALERT(at_aiconsole, "env_sound: set to %d - %s\n", static_cast<int>(m_flRoomtype), GetRoomTypeDescriptionById(static_cast<RoomType>(m_flRoomtype)));
+
 			// new entity is closer to player, so it wins.
 			pPlayer->m_pentSndLast = ENT(pev);
 			pPlayer->m_flSndRoomtype = m_flRoomtype;
