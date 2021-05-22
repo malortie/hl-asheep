@@ -1124,6 +1124,12 @@ void CBaseTrigger :: MultiTouch( CBaseEntity *pOther )
 
 	pevToucher = pOther->pev;
 
+	// If this trigger has SF_TRIGGER_KATEONLY, only activate this trigger if this is a monster_kate entity.
+	if ((pev->spawnflags & SF_TRIGGER_KATEONLY) && !FClassnameIs(ENT(pevToucher), "monster_kate"))
+	{
+		return;
+	}
+
 	// Only touch clients, monsters, or pushables (depending on flags)
 	if ( ((pevToucher->flags & FL_CLIENT) && !(pev->spawnflags & SF_TRIGGER_NOCLIENTS)) ||
 		 ((pevToucher->flags & FL_MONSTER) && (pev->spawnflags & SF_TRIGGER_ALLOWMONSTERS)) ||
