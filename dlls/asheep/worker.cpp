@@ -72,10 +72,6 @@ int CWorker::GetFirstTimeSpawnHealth() const
 void CWorker::SetFriendsSpeechOrder()
 {
 	// worker will try to talk to friends in this order:
-
-	m_szFriends[0] = "monster_worker";
-	m_szFriends[1] = "monster_barney";
-	m_szFriends[2] = "monster_scientist";
 }
 
 void CWorker::InitSentenceGroup()

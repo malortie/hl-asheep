@@ -137,9 +137,9 @@ void CScientist::SetFriendsSpeechOrder()
 {
 	// scientist will try to talk to friends in this order:
 
-	m_szFriends[0] = "monster_scientist";
-	m_szFriends[1] = "monster_sitting_scientist";
-	m_szFriends[2] = "monster_barney";
+	m_szFriends[0] = MONSTER_SCIENTIST_CLASSNAME;
+	m_szFriends[1] = MONSTER_SCIENTIST_SITTING_CLASSNAME;
+	m_szFriends[2] = MONSTER_BARNEY_CLASSNAME;
 }
 
 void CScientist::InitSentenceGroup()

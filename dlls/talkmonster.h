@@ -37,11 +37,7 @@
 #define bit_saidHeard			(1<<6)
 #define bit_saidSmelled			(1<<7)
 
-#if defined ( ASHEEP_DLL )
-#define TLK_CFRIENDS		8
-#else
-#define TLK_CFRIENDS		3
-#endif
+#define TLK_CFRIENDS		9
 
 typedef enum
 {

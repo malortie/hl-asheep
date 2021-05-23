@@ -179,5 +179,6 @@ public:
 		}
 
 
+#include	"monsters_classnames.h"
 
 #endif	//MONSTERS_H

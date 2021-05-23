@@ -22,6 +22,7 @@
 #include	"scripted.h"
 #include	"soundent.h"
 #include	"animation.h"
+#include	"monsters_classnames.h"
 
 //=========================================================
 // Talking monster base class
@@ -53,9 +54,15 @@ IMPLEMENT_SAVERESTORE( CTalkMonster, CBaseMonster );
 #if defined ( ASHEEP_DLL )
 char *CTalkMonster::m_szFriends[TLK_CFRIENDS] = 
 {
-	"monster_barney",
-	"monster_scientist",
-	"monster_sitting_scientist",
+	MONSTER_BARNEY_CLASSNAME,
+	MONSTER_SCIENTIST_CLASSNAME,
+	MONSTER_SCIENTIST_SITTING_CLASSNAME,
+	MONSTER_HEVBARN_CLASSNAME,
+	MONSTER_BARNIEL_CLASSNAME,
+	MONSTER_KATE_CLASSNAME,
+	MONSTER_WORKER_CLASSNAME,
+	MONSTER_GORDON_CLASSNAME,
+	MONSTER_ADRIAN_CLASSNAME
 };
 #else
 char *CTalkMonster::m_szFriends[TLK_CFRIENDS] = 
