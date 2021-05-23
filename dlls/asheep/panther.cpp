@@ -724,16 +724,22 @@ void CPanther::ArmBeam(int side)
 	m_pBeam[m_iBeams] = CreateArmBeam(1, // Start attachment.
 		tr.vecEndPos); // end position.
 
-	if (m_pBeam[m_iBeams] != NULL)
-		m_iBeams++;
+	if (!m_pBeam[m_iBeams])
+		return;
+	m_iBeams++;
 
 	//ALERT(at_console, "CPanther::ArmBeam : beam count: %d\n", m_iBeams);
+
+	// Ensure there is an empty beam slot.
+	if (m_iBeams >= PANTHER_ARM_BEAMS)
+		return;
 
 	m_pBeam[m_iBeams] = CreateArmBeam(2, // Start attachment.
 		tr.vecEndPos); // end position.
 
-	if (m_pBeam[m_iBeams] != NULL)
-		m_iBeams++;
+	if (!m_pBeam[m_iBeams])
+		return;
+	m_iBeams++;
 
 	//ALERT(at_console, "CPanther::ArmBeam : beam count: %d\n", m_iBeams);
 }
