@@ -2199,9 +2199,6 @@ int CBaseMonster::TaskIsRunning( void )
 int CBaseMonster::IRelationship ( CBaseEntity *pTarget )
 {
 #if defined ( ASHEEP_DLL )
-	if (pTarget->Classify() == CLASS_PLAYER && ShouldTreatMonsterAsPlayerAlly())
-		return R_AL;
-
 	static int iEnemy[18][18] =
 	{			 //   NONE	 MACH	 PLYR	 HPASS	 HMIL	 AMIL	 APASS	 AMONST	APREY	 APRED	 INSECT	PLRALY	PBWPN	ABWPN	ARCHER	KATE	SPFORCE, RAT
 	/*NONE*/		{ R_NO	,R_NO	,R_NO	,R_NO	,R_NO	,R_NO	,R_NO	,R_NO	,R_NO	,R_NO	,R_NO	,R_NO,	R_NO,	R_NO,	R_NO,	R_NO,	R_NO,	R_NO	},

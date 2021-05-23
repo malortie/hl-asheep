@@ -159,7 +159,7 @@ const char* CAdrian::pDeathSounds[] =
 
 int CAdrian::Classify(void)
 {
-	return CLASS_HUMAN_MILITARY;
+	return CLASS_PLAYER_ALLY;
 }
 
 void CAdrian::HandleAnimEvent(MonsterEvent_t *pEvent)
@@ -177,7 +177,8 @@ void CAdrian::HandleAnimEvent(MonsterEvent_t *pEvent)
 
 int CAdrian::IRelationship(CBaseEntity *pTarget)
 {
-	if (pTarget->IsPlayer() && !(m_afMemory & bits_MEMORY_PROVOKED))
+	// Adrian should be friend with military.
+	if (pTarget->Classify() == CLASS_HUMAN_MILITARY)
 		return R_AL;
 
 	return BaseClass::IRelationship(pTarget);

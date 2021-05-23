@@ -61,6 +61,8 @@ class CHGrunt : public CSquadMonsterWithHGruntAI
 {
 	typedef CSquadMonsterWithHGruntAI BaseClass;
 public:
+	int IRelationship(CBaseEntity* pTarget);
+
 	int TakeDamage(entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType);
 
 	virtual int GetKickDamage() const;
@@ -106,11 +108,23 @@ protected:
 	virtual void SpeakReadyToThrowGrenade();
 	virtual void SpeakTaunt();
 
-	virtual BOOL ShouldTreatMonsterAsPlayerAlly();
+	BOOL IsPlayerAlly();
 	virtual void BecomeEnemyOfPlayer();
 };
 
 LINK_ENTITY_TO_CLASS(monster_human_grunt, CHGrunt);
+
+int CHGrunt::IRelationship(CBaseEntity* pTarget)
+{
+	if (pTarget->IsPlayer() && IsPlayerAlly())
+		return R_AL;
+
+	// Grunts are friend with Adrian.
+	if (FClassnameIs(pTarget->pev, "monster_adrian"))
+		return R_AL;
+
+	return BaseClass::IRelationship(pTarget);
+}
 
 int CHGrunt::TakeDamage(entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType)
 {
@@ -118,7 +132,7 @@ int CHGrunt::TakeDamage(entvars_t *pevInflictor, entvars_t *pevAttacker, float f
 	if (ret > 0)
 	{
 		// If the player attacked us, treat him as an enemy.
-		if (ShouldTreatMonsterAsPlayerAlly() && !FNullEnt(pevAttacker) && (pevAttacker->flags & FL_CLIENT) != 0)
+		if (IsPlayerAlly() && !FNullEnt(pevAttacker) && (pevAttacker->flags & FL_CLIENT) != 0)
 			UTIL_MakeMonstersWithClassnameEnemyOfPlayer(STRING(pev->classname));
 	}
 
@@ -284,7 +298,7 @@ void CHGrunt::GiveDefaultWeapons()
 	pev->weapons = HGRUNT_9MMAR | HGRUNT_HANDGRENADE;
 }
 
-BOOL CHGrunt::ShouldTreatMonsterAsPlayerAlly()
+BOOL CHGrunt::IsPlayerAlly()
 {
 	return (pev->spawnflags & SF_HGRUNT_PLAYER_FRIENDLY) != 0;
 }
