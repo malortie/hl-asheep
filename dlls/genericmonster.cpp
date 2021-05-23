@@ -23,9 +23,7 @@
 
 // For holograms, make them not solid so the player can walk through them
 #define	SF_GENERICMONSTER_NOTSOLID					4 
-#if defined ( ASHEEP_DLL )
-#define	SF_GENERICMONSTER_DONTBLEED		8
-#endif // defined ( ASHEEP_DLL )
+#define	SF_GENERICMONSTER_INVINCIBLE	8
 
 //=========================================================
 // Monster's Anim Events Go Here
@@ -41,7 +39,7 @@ public:
 	void HandleAnimEvent( MonsterEvent_t *pEvent );
 	int ISoundMask ( void );
 #if defined ( ASHEEP_DLL )
-	BOOL AllowedToBleed();
+	BOOL IsInvincible();
 	void TraceAttack(entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType);
 #endif // defined ( ASHEEP_DLL )
 };
@@ -121,7 +119,7 @@ void CGenericMonster :: Spawn()
 	pev->solid			= SOLID_SLIDEBOX;
 	pev->movetype		= MOVETYPE_STEP;
 #if defined ( ASHEEP_DLL )
-	if (AllowedToBleed())
+	if (!IsInvincible())
 		m_bloodColor = BLOOD_COLOR_RED;
 	else
 		m_bloodColor = DONT_BLEED;
@@ -139,6 +137,11 @@ void CGenericMonster :: Spawn()
 		pev->solid = SOLID_NOT;
 		pev->takedamage = DAMAGE_NO;
 	}
+
+	if (IsInvincible())
+	{
+		pev->takedamage = DAMAGE_NO;
+	}
 }
 
 //=========================================================
@@ -150,14 +153,14 @@ void CGenericMonster :: Precache()
 }	
 
 #if defined ( ASHEEP_DLL )
-BOOL CGenericMonster::AllowedToBleed()
+BOOL CGenericMonster::IsInvincible()
 {
-	return (pev->spawnflags & SF_GENERICMONSTER_DONTBLEED) == 0;
+	return (pev->spawnflags & SF_GENERICMONSTER_INVINCIBLE) != 0;
 }
 
 void CGenericMonster::TraceAttack(entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType)
 {
-	if (!AllowedToBleed())
+	if (IsInvincible())
 	{
 		UTIL_Ricochet(ptr->vecEndPos, 1.0f);
 	}
