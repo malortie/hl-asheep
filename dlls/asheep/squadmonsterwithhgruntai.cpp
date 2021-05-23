@@ -2269,7 +2269,7 @@ void CSquadMonsterWithHGruntAI::SetDefaultVoicePitch()
 
 void CSquadMonsterWithHGruntAI::SetDefaultVoiceAttenuation()
 {
-	m_voicePitch = ATTN_NORM;
+	m_voiceAttenuation = ATTN_NORM;
 }
 
 void CSquadMonsterWithHGruntAI::SetDefaultVoiceVolume()
