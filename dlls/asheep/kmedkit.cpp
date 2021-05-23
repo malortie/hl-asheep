@@ -238,9 +238,9 @@ BOOL CKMedkitSentence::ShouldPercentageSentenceBePlayedInTwoParts(int percent)
 void CKMedkitSentence::PlaySentence(CBasePlayer* player, const char* sentence, float* resultSoundDuration)
 {
 #if !defined ( CLIENT_DLL )
-	char szSentence[128];
+	char szSentence[128] = {};
 	std::strcpy(szSentence, "!");
-	std::strncat(szSentence, sentence, ARRAYSIZE(szSentence));
+	std::strncat(szSentence, sentence, ARRAYSIZE(szSentence) - strlen(szSentence));
 
 	EMIT_SOUND_DYN(player->edict(), CHAN_VOICE, szSentence, 0.8, ATTN_NORM, 0, 100);
 
@@ -257,12 +257,12 @@ void CKMedkitSentence::PlaySentenceFromPercentage(
 	BOOL playTensOnPercentageWithRemainder)
 {
 #if !defined ( CLIENT_DLL )
-	char szPercent[64];
+	char szPercent[64] = {};
 
 	if (percent == 100)
 	{
 		std::strcpy(szPercent, "!");
-		std::strncat(szPercent, GetSentenceOneHundred(), ARRAYSIZE(szPercent));
+		std::strncat(szPercent, GetSentenceOneHundred(), ARRAYSIZE(szPercent) - strlen(szPercent));
 	}
 	else
 	{
