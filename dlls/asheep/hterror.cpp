@@ -38,8 +38,8 @@
 
 enum HTerrorBodygroup
 {
-	HEAD_GROUP = 1,
-	GUN_GROUP = 2,
+	HEAD_GROUP = 0,
+	GUN_GROUP = 1,
 };
 
 enum HTerrorHead
