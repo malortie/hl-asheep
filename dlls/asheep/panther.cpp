@@ -570,7 +570,6 @@ void CPanther::TraceAttack(entvars_t *pevAttacker, float flDamage, Vector vecDir
 			UTIL_Ricochet(ptr->vecEndPos, 1.0);
 			flDamage = 0.01;
 		}
-		return;
 	}
 
 	BaseClass::TraceAttack(pevAttacker, flDamage, vecDir, ptr, bitsDamageType);
