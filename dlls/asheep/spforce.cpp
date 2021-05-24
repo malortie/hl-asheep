@@ -76,6 +76,8 @@ protected:
 	virtual void SpeakWatchOutGrenade();
 	virtual void SpeakReadyToThrowGrenade();
 	virtual void SpeakTaunt();
+	void SpeakCover();
+	void SpeakCharge();
 
 	virtual void DoDeathSound();
 	virtual void DoPainSound();
@@ -277,6 +279,16 @@ void CSpForce::SpeakReadyToThrowGrenade()
 void CSpForce::SpeakTaunt()
 {
 	SENTENCEG_PlayRndSz(ENT(pev), "HG_TAUNT", GetVoiceVolume(), GetVoiceAttenuation(), 0, GetVoicePitch());
+}
+
+void CSpForce::SpeakCover()
+{
+	SENTENCEG_PlayRndSz(ENT(pev), "HG_COVER", GetVoiceVolume(), GetVoiceAttenuation(), 0, GetVoicePitch());
+}
+
+void CSpForce::SpeakCharge()
+{
+	SENTENCEG_PlayRndSz(ENT(pev), "HG_CHARGE", GetVoiceVolume(), GetVoiceAttenuation(), 0, GetVoicePitch());
 }
 
 void CSpForce::DoDeathSound(void)

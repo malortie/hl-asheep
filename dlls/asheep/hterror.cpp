@@ -101,6 +101,8 @@ protected:
 	virtual void SpeakWatchOutGrenade();
 	virtual void SpeakReadyToThrowGrenade();
 	virtual void SpeakTaunt();
+	void SpeakCover();
+	void SpeakCharge();
 };
 
 LINK_ENTITY_TO_CLASS(monster_human_terror, CHTerror);
@@ -220,6 +222,16 @@ void CHTerror::SpeakReadyToThrowGrenade()
 void CHTerror::SpeakTaunt()
 {
 	SENTENCEG_PlayRndSz(ENT(pev), "TR_TAUNT", GetVoiceVolume(), GetVoiceAttenuation(), 0, GetVoicePitch());
+}
+
+void CHTerror::SpeakCover()
+{
+	SENTENCEG_PlayRndSz(ENT(pev), "TR_COVER", GetVoiceVolume(), GetVoiceAttenuation(), 0, GetVoicePitch());
+}
+
+void CHTerror::SpeakCharge()
+{
+	SENTENCEG_PlayRndSz(ENT(pev), "TR_CHARGE", GetVoiceVolume(), GetVoiceAttenuation(), 0, GetVoicePitch());
 }
 
 void CHTerror::FireWeapon1(const Vector& shootOrigin, const Vector& shootDirection, const Vector& forward, const Vector& right, const Vector& up)

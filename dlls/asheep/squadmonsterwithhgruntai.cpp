@@ -164,7 +164,34 @@ void CSquadMonsterWithHGruntAI :: SpeakSentence( void )
 
 	if (FOkToSpeak())
 	{
-		SENTENCEG_PlayRndSz( ENT(pev), pGruntSentences[ m_iSentence ], GetVoiceVolume(), GetVoiceAttenuation(), 0, GetVoicePitch());
+		switch (m_iSentence)
+		{
+		case HGRUNT_SENT_GREN:
+			SpeakWatchOutGrenade();
+			break;
+		case HGRUNT_SENT_ALERT:
+			SpeakCaughtEnemy();
+			break;
+		case HGRUNT_SENT_MONSTER:
+			SpeakCaughtMonster();
+			break;
+		case HGRUNT_SENT_COVER:
+			SpeakCover();
+			break;
+		case HGRUNT_SENT_THROW:
+			SpeakReadyToThrowGrenade();
+			break;
+		case HGRUNT_SENT_CHARGE:
+			SpeakCharge();
+			break;
+		case HGRUNT_SENT_TAUNT:
+			SpeakTaunt();
+			break;
+		default:
+			// Undefined sentence.
+			break;
+		}
+
 		JustSpoke();
 	}
 }

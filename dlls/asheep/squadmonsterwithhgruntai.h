@@ -170,6 +170,8 @@ protected:
 	virtual void SpeakWatchOutGrenade() = 0;
 	virtual void SpeakReadyToThrowGrenade() = 0;
 	virtual void SpeakTaunt() = 0;
+	virtual void SpeakCover() = 0;
+	virtual void SpeakCharge() = 0;
 
 	virtual void DoDeathSound();
 	virtual void DoPainSound();
