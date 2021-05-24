@@ -57,6 +57,11 @@ public:
 	int  Classify(void);
 	int  IRelationship(CBaseEntity *pTarget);
 	void HandleAnimEvent(MonsterEvent_t *pEvent);
+	void SetObjectCollisionBox(void)
+	{
+		pev->absmin = pev->origin + Vector(-70, -70, 0);
+		pev->absmax = pev->origin + Vector(70, 70, 100);
+	}
 	BOOL CheckRangeAttack1(float flDot, float flDist);
 	void TraceAttack(entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType);
 	int TakeDamage(entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType);
