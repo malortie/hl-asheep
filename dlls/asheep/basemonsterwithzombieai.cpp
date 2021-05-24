@@ -29,6 +29,13 @@
 
 #define ZOMBIE_FLINCH_DELAY			2		// at most one flinch every n secs
 
+TYPEDESCRIPTION	CBaseMonsterWithZombieAI::m_SaveData[] =
+{
+	DEFINE_FIELD( CBaseMonsterWithZombieAI, m_flNextFlinch, FIELD_TIME ),
+};
+
+IMPLEMENT_SAVERESTORE( CBaseMonsterWithZombieAI, CBaseMonster );
+
 //=========================================================
 // Classify - indicates this monster's place in the 
 // relationship table.
@@ -169,6 +176,8 @@ void CBaseMonsterWithZombieAI::Spawn()
 	SetSkinAndBodygroups();
 
 	MonsterInit();
+
+	m_flNextFlinch = 0.0f;
 }
 
 //=========================================================

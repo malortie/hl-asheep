@@ -29,6 +29,10 @@ public:
 
 	CBaseMonsterWithZombieAIUtil* GetSharedUtils() const;
 
+	virtual int		Save(CSave& save);
+	virtual int		Restore(CRestore& restore);
+	static	TYPEDESCRIPTION m_SaveData[];
+
 protected:
 
 	virtual void PrecacheModels() = 0;
