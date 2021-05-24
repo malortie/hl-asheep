@@ -2332,7 +2332,6 @@ void CSquadMonsterWithHGruntAI::LaunchGrenadeSound()
 void CSquadMonsterWithHGruntAI::ReloadSound()
 {
 	GetSharedUtils()->PlayHGruntReloadSound(this);
-	EMIT_SOUND(ENT(pev), CHAN_WEAPON, "hgrunt/gr_reload1.wav", 1, ATTN_NORM);
 }
 
 CSquadMonsterWithHGruntAIUtil* CSquadMonsterWithHGruntAI::GetSharedUtils() const
