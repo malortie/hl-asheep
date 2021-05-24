@@ -568,12 +568,15 @@ void CPanther::TraceAttack(entvars_t *pevAttacker, float flDamage, Vector vecDir
 
 	if (ptr->iHitgroup != HITGROUP_HEAD)
 	{
-		// absorb damage
-		flDamage -= 20;
-		if (flDamage <= 0)
+		if (!(bitsDamageType & DMG_BLAST || bitsDamageType & DMG_ENERGYBEAM))
 		{
-			UTIL_Ricochet(ptr->vecEndPos, 1.0);
-			flDamage = 0.01;
+			// absorb damage
+			flDamage -= 50;
+			if (flDamage <= 0)
+			{
+				UTIL_Ricochet(ptr->vecEndPos, 1.0);
+				flDamage = 0.01;
+			}
 		}
 	}
 
