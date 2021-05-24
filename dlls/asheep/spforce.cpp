@@ -319,7 +319,14 @@ void CSpForce::LaunchGrenadeSound()
 
 void CSpForce::ReloadSound()
 {
-	EMIT_SOUND(ENT(pev), CHAN_WEAPON, RANDOM_SOUND_ARRAY(pReloadSounds), 1, ATTN_NORM);
+	if (IsUsingSecondaryWeapon())
+	{
+		EMIT_SOUND(ENT(pev), CHAN_WEAPON, pReloadSounds[1], 1, ATTN_NORM);
+	}
+	else
+	{
+		EMIT_SOUND(ENT(pev), CHAN_WEAPON, pReloadSounds[0], 1, ATTN_NORM);
+	}
 }
 
 void CSpForce::FireWeapon1(const Vector& shootOrigin, const Vector& shootDirection, const Vector& forward, const Vector& right, const Vector& up)
