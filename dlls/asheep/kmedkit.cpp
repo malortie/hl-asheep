@@ -388,7 +388,7 @@ void CKMedkit::PrimaryAttack(void)
 	{
 		//ALERT(at_console, "Begin heal!");
 		StartPressButton(targetToHeal, FALSE);
-		SetNextAttack(GetHealSequenceDuration());
+		SetNextAttack(GetHealSequenceDuration() + 5.0f); // Add 5 additional seconds to allow the full medkit sentence to be played.
 	}
 	else
 	{
@@ -408,7 +408,7 @@ void CKMedkit::SecondaryAttack(void)
 	if (IsAllowedToSayTargetHealth(targetToSayHealth))
 	{
 		StartPressButton(targetToSayHealth, TRUE);
-		SetNextAttack(GetSayHealthSequenceDuration());
+		SetNextAttack(GetSayHealthSequenceDuration() + 5.0f); // Add 5 additional seconds to allow the full medkit sentence to be played.
 	}
 	else
 	{
