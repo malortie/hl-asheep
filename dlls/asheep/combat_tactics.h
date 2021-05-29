@@ -3,31 +3,22 @@
 
 class CBaseCombatTactics
 {
-	CBaseMonster* _outer;
 public:
-	CBaseCombatTactics(CBaseMonster* outer)
-	{
-		SetOuter(outer);
-	}
-
-	CBaseMonster* GetOuter();
-	void SetOuter(CBaseMonster* outer);
-
 	virtual float GetKickDamage() const = 0;
 	virtual float GetKickImpulseForce() const;
 
 	virtual float GetPunchDamage() const = 0;
 	virtual float GetPunchImpulseForce() const;
 
-	virtual void Punch();
-	virtual void PunchHitSound() {}
-	virtual void PunchMissSound() {}
+	virtual void Punch(CBaseMonster* const outer);
+	virtual void PunchHitSound(CBaseMonster* const outer) {}
+	virtual void PunchMissSound(CBaseMonster* const outer) {}
 
-	virtual void Kick();
-	virtual void KickHitSound() {}
-	virtual void KickMissSound() {}
+	virtual void Kick(CBaseMonster* const outer);
+	virtual void KickHitSound(CBaseMonster* const outer) {}
+	virtual void KickMissSound(CBaseMonster* const outer) {}
 
-	virtual CBaseEntity* CheckTraceAttackHull(float distance, float damage, Vector punchAngles, Vector impulse);
+	virtual CBaseEntity* CheckTraceAttackHull(CBaseMonster* const outer, float distance, float damage, Vector punchAngles, Vector impulse);
 	virtual float GetDefaultDistanceForTraceHullAttack();
 	virtual Vector GetVictimPunchAngles();
 };

@@ -32,15 +32,13 @@ class CKateCombatTactics : public CBaseCombatTactics
 {
 	typedef CBaseCombatTactics BaseClass;
 public:
-	CKateCombatTactics(CBaseMonster* outer);
-
 	virtual float GetKickDamage() const;
 	virtual float GetPunchDamage() const;
 
-	virtual void PunchHitSound();
-	virtual void PunchMissSound();
-	virtual void KickHitSound();
-	virtual void KickMissSound();
+	virtual void PunchHitSound(CBaseMonster* const outer);
+	virtual void PunchMissSound(CBaseMonster* const outer);
+	virtual void KickHitSound(CBaseMonster* const outer);
+	virtual void KickMissSound(CBaseMonster* const outer);
 
 	static const char* pKickHitSounds[];
 	static const char* pKickMissSounds[];
@@ -70,10 +68,6 @@ const char *CKateCombatTactics::pPunchMissSounds[] =
 	"zombie/claw_miss2.wav",
 };
 
-CKateCombatTactics::CKateCombatTactics(CBaseMonster* outer) : BaseClass(outer)
-{
-}
-
 float CKateCombatTactics::GetKickDamage() const
 {
 	return gSkillData.kateDmgKick;
@@ -84,10 +78,10 @@ float CKateCombatTactics::GetPunchDamage() const
 	return gSkillData.kateDmgPunch;
 }
 
-void CKateCombatTactics::KickHitSound()
+void CKateCombatTactics::KickHitSound(CBaseMonster* const outer)
 {
 	EMIT_SOUND_DYN(
-		ENT(GetOuter()->pev), 
+		ENT(outer->pev), 
 		CHAN_WEAPON, 
 		RANDOM_SOUND_ARRAY(pKickHitSounds), 
 		1.0,
@@ -96,10 +90,10 @@ void CKateCombatTactics::KickHitSound()
 		RANDOM_LONG(95, 105));
 }
 
-void CKateCombatTactics::KickMissSound()
+void CKateCombatTactics::KickMissSound(CBaseMonster* const outer)
 {
 	EMIT_SOUND_DYN(
-		ENT(GetOuter()->pev),
+		ENT(outer->pev),
 		CHAN_WEAPON,
 		RANDOM_SOUND_ARRAY(pKickMissSounds), 
 		1.0, 
@@ -108,10 +102,10 @@ void CKateCombatTactics::KickMissSound()
 		RANDOM_LONG(95, 105));
 }
 
-void CKateCombatTactics::PunchHitSound()
+void CKateCombatTactics::PunchHitSound(CBaseMonster* const outer)
 {
 	EMIT_SOUND_DYN(
-		ENT(GetOuter()->pev),
+		ENT(outer->pev),
 		CHAN_WEAPON, 
 		RANDOM_SOUND_ARRAY(pPunchHitSounds), 
 		1.0, 
@@ -120,10 +114,10 @@ void CKateCombatTactics::PunchHitSound()
 		RANDOM_LONG(95, 105));
 }
 
-void CKateCombatTactics::PunchMissSound()
+void CKateCombatTactics::PunchMissSound(CBaseMonster* const outer)
 {
 	EMIT_SOUND_DYN(
-		ENT(GetOuter()->pev), 
+		ENT(outer->pev), 
 		CHAN_WEAPON, 
 		RANDOM_SOUND_ARRAY(pPunchMissSounds),
 		1.0, 
@@ -189,6 +183,8 @@ private:
 	static const char* pAttackSounds[];
 	static const char* pPainSounds[];
 	static const char* pDeathSounds[];
+
+	CKateCombatTactics m_combatTactics;
 };
 
 LINK_ENTITY_TO_CLASS(monster_kate, CKate);
@@ -270,7 +266,7 @@ void CKate::MeleeAttack()
 	if (!IsPlayingKarateBigHitSequence())
 	{
 		// kate is only kicking once.
-		GetCombatTactics()->Kick();
+		GetCombatTactics()->Kick(this);
 		m_karateStrikeCount = 0;
 	}
 	else
@@ -278,11 +274,11 @@ void CKate::MeleeAttack()
 		if (m_karateStrikeCount++ == 2)
 		{
 			// Perform a kick on last karate strike.
-			GetCombatTactics()->Kick();
+			GetCombatTactics()->Kick(this);
 			m_karateStrikeCount = 0;
 		}
 		else
-			GetCombatTactics()->Punch();
+			GetCombatTactics()->Punch(this);
 	}
 }
 
@@ -426,6 +422,5 @@ BOOL CKate::IsWearingHelmet()
 
 CBaseCombatTactics* CKate::GetCombatTactics()
 {
-	static CKateCombatTactics combatTacticsSingleton( this );
-	return &combatTacticsSingleton;
+	return &m_combatTactics;
 }

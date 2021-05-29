@@ -25,19 +25,9 @@
 #define		DEFAULT_KICK_ADDITIONAL_POWER	RANDOM_FLOAT(4, 5)
 #define		DEFAULT_PUNCH_ADDITIONAL_POWER	RANDOM_FLOAT(4, 5)
 
-CBaseMonster* CBaseCombatTactics::GetOuter()
+CBaseEntity* CBaseCombatTactics::CheckTraceAttackHull(CBaseMonster* const outer, float distance, float damage, Vector punchAngles, Vector impulse)
 {
-	return _outer;
-}
-
-void CBaseCombatTactics::SetOuter(CBaseMonster* outer)
-{
-	_outer = outer;
-}
-
-CBaseEntity* CBaseCombatTactics::CheckTraceAttackHull(float distance, float damage, Vector punchAngles, Vector impulse)
-{
-	CBaseEntity *pHurt = GetOuter()->CheckTraceHullAttack(distance, damage, DMG_CLUB);
+	CBaseEntity *pHurt = outer->CheckTraceHullAttack(distance, damage, DMG_CLUB);
 	if (pHurt && (pHurt->pev->flags & (FL_MONSTER | FL_CLIENT)) != 0)
 	{
 		if (pHurt->IsPlayer())
@@ -63,32 +53,32 @@ float CBaseCombatTactics::GetPunchImpulseForce() const
 	return DEFAULT_PUNCH_ADDITIONAL_POWER * DEFAULT_PUNCH_FACTOR;
 }
 
-void CBaseCombatTactics::Punch()
+void CBaseCombatTactics::Punch(CBaseMonster* const outer)
 {
 	//ALERT(at_console, "Punch!");
 	Vector punchAngles = GetVictimPunchAngles();
 	Vector impulse = gpGlobals->v_forward * GetPunchImpulseForce();
 
-	CBaseEntity *pHurt = CheckTraceAttackHull(GetDefaultDistanceForTraceHullAttack(), 
+	CBaseEntity *pHurt = CheckTraceAttackHull(outer, GetDefaultDistanceForTraceHullAttack(), 
 		GetPunchDamage(), punchAngles, impulse);
 	if (pHurt)
-		PunchHitSound();
+		PunchHitSound(outer);
 	else
-		PunchMissSound();
+		PunchMissSound(outer);
 }
 
-void CBaseCombatTactics::Kick()
+void CBaseCombatTactics::Kick(CBaseMonster* const outer)
 {
 	//ALERT(at_console, "Kick!");
 	Vector punchAngles = GetVictimPunchAngles();
 	Vector impulse = gpGlobals->v_forward * GetKickImpulseForce();
 
-	CBaseEntity *pHurt = CheckTraceAttackHull(GetDefaultDistanceForTraceHullAttack(), 
+	CBaseEntity *pHurt = CheckTraceAttackHull(outer, GetDefaultDistanceForTraceHullAttack(), 
 		GetKickDamage(), punchAngles, impulse);
 	if (pHurt)
-		KickHitSound();
+		KickHitSound(outer);
 	else
-		KickMissSound();
+		KickMissSound(outer);
 }
 
 float CBaseCombatTactics::GetDefaultDistanceForTraceHullAttack()

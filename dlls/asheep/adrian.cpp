@@ -26,13 +26,11 @@ class CAdrianCombatTactics : public CBaseCombatTactics
 {
 	typedef CBaseCombatTactics BaseClass;
 public:
-	CAdrianCombatTactics(CBaseMonster* outer);
-
 	virtual float GetKickDamage() const;
 	virtual float GetPunchDamage() const { return 0.0f; }
 
-	virtual void KickHitSound();
-	virtual void KickMissSound();
+	virtual void KickHitSound(CBaseMonster* const outer);
+	virtual void KickMissSound(CBaseMonster* const outer);
 
 	static const char* pKickHitSounds[];
 	static const char* pKickMissSounds[];
@@ -49,19 +47,15 @@ const char *CAdrianCombatTactics::pKickMissSounds[] =
 	"zombie/claw_miss2.wav",
 };
 
-CAdrianCombatTactics::CAdrianCombatTactics(CBaseMonster* outer) : BaseClass(outer)
-{
-}
-
 float CAdrianCombatTactics::GetKickDamage() const
 {
 	return gSkillData.adrianDmgKick;
 }
 
-void CAdrianCombatTactics::KickHitSound()
+void CAdrianCombatTactics::KickHitSound(CBaseMonster* const outer)
 {
 	EMIT_SOUND_DYN(
-		ENT(GetOuter()->pev),
+		ENT(outer->pev),
 		CHAN_WEAPON,
 		RANDOM_SOUND_ARRAY(pKickHitSounds),
 		1.0,
@@ -70,10 +64,10 @@ void CAdrianCombatTactics::KickHitSound()
 		RANDOM_LONG(95, 105));
 }
 
-void CAdrianCombatTactics::KickMissSound()
+void CAdrianCombatTactics::KickMissSound(CBaseMonster* const outer)
 {
 	EMIT_SOUND_DYN(
-		ENT(GetOuter()->pev),
+		ENT(outer->pev),
 		CHAN_WEAPON,
 		RANDOM_SOUND_ARRAY(pKickMissSounds),
 		1.0,
@@ -133,6 +127,8 @@ private:
 	static const char* pAttackSounds[];
 	static const char* pPainSounds[];
 	static const char* pDeathSounds[];
+
+	CAdrianCombatTactics m_combatTactics;
 };
 
 LINK_ENTITY_TO_CLASS(monster_adrian, CAdrian);
@@ -229,7 +225,7 @@ int CAdrian::GetFirstTimeSpawnHealth() const
 
 void CAdrian::MeleeAttack()
 {
-	GetCombatTactics()->Kick();
+	GetCombatTactics()->Kick(this);
 }
 
 void CAdrian::InitSentenceGroup()
@@ -330,6 +326,5 @@ void CAdrian::NotifyAlliesOfDeath(CBaseEntity* pAttacker)
 
 CBaseCombatTactics* CAdrian::GetCombatTactics()
 {
-	static CAdrianCombatTactics combatTacticsSingleton( this );
-	return &combatTacticsSingleton;
+	return &m_combatTactics;
 }
