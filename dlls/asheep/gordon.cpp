@@ -55,7 +55,6 @@ private:
 };
 
 LINK_ENTITY_TO_CLASS(monster_gordon, CGordon);
-LINK_ENTITY_TO_CLASS(monster_freeman, CGordon);
 
 const char* CGordon::pAttackSounds[] =
 {
