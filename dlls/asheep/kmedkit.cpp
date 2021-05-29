@@ -22,12 +22,8 @@
 #include "player.h"
 #include "gamerules.h"
 
-// Given a monster with 38 of health.
-// When transiting from 30 to 8, cut
-// a small portion of the overall (30)
-// sound duration, to give a blending
-// effect.
-#define PERCENTAGE_SENTENCE_SHIFT 0.1
+// Delay in seconds before playing the second percent part.
+#define PERCENTAGE_SENTENCE_DELAY 0.75
 
 class CKMedkitSentence
 {
@@ -111,7 +107,7 @@ const char* CKMedkitSentence::GetSentenceOneHundred() const { return "KA_HEALTH0
 
 float CKMedkitSentence::GetTwoPartTensBlendingDelay() const
 {
-	return PERCENTAGE_SENTENCE_SHIFT;
+	return PERCENTAGE_SENTENCE_DELAY;
 }
 
 void CKMedkitSentence::Init()
@@ -619,9 +615,8 @@ void CKMedkit::State_HealthPercentage()
 		{
 			GetSentenceManager()->PlaySentenceFromPercentage(m_pPlayer, percent, &soundDuration);
 
-			// Reduce the delay until ones sound plays to give a
-			// blending effect.
-			soundDuration -= GetSentenceManager()->GetTwoPartTensBlendingDelay();
+			// Add additional delay before playing the second part.
+			soundDuration += GetSentenceManager()->GetTwoPartTensBlendingDelay();
 
 			m_fInAttack = KMedkitUseState::STATE_HEALTH_PERCENTAGE;
 			m_flStartThrow = gpGlobals->time + soundDuration;
