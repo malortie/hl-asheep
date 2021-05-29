@@ -41,7 +41,6 @@
 #include	"effects.h"
 #include	"customentity.h"
 #include	"squadmonsterwithhgruntai.h"
-#include	"asheep_serverside_utils.h"
 
 extern DLL_GLOBAL int		g_iSkillLevel;
 

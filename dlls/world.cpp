@@ -33,9 +33,6 @@
 #include "weapons.h"
 #include "gamerules.h"
 #include "teamplay_gamerules.h"
-#if defined ( ASHEEP_DLL )
-#include "asheep_serverside_utils.h"
-#endif // defined ( ASHEEP_DLL )
 
 extern CGraph WorldGraph;
 extern CSoundEnt *pSoundEnt;

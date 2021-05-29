@@ -28,9 +28,6 @@
 #include "skill.h"
 #include "items.h"
 #include "gamerules.h"
-#if defined ( ASHEEP_DLL )
-#include "asheep_serverside_utils.h"
-#endif // defined ( ASHEEP_DLL )
 
 extern int gmsgItemPickup;
 

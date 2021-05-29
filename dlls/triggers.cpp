@@ -27,9 +27,6 @@
 #include "saverestore.h"
 #include "trains.h"			// trigger_camera has train functionality
 #include "gamerules.h"
-#if defined ( ASHEEP_DLL )
-#include "asheep_serverside_utils.h"
-#endif // defined ( ASHEEP_DLL )
 #include "room_type.h"
 
 #define	SF_TRIGGER_PUSH_START_OFF	2//spawnflag that makes trigger_push spawn turned OFF

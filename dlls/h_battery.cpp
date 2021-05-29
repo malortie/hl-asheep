@@ -26,10 +26,7 @@
 #include "saverestore.h"
 #include "skill.h"
 #include "gamerules.h"
-#if defined ( ASHEEP_DLL )
 #include "player.h"
-#include "asheep_serverside_utils.h"
-#endif // defined ( ASHEEP_DLL )
 
 class CRecharge : public CBaseToggle
 {

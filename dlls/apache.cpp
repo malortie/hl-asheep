@@ -21,9 +21,6 @@
 #include "weapons.h"
 #include "nodes.h"
 #include "effects.h"
-#if defined ( ASHEEP_DLL )
-#include "asheep_serverside_utils.h"
-#endif // defined ( ASHEEP_DLL )
 
 extern DLL_GLOBAL int		g_iSkillLevel;
 
