@@ -98,6 +98,7 @@ void CSquadMonsterWithHGruntAIUtil::PrecacheSharedSounds()
 	PRECACHE_SOUND_ARRAY(HumanGruntSounds::pDeathSounds);
 
 	PRECACHE_SOUND("zombie/claw_miss2.wav");// because we use the basemonster SWIPE animation event
+	PRECACHE_SOUND("common/kick.wav");
 }
 
 void CSquadMonsterWithHGruntAIUtil::PrecacheHGruntWeaponSounds()
@@ -141,6 +142,17 @@ void CSquadMonsterWithHGruntAIUtil::PlayHGruntLaunchGrenadeSound(CBaseEntity* ou
 void CSquadMonsterWithHGruntAIUtil::PlayHGruntReloadSound(CBaseEntity* outer)
 {
 	EMIT_SOUND(ENT(outer->pev), CHAN_WEAPON, "hgrunt/gr_reload1.wav", 1, ATTN_NORM);
+}
+
+void CSquadMonsterWithHGruntAIUtil::PlayHGruntKickSound(CBaseEntity* outer)
+{
+	EMIT_SOUND_DYN(ENT(outer->pev),
+		CHAN_WEAPON,
+		"common/kick.wav",
+		1.0,
+		ATTN_NORM,
+		0,
+		RANDOM_LONG(95, 105));
 }
 
 void CSquadMonsterWithHGruntAIUtil::TraceAttackNormal(CSquadMonsterWithHGruntAI* outer, entvars_t *pevAttacker, Vector vecDir, TraceResult *ptr, int bitsDamageType, float& flDamage)

@@ -853,6 +853,8 @@ void CSquadMonsterWithHGruntAI :: HandleAnimEvent( MonsterEvent_t *pEvent )
 			if ( pHurt )
 			{
 				// SOUND HERE!
+				GetSharedUtils()->PlayHGruntKickSound(this);
+
 				UTIL_MakeVectors( pev->angles );
 				pHurt->pev->punchangle.x = 15;
 				pHurt->pev->velocity = pHurt->pev->velocity + gpGlobals->v_forward * 100 + gpGlobals->v_up * 50;

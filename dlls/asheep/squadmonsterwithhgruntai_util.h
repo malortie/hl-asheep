@@ -35,6 +35,7 @@ public:
 	virtual void PlayHGruntShotgunFireSound(CBaseEntity* outer);
 	virtual void PlayHGruntLaunchGrenadeSound(CBaseEntity* outer);
 	virtual void PlayHGruntReloadSound(CBaseEntity* outer);
+	virtual void PlayHGruntKickSound(CBaseEntity* outer);
 
 	virtual void TraceAttackNormal(CSquadMonsterWithHGruntAI* outer, entvars_t *pevAttacker, Vector vecDir, TraceResult *ptr, int bitsDamageType, float& flDamage);
 
