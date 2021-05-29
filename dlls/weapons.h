@@ -1699,7 +1699,6 @@ private:
 	int m_targetHealth;
 	int m_targetMaxHealth;
 	float m_delay;
-	int m_useState;
 	int m_healthPercentState;
 
 	unsigned short m_usMedkit;

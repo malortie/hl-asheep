@@ -511,14 +511,7 @@ void CKMedkit::UseAmmo(int count)
 
 BOOL CKMedkit::IsCurrentlyUsingMedkit() const
 {
-#if defined ( CLIENT_DLL )
-	return FALSE;
-#else
-	if (m_useState != KMedkitUseState::STATE_NONE)
-		return TRUE;
-
-	return FALSE;
-#endif // defined ( CLIENT_DLL )
+	return m_fInAttack != KMedkitUseState::STATE_NONE ? TRUE : FALSE;
 }
 
 BOOL CKMedkit::IsAllowedToHealTarget(CBaseEntity* target)
@@ -564,7 +557,7 @@ void CKMedkit::StartPressButton(CBaseEntity* target, BOOL isSecondaryAttack)
 
 		PlayHealSound();
 
-		m_useState = KMedkitUseState::STATE_HEAL;
+		m_fInAttack = KMedkitUseState::STATE_HEAL;
 		m_delay = gpGlobals->time + GetHealSequenceDuration() + GetStateHealDelay();
 	}
 	else 
@@ -573,7 +566,7 @@ void CKMedkit::StartPressButton(CBaseEntity* target, BOOL isSecondaryAttack)
 
 		PlayBellSound();
 
-		m_useState = KMedkitUseState::STATE_VITALSIGNS;
+		m_fInAttack = KMedkitUseState::STATE_VITALSIGNS;
 		m_delay = gpGlobals->time + GetSayHealthSequenceDuration() + GetStateVitalSignsDelay();
 	}
 }
@@ -591,7 +584,7 @@ void CKMedkit::State_Heal()
 	m_targetHealth = m_target->pev->health;
 	m_targetMaxHealth = m_target->pev->max_health;
 
-	m_useState = KMedkitUseState::STATE_VITALSIGNS;
+	m_fInAttack = KMedkitUseState::STATE_VITALSIGNS;
 	m_delay = gpGlobals->time + GetStateVitalSignsDelay();
 }
 
@@ -607,7 +600,7 @@ void CKMedkit::State_VitalSigns()
 	// blending effect.
 	soundDuration = std::max(0.0f, soundDuration - 0.1f);
 
-	m_useState = KMedkitUseState::STATE_HEALTH_PERCENTAGE;
+	m_fInAttack = KMedkitUseState::STATE_HEALTH_PERCENTAGE;
 	m_delay = gpGlobals->time + soundDuration;
 }
 
@@ -634,7 +627,7 @@ void CKMedkit::State_HealthPercentage()
 			// blending effect.
 			soundDuration -= GetSentenceManager()->GetTwoPartTensBlendingDelay();
 
-			m_useState = KMedkitUseState::STATE_HEALTH_PERCENTAGE;
+			m_fInAttack = KMedkitUseState::STATE_HEALTH_PERCENTAGE;
 			m_delay = gpGlobals->time + soundDuration;
 
 			m_healthPercentState++;
@@ -644,7 +637,7 @@ void CKMedkit::State_HealthPercentage()
 			// Play percent tens sound.
 			GetSentenceManager()->PlaySentenceFromPercentage(m_pPlayer, percent, &soundDuration);
 
-			m_useState = KMedkitUseState::STATE_SOUND_PERCENT;
+			m_fInAttack = KMedkitUseState::STATE_SOUND_PERCENT;
 			m_delay = gpGlobals->time + soundDuration;
 		}
 	}
@@ -654,7 +647,7 @@ void CKMedkit::State_HealthPercentage()
 
 		m_healthPercentState = 0;
 
-		m_useState = KMedkitUseState::STATE_SOUND_PERCENT;
+		m_fInAttack = KMedkitUseState::STATE_SOUND_PERCENT;
 		m_delay = gpGlobals->time + soundDuration;
 	}
 }
@@ -716,24 +709,24 @@ void CKMedkit::ResetVariables()
 	m_targetHealth = 0;
 	m_targetMaxHealth = 0;
 	m_delay = 0;
-	m_useState = KMedkitUseState::STATE_NONE;
+	m_fInAttack = KMedkitUseState::STATE_NONE;
 	m_healthPercentState = 0;
 }
 
 void CKMedkit::UpdateState()
 {
-	if (m_useState == KMedkitUseState::STATE_NONE)
+	if (m_fInAttack == KMedkitUseState::STATE_NONE)
 		return;
 
 	if (m_delay > gpGlobals->time)
 		return;
 
-	int currentUseState = m_useState;
-	m_useState = KMedkitUseState::STATE_RESETVARIABLES;
+	int currentUseState = m_fInAttack;
+	m_fInAttack = KMedkitUseState::STATE_RESETVARIABLES;
 
 	ChooseAndExecuteUseState(currentUseState);
 
-	if (m_useState == KMedkitUseState::STATE_RESETVARIABLES)
+	if (m_fInAttack == KMedkitUseState::STATE_RESETVARIABLES)
 		ResetVariables();
 }
 
