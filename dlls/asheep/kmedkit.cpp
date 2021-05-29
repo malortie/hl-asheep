@@ -237,7 +237,6 @@ BOOL CKMedkitSentence::ShouldPercentageSentenceBePlayedInTwoParts(int percent)
 
 void CKMedkitSentence::PlaySentence(CBasePlayer* player, const char* sentence, float* resultSoundDuration)
 {
-#if !defined ( CLIENT_DLL )
 	char szSentence[128] = {};
 	std::strcpy(szSentence, "!");
 	std::strncat(szSentence, sentence, ARRAYSIZE(szSentence) - std::strlen(szSentence));
@@ -247,7 +246,6 @@ void CKMedkitSentence::PlaySentence(CBasePlayer* player, const char* sentence, f
 	if (resultSoundDuration != NULL)
 		*resultSoundDuration = GetSentenceDuration((char*)sentence);
 
-#endif // !defined ( CLIENT_DLL )
 }
 
 void CKMedkitSentence::PlaySentenceFromPercentage(
@@ -256,7 +254,6 @@ void CKMedkitSentence::PlaySentenceFromPercentage(
 	float* resultSoundDuration,
 	BOOL playTensOnPercentageWithRemainder)
 {
-#if !defined ( CLIENT_DLL )
 	char szPercent[64] = {};
 
 	if (percent == 100)
@@ -283,7 +280,6 @@ void CKMedkitSentence::PlaySentenceFromPercentage(
 	if (resultSoundDuration != NULL)
 		*resultSoundDuration = GetSentenceDuration(szPercent);
 
-#endif // !defined ( CLIENT_DLL )
 }
 
 #define WEAPON_KMEDKIT_VIEWMODEL	"models/v_kmedkit.mdl"
@@ -808,35 +804,28 @@ void CKMedkit::SendMedkitAnim(int useType)
 
 void CKMedkit::PlayHealSound()
 {
-#if !defined ( CLIENT_DLL )
 	EMIT_SOUND_DYN(m_pPlayer->edict(), CHAN_AUTO, "weapons/kmedkit_heal.wav", 0.8, ATTN_NORM, 0, 100);
-#endif // !defined ( CLIENT_DLL )
 }
 
 void CKMedkit::PlayMissSound()
 {
-	PLAYBACK_EVENT_FULL(0, m_pPlayer->edict(), m_usMedkit, 0.0, (float *)&m_pPlayer->pev->origin, (float *)&g_vecZero, 0, 0, 0, KMEDKIT_SOUND_MISS, 0, 0);
+	EMIT_SOUND_DYN(m_pPlayer->edict(), CHAN_WEAPON, "weapons/kmedkit_miss.wav", 0.8, ATTN_NORM, 0,
+		90 + RANDOM_LONG(1, 5) * RANDOM_LONG(1, 2) * 2);
 }
 
 void CKMedkit::PlayBellSound()
 {
-#if !defined ( CLIENT_DLL )
 	GetSentenceManager()->PlaySentence(m_pPlayer, GetSentenceManager()->GetSentenceSayHealth(), NULL);
-#endif // !defined ( CLIENT_DLL )
 }
 
 void CKMedkit::PlayVitalSignsSound(float* resultingSoundDuration)
 {
-#if !defined ( CLIENT_DLL )
 	GetSentenceManager()->PlaySentence(m_pPlayer, GetSentenceManager()->GetSentenceVitalSigns(), resultingSoundDuration);
-#endif // !defined ( CLIENT_DLL )
 }
 
 void CKMedkit::PlaySoundPercent(float* resultingSoundDuration)
 {
-#if !defined ( CLIENT_DLL )
 	GetSentenceManager()->PlaySentence(m_pPlayer, GetSentenceManager()->GetSentencePercent(), resultingSoundDuration);
-#endif // !defined ( CLIENT_DLL )
 }
 
 void CKMedkit::SetNextAttack(float nextPrimaryAttackTime)

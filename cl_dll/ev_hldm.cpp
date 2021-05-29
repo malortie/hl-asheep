@@ -1996,7 +1996,6 @@ void EV_KMedkit(struct event_args_s *args)
 	VectorCopy(args->velocity, velocity);
 
 	int useType = args->iparam1;
-	int soundToPlay = args->iparam2;
 
 	if (EV_IsLocal(idx))
 	{
@@ -2012,17 +2011,6 @@ void EV_KMedkit(struct event_args_s *args)
 			break;
 		}
 	}
-
-	switch (soundToPlay)
-	{
-	case KMEDKIT_SOUND_MISS:
-		gEngfuncs.pEventAPI->EV_PlaySound(idx, origin, CHAN_WEAPON, "weapons/kmedkit_miss.wav", 0.8, 
-			ATTN_NORM, 0, 90 + gEngfuncs.pfnRandomLong(1, 5) * gEngfuncs.pfnRandomLong(1, 2) * 2);
-		break;
-	default:
-		break;
-	}
-
 }
 
 //======================
