@@ -1646,7 +1646,7 @@ TYPEDESCRIPTION	CKMedkit::m_SaveData[] =
 	DEFINE_FIELD(CKMedkit, m_target, FIELD_CLASSPTR),
 	DEFINE_FIELD(CKMedkit, m_targetHealth, FIELD_INTEGER),
 	DEFINE_FIELD(CKMedkit, m_targetMaxHealth, FIELD_INTEGER),
-	DEFINE_FIELD(CKMedkit, m_delay, FIELD_TIME),
+	DEFINE_FIELD(CKMedkit, m_flStartThrow, FIELD_TIME),
 	DEFINE_FIELD(CKMedkit, m_fInAttack, FIELD_INTEGER),
 	DEFINE_FIELD(CKMedkit, m_healthPercentState, FIELD_INTEGER),
 };
