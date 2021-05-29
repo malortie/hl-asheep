@@ -81,7 +81,15 @@ void CRat::SetModel()
 
 void CRat::SetMonsterCollisionBounds()
 {
-	UTIL_SetSize(pev, Vector(-1, -1, 0), Vector(1, 1, 1));
+	if (FStrEq(STRING(gpGlobals->mapname), "t0a0"))
+	{
+		// Set a 0 size since it is stuck on spawn on map t0a0.
+		UTIL_SetSize(pev, Vector(0, 0, 0), Vector(0, 0, 0));
+	}
+	else
+	{
+		UTIL_SetSize(pev, Vector(-12, -12, 0), Vector(12, 12, 24));
+	}
 }
 
 int CRat::GetFirstTimeSpawnHealth() const
