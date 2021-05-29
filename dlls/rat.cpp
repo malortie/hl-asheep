@@ -30,6 +30,7 @@ class CRat : public CBaseMonsterWithHeadCrabAI
 public:
 	int	Classify() { return CLASS_RAT; }
 	int IRelationship(CBaseEntity *pTarget);
+	BOOL HasHumanGibs(void) { return TRUE; }
 
 	virtual void PainSound(void);
 	virtual void DeathSound(void);
