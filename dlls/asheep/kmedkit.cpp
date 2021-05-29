@@ -550,7 +550,7 @@ void CKMedkit::StartPressButton(CBaseEntity* target, BOOL isSecondaryAttack)
 		PlayHealSound();
 
 		m_fInAttack = KMedkitUseState::STATE_HEAL;
-		m_flStartThrow = gpGlobals->time + GetHealSequenceDuration() + GetStateHealDelay();
+		m_flStartThrow = gpGlobals->time + 1.0f;
 	}
 	else 
 	{
@@ -559,7 +559,7 @@ void CKMedkit::StartPressButton(CBaseEntity* target, BOOL isSecondaryAttack)
 		PlayBellSound();
 
 		m_fInAttack = KMedkitUseState::STATE_VITALSIGNS;
-		m_flStartThrow = gpGlobals->time + GetSayHealthSequenceDuration() + GetStateVitalSignsDelay();
+		m_flStartThrow = gpGlobals->time + 1.9f;
 	}
 }
 
