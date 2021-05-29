@@ -119,3 +119,27 @@ void PlayerMediator_AddArmorToPlayer(CBasePlayer* player)
 
 	gPlayerMediator.AddArmorToPlayer(player);
 }
+
+#define BATTERY_DENY_MESSAGE_DELAY	4.0f // In seconds.
+
+void UTIL_DisplayBatteryDenyMessage(CBasePlayer* pPlayer, PlayerBatteryDenyMessageType messageType)
+{
+	if (pPlayer->m_flNextBatteryDenyMessageTime > gpGlobals->time)
+		return;
+
+	pPlayer->m_flNextBatteryDenyMessageTime = gpGlobals->time + BATTERY_DENY_MESSAGE_DELAY;
+
+	switch (messageType)
+	{
+	case BATTERYDENY_BATTERY:
+		UTIL_ShowMessage("NOHEVBATTERY", pPlayer);
+		EMIT_SOUND_DYN(ENT(pPlayer->pev), CHAN_VOICE, "barney/nope.wav", 1.0, ATTN_NORM, 0, 100);
+		break;
+	case BATTERYDENY_SUITCHARGER:
+		UTIL_ShowMessage("NOHEVRECHARGE", pPlayer);
+		break;
+	default:
+		// Undefined deny message type.
+		break;
+	}
+}

@@ -513,10 +513,6 @@ void CWorld :: Precache( void )
 		ALERT ( at_console, "**COULD NOT CREATE SOUNDENT**\n" );
 	}
 
-#if defined ( ASHEEP_DLL )
-	Message_CreateAndSetupSingleton();
-	HevMediator_CreateAndSetupSingleton();
-#endif // defined ( ASHEEP_DLL )
 	InitBodyQue();
 	
 // init sentence group playback stuff from sentences.txt.

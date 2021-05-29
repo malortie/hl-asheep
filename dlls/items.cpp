@@ -242,12 +242,14 @@ class CItemBattery : public CItem
 			return FALSE;
 		}
 
-#if defined ( ASHEEP_DLL )
-		if (HevMediator_PlayerAttemptToPickupSuitBattery(pPlayer, TRUE))
-#else
+		if (!UTIL_IsPlayerEquippedWithSuit(pPlayer))
+		{
+			UTIL_DisplayBatteryDenyMessage(pPlayer, BATTERYDENY_BATTERY);
+			return FALSE;
+		}
+
 		if ((pPlayer->pev->armorvalue < MAX_NORMAL_BATTERY) &&
 			(pPlayer->pev->weapons & (1<<WEAPON_SUIT)))
-#endif // defined ( ASHEEP_DLL )
 		{
 			int pct;
 			char szcharge[64];

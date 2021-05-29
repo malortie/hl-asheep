@@ -150,6 +150,7 @@ TYPEDESCRIPTION	CBasePlayer::m_playerSaveData[] =
 	DEFINE_FIELD(CBasePlayer, m_iSwitchWeaponState, FIELD_INTEGER),
 	DEFINE_FIELD(CBasePlayer, m_pWeaponToSwitchTo, FIELD_CLASSPTR),
 #endif // defined ( ASHEEP_WEAPONHOLSTER )
+	DEFINE_FIELD(CBasePlayer, m_flNextBatteryDenyMessageTime, FIELD_TIME),
 };	
 
 
@@ -2950,6 +2951,7 @@ void CBasePlayer::Spawn( void )
 	m_iSwitchWeaponState = SwitchWeaponState::STATE_NONE;
 	m_pWeaponToSwitchTo = NULL;
 #endif // defined ( ASHEEP_WEAPONHOLSTER )
+	m_flNextBatteryDenyMessageTime = gpGlobals->time;
 	g_pGameRules->PlayerSpawn( this );
 }
 

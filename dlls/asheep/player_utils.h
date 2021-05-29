@@ -8,4 +8,12 @@ BOOL UTIL_IsPlayerEquippedWithSuit(CBasePlayer* player);
 void PlayerMediator_AddArmorToPlayer(CBasePlayer* player);
 void PlayerMediator_AddSuitToPlayer(CBasePlayer* player);
 
+enum PlayerBatteryDenyMessageType
+{
+	BATTERYDENY_BATTERY = 0,
+	BATTERYDENY_SUITCHARGER,
+};
+
+void UTIL_DisplayBatteryDenyMessage(CBasePlayer* pPlayer, PlayerBatteryDenyMessageType messageType);
+
 #endif // PLAYER_UTILS_H__

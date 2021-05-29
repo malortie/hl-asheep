@@ -27,6 +27,7 @@
 #include "skill.h"
 #include "gamerules.h"
 #if defined ( ASHEEP_DLL )
+#include "player.h"
 #include "asheep_serverside_utils.h"
 #endif // defined ( ASHEEP_DLL )
 
@@ -121,16 +122,19 @@ void CRecharge::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE use
 	}
 
 	// if the player doesn't have the suit, or there is no juice left, make the deny noise
-#if defined ( ASHEEP_DLL )
-	if(m_iJuice <= 0 || !HevMediator_PlayerAttemptToUseSuitCharger((CBasePlayer*)pActivator, TRUE))
-#else
 	if ((m_iJuice <= 0) || (!(pActivator->pev->weapons & (1<<WEAPON_SUIT))))
-#endif // defined ( ASHEEP_DLL )
 	{
 		if (m_flSoundTime <= gpGlobals->time)
 		{
 			m_flSoundTime = gpGlobals->time + 0.62;
 			EMIT_SOUND(ENT(pev), CHAN_ITEM, "items/suitchargeno1.wav", 0.85, ATTN_NORM );
+		}
+
+		if (!(pActivator->pev->weapons & (1 << WEAPON_SUIT)))
+		{
+			CBasePlayer* pPlayer = (CBasePlayer*)pActivator;
+			if (pPlayer)
+				UTIL_DisplayBatteryDenyMessage(pPlayer, BATTERYDENY_SUITCHARGER);
 		}
 		return;
 	}

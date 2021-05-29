@@ -347,6 +347,8 @@ public:
 	int m_iSwitchWeaponMethod;
 	CBasePlayerItem* m_pWeaponToSwitchTo;
 #endif // defined ( ASHEEP_WEAPONHOLSTER )
+
+	float m_flNextBatteryDenyMessageTime;
 };
 
 #define AUTOAIM_2DEGREES  0.0348994967025

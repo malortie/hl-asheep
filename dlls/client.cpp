@@ -916,6 +916,9 @@ void ClientPrecache( void )
 	PRECACHE_SOUND("debris/metal3.wav");
 	UTIL_PrecacheOther("env_spawnereffect");
 #endif // defined ( ASHEEP_DLL )
+
+	// Used when the player tries to pickup a battery without having the suit.
+	PRECACHE_SOUND("barney/nope.wav");
 }
 
 /*
