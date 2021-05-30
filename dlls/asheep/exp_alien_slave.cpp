@@ -136,8 +136,8 @@ CBeam* CExpAlienSlave::CreateArmBeam(int side, const Vector& endPostition)
 	{
 		pBeam->PointEntInit(endPostition, entindex());
 		pBeam->SetEndAttachment(side < 0 ? 2 : 1);
-		pBeam->SetColor(128, 16, 96);
-		pBeam->SetBrightness(64);
+		pBeam->SetColor(240, 150, 230);
+		pBeam->SetBrightness(255);
 		pBeam->SetNoise(80);
 	}
 
@@ -152,7 +152,7 @@ CBeam* CExpAlienSlave::CreateZapBeam(int side, const Vector& endPostition)
 	{
 		pBeam->PointEntInit(endPostition, entindex());
 		pBeam->SetEndAttachment(side < 0 ? 2 : 1);
-		pBeam->SetColor(255, 96, 180);
+		pBeam->SetColor(240, 150, 230);
 		pBeam->SetBrightness(255);
 		pBeam->SetNoise(20);
 	}
