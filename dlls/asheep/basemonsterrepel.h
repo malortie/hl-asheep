@@ -12,9 +12,6 @@ public:
 	virtual const char* GetClassNameOfMonsterToSpawn() const = 0;
 	virtual const char* GetRopeSpriteName() const;
 	virtual float GetFirstTimeSpawnRepellingSpeed() const;
-	
-private:
-	string_t m_iszClassNameOfMonsterToSpawn;
 };
 
 #endif // BASEMONSTERREPEL_H__

@@ -30,8 +30,7 @@ void CBaseMonsterRepel::Spawn( void )
 
 void CBaseMonsterRepel::Precache( void )
 {
-	m_iszClassNameOfMonsterToSpawn = MAKE_STRING(GetClassNameOfMonsterToSpawn());
-	UTIL_PrecacheOther( STRING(m_iszClassNameOfMonsterToSpawn) );
+	UTIL_PrecacheOther( GetClassNameOfMonsterToSpawn() );
 	m_iSpriteTexture = PRECACHE_MODEL((char*)GetRopeSpriteName());
 }
 
@@ -40,7 +39,7 @@ void CBaseMonsterRepel::RepelUse ( CBaseEntity *pActivator, CBaseEntity *pCaller
 	TraceResult tr;
 	UTIL_TraceLine( pev->origin, pev->origin + Vector( 0, 0, -4096.0), dont_ignore_monsters, ENT(pev), &tr);
 
-	CBaseEntity *pEntity = Create((char*)STRING(m_iszClassNameOfMonsterToSpawn), pev->origin, pev->angles );
+	CBaseEntity *pEntity = Create((char*)GetClassNameOfMonsterToSpawn(), pev->origin, pev->angles );
 	CBaseMonster *pRepel = pEntity->MyMonsterPointer( );
 	pRepel->pev->movetype = MOVETYPE_FLY;
 	pRepel->pev->velocity = Vector( 0, 0, GetFirstTimeSpawnRepellingSpeed() );
