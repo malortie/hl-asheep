@@ -27,6 +27,7 @@
 #include	"effects.h"
 #include	"customentity.h"
 #include	"squadmonsterwithhgruntai.h"
+#include	"hterror.h"
 
 #define	TERROR_WEAPON1_CLIP_SIZE	36 // how many bullets in a clip? - NOTE: 3 round burst sound, so keep as 3 * x!
 #define TERROR_WEAPON2_CLIP_SIZE	8
@@ -35,24 +36,6 @@
 #define TERROR_HANDGRENADE		(1 << 1)
 #define TERROR_GRENADELAUNCHER	(1 << 2)
 #define TERROR_SHOTGUN			(1 << 3)
-
-enum HTerrorBodygroup
-{
-	HEAD_GROUP = 0,
-	GUN_GROUP = 1,
-};
-
-enum HTerrorHead
-{
-	HEAD_HOOD = 0,
-};
-
-enum HTerrorGun
-{
-	GUN_MP5 = 0,
-	GUN_SHOTGUN,
-	GUN_NONE,
-};
 
 class CHTerror : public CSquadMonsterWithHGruntAI
 {
