@@ -118,7 +118,7 @@ IMPLEMENT_SAVERESTORE(CSpawnerEffect, CBaseEntity);
 int CSpawnerEffect::m_beamColor[2][4] =
 {
 	{ 197, 243, 169, 150 },	// Default greenish.
-	{ 243, 197, 169, 150 }	// Reddish/pink.
+	{ 243, 169, 197, 150 }	// Reddish/pink.
 };
 
 int CSpawnerEffect::m_lightColor[2][3] = 
