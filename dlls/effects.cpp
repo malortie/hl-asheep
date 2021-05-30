@@ -2091,6 +2091,8 @@ void CMessage::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useT
 //=========================================================
 // FunnelEffect
 //=========================================================
+/* Azure Sheep does not have this entity.
+
 class CEnvFunnel : public CBaseDelay
 {
 public:
@@ -2139,6 +2141,7 @@ void CEnvFunnel::Spawn( void )
 	pev->solid = SOLID_NOT;
 	pev->effects = EF_NODRAW;
 }
+*/
 
 //=========================================================
 // Beverage Dispenser
