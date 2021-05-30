@@ -320,7 +320,8 @@ void CBaseMonster :: GibMonster( void )
 	{
 		if ( CVAR_GET_FLOAT("violence_hgibs") != 0 )	// Only the player will ever get here
 		{
-			CGib::SpawnHeadGib( pev );
+			if (IsAllowedToSpawnHumanHeadGib())
+				CGib::SpawnHeadGib( pev );
 			CGib::SpawnRandomGibs( pev, 4, 1 );	// throw some human gibs.
 		}
 		gibbed = TRUE;

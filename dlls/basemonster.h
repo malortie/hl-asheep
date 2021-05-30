@@ -336,6 +336,7 @@ public:
 	virtual void NotifyAlliesOfDeath( CBaseEntity* pAttacker ) {}
 	virtual void BecomeEnemyOfPlayer() {}
 #endif // defined ( ASHEEP_DLL )
+	virtual BOOL IsAllowedToSpawnHumanHeadGib(void) { return TRUE; }
 };
 
 

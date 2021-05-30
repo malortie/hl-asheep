@@ -28,6 +28,8 @@ class CExpAlienSlave : public CSquadMonsterWithISlaveAI
 {
 	typedef CSquadMonsterWithISlaveAI BaseClass;
 public:
+	BOOL	HasHumanGibs(void) { return TRUE; }
+	BOOL	IsAllowedToSpawnHumanHeadGib(void) { return FALSE; }
 
 protected:
 
