@@ -783,7 +783,6 @@ void CSquadMonsterWithHGruntAI :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		case HGRUNT_AE_GREN_TOSS:
 		{
 			UTIL_MakeVectors( pev->angles );
-			CGrenade::ShootTimed( pev, GetGunPosition(), m_vecTossVelocity, 3.5 );
 			TossGrenade(GetGunPosition(),
 				m_vecTossVelocity,
 				gpGlobals->v_forward,
