@@ -73,6 +73,8 @@ public:
 	virtual BOOL IsUsingHandGrenade() const;
 	virtual BOOL IsUsingGrenadeLauncher() const;
 
+	BOOL CanDropWeapons() { return GetBodygroup(GUN_GROUP) != GUN_NONE; }
+
 protected:
 
 	virtual void FireWeapon1(
