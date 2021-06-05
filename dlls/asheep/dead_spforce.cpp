@@ -24,17 +24,10 @@
 class CDeadSpForce : public CDeadActorWithHGruntSequences
 {
 public:
-	virtual int	Classify(void);
-
 	virtual void PrecacheModels();
 	virtual void SetModel();
 	virtual void SetSkinAndBodygroups();
 };
-
-int	CDeadSpForce::Classify(void)
-{
-	return CLASS_SPECIAL_FORCE;
-}
 
 void CDeadSpForce::PrecacheModels()
 {

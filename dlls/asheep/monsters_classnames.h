@@ -10,5 +10,7 @@
 #define MONSTER_SCIENTIST_CLASSNAME   "monster_scientist"
 #define MONSTER_SCIENTIST_SITTING_CLASSNAME "monster_sitting_scientist"
 #define MONSTER_WORKER_CLASSNAME      "monster_worker"
+#define MONSTER_HUMAN_GRUNT_CLASSNAME   "monster_human_grunt"
+#define MONSTER_HUMAN_SPFORCE_CLASSNAME   "monster_human_spforce"
 
 #endif // MONSTERS_CLASSNAMES_H

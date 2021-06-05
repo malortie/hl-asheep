@@ -127,6 +127,12 @@ int CHGrunt::IRelationship(CBaseEntity* pTarget)
 	if (FClassnameIs(pTarget->pev, "monster_adrian"))
 		return R_AL;
 
+	// Enemy of spforce.
+	if ( FClassnameIs( pTarget->pev, MONSTER_HUMAN_SPFORCE_CLASSNAME ) )
+	{
+		return R_NM;
+	}
+
 	return BaseClass::IRelationship(pTarget);
 }
 

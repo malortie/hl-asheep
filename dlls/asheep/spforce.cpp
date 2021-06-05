@@ -49,7 +49,6 @@ class CSpForce : public CSquadMonsterWithHGruntAI
 {
 	typedef CSquadMonsterWithHGruntAI BaseClass;
 public:
-	virtual int Classify();
 	virtual int IRelationship(CBaseEntity *pTarget);
 
 	virtual int GetKickDamage() const;
@@ -140,13 +139,13 @@ const char* CSpForce::pReloadSounds[] =
 	"spforce/spf_reload2.wav",
 };
 
-int	CSpForce::Classify(void)
-{
-	return	CLASS_SPECIAL_FORCE;
-}
-
 int CSpForce::IRelationship(CBaseEntity *pTarget)
 {
+	// Enemy of human grunts.
+	if ( FClassnameIs( pTarget->pev, MONSTER_HUMAN_GRUNT_CLASSNAME ) )
+	{
+		return R_NM;
+	}
 
 	return BaseClass::IRelationship(pTarget);
 }

@@ -173,9 +173,11 @@ void CAdrian::HandleAnimEvent(MonsterEvent_t *pEvent)
 
 int CAdrian::IRelationship(CBaseEntity *pTarget)
 {
-	// Adrian should be friend with military.
-	if (pTarget->Classify() == CLASS_HUMAN_MILITARY)
+	// Adrian should be friend with grunts.
+	if ( FClassnameIs( pTarget->pev, MONSTER_HUMAN_GRUNT_CLASSNAME ) )
+	{
 		return R_AL;
+	}
 
 	return BaseClass::IRelationship(pTarget);
 }
