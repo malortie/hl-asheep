@@ -6,7 +6,6 @@ BOOL UTIL_IsPlayerEquippedWithArmor(CBasePlayer* player);
 BOOL UTIL_IsPlayerEquippedWithSuit(CBasePlayer* player);
 
 void PlayerMediator_AddArmorToPlayer(CBasePlayer* player);
-void PlayerMediator_AddSuitToPlayer(CBasePlayer* player);
 
 enum PlayerBatteryDenyMessageType
 {

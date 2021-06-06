@@ -43,6 +43,10 @@ class CItemArmor : public CItem
 		if (UTIL_IsPlayerEquippedWithArmor(pPlayer))
 			return FALSE;
 
+		// Do not allow pickup if the player is already equipped with the suit.
+		if (UTIL_IsPlayerEquippedWithSuit(pPlayer))
+			return FALSE;
+
 		PlayerMediator_AddArmorToPlayer(pPlayer);
 
 		// By default, give a small amount of armor value.

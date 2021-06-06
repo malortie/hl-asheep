@@ -29,11 +29,7 @@ public:
 	virtual BOOL IsPlayerEquippedWithArmor(CBasePlayer* player);
 	virtual BOOL IsPlayerEquippedWithSuit(CBasePlayer* player);
 
-	virtual void AddSuitToPlayer(CBasePlayer* player);
 	virtual void AddArmorToPlayer(CBasePlayer* player);
-
-	virtual void RemoveSuitFromPlayer(CBasePlayer* player);
-	virtual void RemoveArmorFromPlayer(CBasePlayer* player);
 };
 
 static CPlayerMediator gPlayerMediator;
@@ -48,34 +44,9 @@ BOOL CPlayerMediator::IsPlayerEquippedWithSuit(CBasePlayer* player)
 	return (player->pev->weapons & (1 << WEAPON_SUIT)) != 0;
 }
 
-void CPlayerMediator::AddSuitToPlayer(CBasePlayer* player)
-{
-	RemoveArmorFromPlayer(player);
-	player->pev->weapons |= (1 << WEAPON_SUIT);
-
-	// Kevlar vest is not the same as HEV suit energy,
-	// so remove all armor value.
-	player->pev->armorvalue = 0;
-}
-
-void CPlayerMediator::RemoveSuitFromPlayer(CBasePlayer* player)
-{
-	player->pev->weapons &= (~(1 << WEAPON_SUIT));
-}
-
 void CPlayerMediator::AddArmorToPlayer(CBasePlayer* player)
 {
-	RemoveSuitFromPlayer(player);
 	player->pev->weapons |= (1 << WEAPON_ARMOR);
-
-	// HEV suit energy is not the same as kevlar vest,
-	// so remove all armor value.
-	player->pev->armorvalue = 0;
-}
-
-void CPlayerMediator::RemoveArmorFromPlayer(CBasePlayer* player)
-{
-	player->pev->weapons &= (~(1 << WEAPON_ARMOR));
 }
 
 CBasePlayer* UTIL_GetLocalPlayer()
@@ -102,14 +73,6 @@ BOOL UTIL_IsPlayerEquippedWithSuit(CBasePlayer* player)
 		return FALSE;
 
 	return gPlayerMediator.IsPlayerEquippedWithSuit(player);
-}
-
-void PlayerMediator_AddSuitToPlayer(CBasePlayer* player)
-{
-	if (player == NULL)
-		return;
-
-	gPlayerMediator.AddSuitToPlayer(player);
 }
 
 void PlayerMediator_AddArmorToPlayer(CBasePlayer* player)
