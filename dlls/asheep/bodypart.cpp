@@ -117,7 +117,12 @@ void CBodyPart::Spawn()
 
 	SetThink(&CBodyPart::SUB_DoNothing);
 
-	DROP_TO_FLOOR(ENT(pev));
+	if (DROP_TO_FLOOR(ENT(pev)) == 0)
+	{
+		ALERT(at_error, "%s fell out of level at %f,%f,%f\n", STRING(pev->classname), pev->origin.x, pev->origin.y, pev->origin.z);
+		UTIL_Remove(this);
+		return;
+	}
 }
 
 int GetModelCountForBodyGroup(edict_t* edict, int iBodyGroup) 
