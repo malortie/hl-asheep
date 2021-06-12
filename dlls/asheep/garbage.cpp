@@ -21,6 +21,8 @@
 #define GARBAGE_DEFAULT_MODEL	"models/garbagegibs.mdl"
 #define GARBAGE_CAN_MODEL		"models/can.mdl"
 
+#define RANDOM_SKIN			(-1)
+
 #define RANDOM_ARRAY_ELEMENT(_array) _array[RANDOM_LONG(0, ARRAYSIZE(_array) - 1)]
 
 enum GarbageParts
@@ -39,6 +41,41 @@ enum GarbageParts
 	BlueCan
 };
 
+enum GarbageType
+{
+	GT_ANY = 0,
+	GT_TRASHPAPER = 1,
+	GT_FOOD_OR_SODACAN = 2,
+	GT_MAGAZINE_OR_BROWNPAPER = 3,
+	GT_SODACAN_ONLY = 4,
+
+	// Specific garbage submodel.
+	GT_GARBAGEGIB_TRASHPAPER_1 = 5,
+	GT_GARBAGEGIB_TRASHPAPER_2 = 6,
+	GT_GARBAGEGIB_TRASHPAPER_3 = 7,
+	GT_GARBAGEGIB_GLASS = 8,
+	GT_GARBAGEGIB_SANDWICH = 9,
+	GT_GARBAGEGIB_APPLE = 10,
+	GT_GARBAGEGIB_BANANA = 11,
+
+	// Specific sodacan.
+	GT_SODACAN_1 = 12,
+	GT_SODACAN_2 = 13,
+	GT_SODACAN_3 = 14,
+	GT_SODACAN_4 = 15,
+	GT_SODACAN_5 = 16,
+	GT_SODACAN_6 = 17,
+
+	// Specific garbage submodel.
+	GT_GARBAGEGIB_SODACAN = 18,
+	GT_GARBAGEGIB_MAGAZINE = 19,
+	GT_GARBAGEGIB_BROWNPAPER = 20,
+
+	GT_NUM_TYPES, // Must be last.
+};
+
+int GetModelCountForBodyGroup(edict_t* edict, int iBodyGroup);
+
 class CGarbage : public CBaseAnimating
 {
 public:
@@ -46,33 +83,161 @@ public:
 	virtual int	ObjectCaps(void) { return (CBaseAnimating::ObjectCaps() & ~FCAP_ACROSS_TRANSITION); }
 
 protected:
-	const char* ChooseModel();
-	void SetSkinAndBodygroups();
 	int ChooseRandomSkin();
-	void RandomizeYaw();
 
-	BOOL IsSodaCan() const;
+	void SetGarbageModel(int bodygroup_value);
+	void SetSodaModel(int skin = RANDOM_SKIN);
 };
 
 LINK_ENTITY_TO_CLASS(monster_garbage, CGarbage);
 
 void CGarbage::Spawn()
 {
-	char* model = (char*)ChooseModel();
-
-	if (!*model || *model == '\0')
-		model = GARBAGE_DEFAULT_MODEL;
-
-	PRECACHE_MODEL(model);
-	SET_MODEL(ENT(pev), model);
-
-	SetSkinAndBodygroups();
-
+	// Ensure body is non negative.
 	if (pev->body < 0)
 		pev->body = 0;
 
-	// Add random angles.
-	RandomizeYaw();
+	if (pev->body == GarbageType::GT_ANY)
+	{
+		if (RANDOM_LONG(0, 1))
+		{
+			static const int random_indices[] =
+			{
+				StrainedPaper1,
+				StrainedPaper2,
+				Glass,
+				Apple,
+				Banana,
+				Magazine,
+				BrownPaper,
+				BlueCan,
+			};
+			SetGarbageModel(RANDOM_ARRAY_ELEMENT(random_indices));
+		}
+		else
+		{
+			SetSodaModel();
+		}
+	}
+	else if (pev->body == GarbageType::GT_TRASHPAPER)
+	{
+		static const int random_indices[] =
+		{
+			StrainedPaper1,
+			StrainedPaper2,
+			StrainedPaper3,
+		};
+		SetGarbageModel(RANDOM_ARRAY_ELEMENT(random_indices));
+	}
+	else if (pev->body == GarbageType::GT_FOOD_OR_SODACAN)
+	{
+		if (RANDOM_LONG(0, 1))
+		{
+			static const int random_indices[] =
+			{
+				Glass,
+				Sandwich,
+				Apple,
+				Banana,
+				BlueCan,
+			};
+			SetGarbageModel(RANDOM_ARRAY_ELEMENT(random_indices));
+		}
+		else
+		{
+			SetSodaModel();
+		}
+	}
+	else if (pev->body == GarbageType::GT_MAGAZINE_OR_BROWNPAPER)
+	{
+		static const int random_indices[] =
+		{
+			Magazine,
+			BrownPaper,
+		};
+		SetGarbageModel(RANDOM_ARRAY_ELEMENT(random_indices));
+	}
+	else if (pev->body == GarbageType::GT_SODACAN_ONLY)
+	{
+		if (RANDOM_LONG(0, 1))
+		{
+			SetGarbageModel(BlueCan);
+		}
+		else
+		{
+			SetSodaModel();
+		}
+	}
+	else if (pev->body == GarbageType::GT_GARBAGEGIB_TRASHPAPER_1)
+	{
+		SetGarbageModel(StrainedPaper1);
+	}
+	else if (pev->body == GarbageType::GT_GARBAGEGIB_TRASHPAPER_2)
+	{
+		SetGarbageModel(StrainedPaper2);
+	}
+	else if (pev->body == GarbageType::GT_GARBAGEGIB_TRASHPAPER_3)
+	{
+		SetGarbageModel(StrainedPaper2);
+	}
+	else if (pev->body == GarbageType::GT_GARBAGEGIB_GLASS)
+	{
+		SetGarbageModel(Glass);
+	}
+	else if (pev->body == GarbageType::GT_GARBAGEGIB_SANDWICH)
+	{
+		SetGarbageModel(Sandwich);
+	}
+	else if (pev->body == GarbageType::GT_GARBAGEGIB_APPLE)
+	{
+		SetGarbageModel(Apple);
+	}
+	else if (pev->body == GarbageType::GT_GARBAGEGIB_BANANA)
+	{
+		SetGarbageModel(Banana);
+	}
+	else if (pev->body == GarbageType::GT_SODACAN_1)
+	{
+		SetSodaModel(0);
+	}
+	else if (pev->body == GarbageType::GT_SODACAN_2)
+	{
+		SetSodaModel(1);
+	}
+	else if (pev->body == GarbageType::GT_SODACAN_3)
+	{
+		SetSodaModel(2);
+	}
+	else if (pev->body == GarbageType::GT_SODACAN_4)
+	{
+		SetSodaModel(3);
+	}
+	else if (pev->body == GarbageType::GT_SODACAN_5)
+	{
+		SetSodaModel(4);
+	}
+	else if (pev->body == GarbageType::GT_SODACAN_6)
+	{
+		SetSodaModel(5);
+	}
+	else if (pev->body == GarbageType::GT_GARBAGEGIB_SODACAN)
+	{
+		SetGarbageModel(BlueCan);
+	}
+	else if (pev->body == GarbageType::GT_GARBAGEGIB_MAGAZINE)
+	{
+		SetGarbageModel(Magazine);
+	}
+	else if (pev->body == GarbageType::GT_GARBAGEGIB_BROWNPAPER)
+	{
+		SetGarbageModel(BrownPaper);
+	}
+	else
+	{
+		ALERT(at_aiconsole, "%s Unknown setup (%d). Removing entity.\n", STRING(pev->classname), pev->body);
+		UTIL_Remove(this);
+		return;
+	}
 
 	pev->movetype = MOVETYPE_NONE;
 	pev->solid = SOLID_NOT;
@@ -86,51 +251,13 @@ void CGarbage::Spawn()
 	ResetSequenceInfo();
 	pev->frame = 0;
 	SetThink(&CGarbage::SUB_DoNothing);
-}
 
-const char* CGarbage::ChooseModel()
-{
-	switch (pev->body)
+	if (DROP_TO_FLOOR(ENT(pev)) == 0)
 	{
-	case 4:
-		return GARBAGE_CAN_MODEL; 
-	default:
-		{
-			switch (RANDOM_LONG(0, 5))
-			{
-			case 1:
-				return GARBAGE_CAN_MODEL; // Use a can 1/6th of the time.
-			default:
-				return GARBAGE_DEFAULT_MODEL;
-			}
-		}
+		ALERT(at_error, "%s fell out of level at %f,%f,%f\n", STRING(pev->classname), pev->origin.x, pev->origin.y, pev->origin.z);
+		UTIL_Remove(this);
+		return;
 	}
-}
-
-void CGarbage::SetSkinAndBodygroups()
-{
-	if (IsSodaCan()) // Soda can model share the same model but has different skins.
-		pev->skin = ChooseRandomSkin();
-	else if (pev->body == 3) // Predefined sub bodygroup.
-		SetBodygroup(0, Magazine);
-	else
-	{
-		// Pick a random sub bodygroup.
-		static int randomSubmodelIndices[] = 
-		{ 
-			Glass,
-			Sandwich,
-			Apple,
-			Banana,
-			BlueCan
-		};
-		SetBodygroup(0, RANDOM_ARRAY_ELEMENT(randomSubmodelIndices));
-	}
-}
-
-BOOL CGarbage::IsSodaCan() const
-{
-	return FStrEq(STRING(pev->model), GARBAGE_CAN_MODEL);
 }
 
 int GetModelSkinCount(edict_t* edict)
@@ -141,18 +268,49 @@ int GetModelSkinCount(edict_t* edict)
 
 int CGarbage::ChooseRandomSkin()
 {
-	int skinChosenRandomly;
+	int skinChosenRandomly = 0;
 
 	int numberOfAvailableSkins = GetModelSkinCount(ENT(pev));
 	if (numberOfAvailableSkins > 0)
 		skinChosenRandomly = RANDOM_LONG(0, numberOfAvailableSkins - 1);
-	else
-		skinChosenRandomly = 0;
 
 	return skinChosenRandomly;
 }
 
-void CGarbage::RandomizeYaw()
+void CGarbage::SetGarbageModel(int bodygroup_value)
 {
-	pev->angles.y = RANDOM_FLOAT(2, 6) *  RANDOM_FLOAT(2, 6) * RANDOM_FLOAT(2, 8);
+	PRECACHE_MODEL(GARBAGE_DEFAULT_MODEL);
+	SET_MODEL(ENT(pev), GARBAGE_DEFAULT_MODEL);
+
+	pev->body = 0;
+	pev->skin = 0;
+
+	// Set the bodygroup as it is, but ensure it is less than the max available.
+	int numberOfAvailableSubModels = GetModelCountForBodyGroup(ENT(pev), 0);
+	if (numberOfAvailableSubModels > 0)
+	{
+		bodygroup_value = std::min(bodygroup_value, numberOfAvailableSubModels - 1);
+		SetBodygroup(0, bodygroup_value);
+	}
+}
+
+void CGarbage::SetSodaModel(int skin)
+{
+	PRECACHE_MODEL(GARBAGE_CAN_MODEL);
+	SET_MODEL(ENT(pev), GARBAGE_CAN_MODEL);
+
+	pev->body = 0;
+	pev->skin = 0;
+
+	if (skin == -1) // (-1) means a random skin.
+		pev->skin = ChooseRandomSkin();
+	else
+	{
+		// Set the skin as it is, but ensure it is less than the max available.
+		int numberOfAvailableSkins = GetModelSkinCount(ENT(pev));
+		if (numberOfAvailableSkins > 0)
+		{
+			pev->skin = std::min(skin, numberOfAvailableSkins - 1);
+		}
+	}
 }
