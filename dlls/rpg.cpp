@@ -431,11 +431,14 @@ void CRpg::Holster( int skiplocal /* = 0 */ )
 
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5;
 	
-#if defined ( ASHEEP_WEAPONHOLSTER )
-	DefaultHolster(RPG_HOLSTER1, 16.0f / 30.0f, skiplocal, 0);
-#else
-	SendWeaponAnim( RPG_HOLSTER1 );
-#endif // defined ( ASHEEP_WEAPONHOLSTER )
+	if (m_iClip == 0)
+	{
+		DefaultHolster(RPG_HOLSTER2, 16.0f / 30.0f, skiplocal, 0);
+	}
+	else
+	{
+		DefaultHolster(RPG_HOLSTER1, 16.0f / 30.0f, skiplocal, 0);
+	}
 
 #ifndef CLIENT_DLL
 	if (m_pSpot)
