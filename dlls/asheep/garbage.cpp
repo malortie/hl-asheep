@@ -136,7 +136,7 @@ BOOL CGarbage::IsSodaCan() const
 int GetModelSkinCount(edict_t* edict)
 {
 	studiohdr_t* pstudiohdr = (studiohdr_t*)GET_MODEL_PTR(edict);
-	return pstudiohdr->numskinref;
+	return pstudiohdr->numskinfamilies;
 }
 
 int CGarbage::ChooseRandomSkin()
