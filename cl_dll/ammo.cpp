@@ -976,13 +976,8 @@ int DrawBar(int x, int y, int width, int height, float f)
 		// Always show at least one pixel if we have ammo.
 		if (w <= 0)
 			w = 1;
-#if defined ( ASHEEP_CLIENT_DLL )
-		UnpackRGB(r, g, b, RGB_LIGHTBLUEISH);
-		FillRGBA(x, y, w, height, r, g, b, 192);
-#else
 		UnpackRGB(r, g, b, RGB_GREENISH);
-		FillRGBA(x, y, w, height, r, g, b, 255);
-#endif // defined ( ASHEEP_CLIENT_DLL )
+		FillRGBA(x, y, w, height, r, g, b, 192);
 		x += w;
 		width -= w;
 	}
