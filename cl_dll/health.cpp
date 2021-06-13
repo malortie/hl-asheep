@@ -156,11 +156,7 @@ void CHudHealth::GetPainColor( int &r, int &g, int &b )
 #else
 	if (m_iHealth > 25)
 	{
-#if defined ( ASHEEP_CLIENT_DLL )
-		UnpackRGB(r, g, b, RGB_BLUEISH);
-#else
 		UnpackRGB(r,g,b, RGB_YELLOWISH);
-#endif // defined ( ASHEEP_CLIENT_DLL )
 	}
 	else
 	{
@@ -384,11 +380,7 @@ int CHudHealth::DrawDamage(float flTime)
 	if (!m_bitsDamage)
 		return 1;
 
-#if defined ( ASHEEP_CLIENT_DLL )
-	UnpackRGB(r, g, b, RGB_BLUEISH);
-#else
 	UnpackRGB(r,g,b, RGB_YELLOWISH);
-#endif // defined ( ASHEEP_CLIENT_DLL )
 	
 	a = (int)( std::abs(std::sin(flTime*2)) * 256.0);
 

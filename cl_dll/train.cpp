@@ -54,11 +54,7 @@ int CHudTrain::Draw(float fTime)
 	{
 		int r, g, b, x, y;
 
-#if defined ( ASHEEP_CLIENT_DLL )
-		UnpackRGB(r, g, b, RGB_BLUEISH);
-#else
 		UnpackRGB(r,g,b, RGB_YELLOWISH);
-#endif // defined ( ASHEEP_CLIENT_DLL )
 		SPR_Set(m_hSprite, r, g, b );
 
 		// This should show up to the right and part way up the armor number

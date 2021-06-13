@@ -60,11 +60,7 @@ int CHudAmmoSecondary :: Draw(float flTime)
 
 	// draw secondary ammo icons above normal ammo readout
 	int a, x, y, r, g, b, AmmoWidth;
-#if defined ( ASHEEP_CLIENT_DLL )
-	UnpackRGB( r, g, b, RGB_BLUEISH );
-#else
 	UnpackRGB( r, g, b, RGB_YELLOWISH );
-#endif // defined ( ASHEEP_CLIENT_DLL )
 	a = std::max( MIN_ALPHA, static_cast<int>(m_fFade) );
 	if (m_fFade > 0)
 		m_fFade -= (gHUD.m_flTimeDelta * 20);  // slowly lower alpha to fade out icons

@@ -124,11 +124,7 @@ int HistoryResource :: DrawAmmoHistory( float flTime )
 				HSPRITE *spr = gWR.GetAmmoPicFromWeapon( rgAmmoHistory[i].iId, rcPic );
 
 				int r, g, b;
-#if defined ( ASHEEP_CLIENT_DLL )
-				UnpackRGB(r, g, b, RGB_BLUEISH);
-#else
 				UnpackRGB(r,g,b, RGB_YELLOWISH);
-#endif // defined ( ASHEEP_CLIENT_DLL )
 				float scale = (rgAmmoHistory[i].DisplayTime - flTime) * 80;
 				ScaleColors(r, g, b, std::min(static_cast<int>(scale), 255) );
 
@@ -152,11 +148,7 @@ int HistoryResource :: DrawAmmoHistory( float flTime )
 					return 1;  // we don't know about the weapon yet, so don't draw anything
 
 				int r, g, b;
-#if defined ( ASHEEP_CLIENT_DLL )
-				UnpackRGB(r, g, b, RGB_BLUEISH);
-#else
 				UnpackRGB(r,g,b, RGB_YELLOWISH);
-#endif // defined ( ASHEEP_CLIENT_DLL )
 
 				if ( !gWR.HasAmmo( weap ) )
 					UnpackRGB(r,g,b, RGB_REDISH);	// if the weapon doesn't have ammo, display it as red
@@ -178,11 +170,7 @@ int HistoryResource :: DrawAmmoHistory( float flTime )
 
 				wrect_t rect = gHUD.GetSpriteRect( rgAmmoHistory[i].iId );
 
-#if defined ( ASHEEP_CLIENT_DLL )
-				UnpackRGB(r, g, b, RGB_BLUEISH);
-#else
 				UnpackRGB(r,g,b, RGB_YELLOWISH);
-#endif // defined ( ASHEEP_CLIENT_DLL )
 				float scale = (rgAmmoHistory[i].DisplayTime - flTime) * 80;
 				ScaleColors(r, g, b, std::min(static_cast<int>(scale), 255) );
 

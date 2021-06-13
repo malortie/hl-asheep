@@ -118,11 +118,7 @@ int CHudFlashlight::Draw(float flTime)
 	if (m_flBat < 0.20)
 		UnpackRGB(r,g,b, RGB_REDISH);
 	else
-#if defined ( ASHEEP_CLIENT_DLL )
-		UnpackRGB(r, g, b, RGB_BLUEISH);
-#else
 		UnpackRGB(r,g,b, RGB_YELLOWISH);
-#endif // defined ( ASHEEP_CLIENT_DLL )
 
 	ScaleColors(r, g, b, a);
 
