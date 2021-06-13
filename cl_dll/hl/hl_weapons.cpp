@@ -79,11 +79,6 @@ CPoolstick g_Poolstick;
 CToadWeapon g_Toad;
 #endif // defined ( ASHEEP_CLIENT_DLL )
 
-#if defined ( ASHEEP_WEAPONHOLSTER ) && defined ( ASHEEP_CLIENT_WEAPONS )
-static BOOL g_fPlayerHolsteringWeapon = FALSE;
-static CBasePlayerItem* g_pWeaponToSwitchTo = NULL;
-static int g_iWeaponToSwitchToID = -1;
-#endif // defined ( ASHEEP_WEAPONHOLSTER ) && defined ( ASHEEP_CLIENT_WEAPONS )
 
 /*
 ======================
@@ -893,6 +888,10 @@ void HUD_WeaponsPostThink( local_state_s *from, local_state_s *to, usercmd_t *cm
 	player.m_flNextAmmoBurn = from->client.fuser2;
 	player.m_flAmmoStartCharge = from->client.fuser3;
 
+	// Azure Sheep - Receive Weapon holster infos from client.
+	player.m_iSwitchWeaponState = from->client.vuser3[0];
+	player.m_iSwitchWeaponID = from->client.vuser3[1];
+
 	//Stores all our ammo info, so the client side weapons can use them.
 	player.ammo_9mm			= (int)from->client.vuser1[0];
 	player.ammo_357			= (int)from->client.vuser1[1];
@@ -927,11 +926,7 @@ void HUD_WeaponsPostThink( local_state_s *from, local_state_s *to, usercmd_t *cm
 	if ( ( player.pev->deadflag != ( DEAD_DISCARDBODY + 1 ) ) && 
 		 !CL_IsDead() && player.pev->viewmodel && !g_iUser1 )
 	{
-#if defined ( ASHEEP_WEAPONHOLSTER ) && defined ( ASHEEP_CLIENT_WEAPONS )
-		if ( !g_fPlayerHolsteringWeapon && player.m_flNextAttack <= 0 )
-#else
-		if ( player.m_flNextAttack <= 0 )
-#endif // defined ( ASHEEP_WEAPONHOLSTER ) && defined ( ASHEEP_CLIENT_WEAPONS )
+		if ( !player.IsSwitchingWeapon() && player.m_flNextAttack <= 0 )
 		{
 			pWeapon->ItemPostFrame();
 		}
@@ -953,32 +948,18 @@ void HUD_WeaponsPostThink( local_state_s *from, local_state_s *to, usercmd_t *cm
 				if (player.m_pActiveItem)
 					player.m_pActiveItem->Holster( );
 				
-#if defined ( ASHEEP_WEAPONHOLSTER ) && defined ( ASHEEP_CLIENT_WEAPONS )
-				g_fPlayerHolsteringWeapon = TRUE;
-				g_pWeaponToSwitchTo = pNew;
-				g_iWeaponToSwitchToID = cmd->weaponselect;
-#else
-				player.m_pLastItem = player.m_pActiveItem;
-				player.m_pActiveItem = pNew;
-
-				// Deploy new weapon
-				if (player.m_pActiveItem)
-				{
-					player.m_pActiveItem->Deploy( );
-				}
-
-				// Update weapon id so we can predict things correctly.
-				to->client.m_iId = cmd->weaponselect;
-#endif // defined ( ASHEEP_WEAPONHOLSTER ) && defined ( ASHEEP_CLIENT_WEAPONS )
+				player.m_iSwitchWeaponID = cmd->weaponselect;
+				player.m_iSwitchWeaponState = CBasePlayer::SwitchWeaponState::STATE_DEPLOY;
 			}
 		}
 	}
 
-#if defined ( ASHEEP_WEAPONHOLSTER ) && defined ( ASHEEP_CLIENT_WEAPONS )
-	if (g_fPlayerHolsteringWeapon && player.m_flNextAttack <= 0.0f)
+	if (player.m_iSwitchWeaponState == CBasePlayer::SwitchWeaponState::STATE_DEPLOY && 
+		player.m_iSwitchWeaponID != -1 &&
+		player.m_flNextAttack <= 0)
 	{
 		player.m_pLastItem = player.m_pActiveItem;
-		player.m_pActiveItem = g_pWeaponToSwitchTo;
+		player.m_pActiveItem = g_pWpns[ player.m_iSwitchWeaponID ];
 
 		// Deploy new weapon
 		if (player.m_pActiveItem)
@@ -987,14 +968,17 @@ void HUD_WeaponsPostThink( local_state_s *from, local_state_s *to, usercmd_t *cm
 		}
 
 		// Update weapon id so we can predict things correctly.
-		to->client.m_iId = g_iWeaponToSwitchToID;
+		to->client.m_iId = player.m_iSwitchWeaponID;
 
 		player.m_flNextAttack = UTIL_WeaponTimeBase() + 0.5f;
-		g_fPlayerHolsteringWeapon = FALSE;
-		g_pWeaponToSwitchTo = NULL;
-		g_iWeaponToSwitchToID = -1;
+		player.m_iSwitchWeaponState = CBasePlayer::SwitchWeaponState::STATE_RESETVARIABLES;
 	}
-#endif // defined ( ASHEEP_WEAPONHOLSTER ) && defined ( ASHEEP_CLIENT_WEAPONS )
+	if (player.m_iSwitchWeaponState == CBasePlayer::SwitchWeaponState::STATE_RESETVARIABLES &&
+		player.m_flNextAttack <= 0)
+	{
+		player.ResetSwitchWeaponVariables();
+	}
+
 	// Copy in results of prediction code
 	to->client.viewmodel				= player.pev->viewmodel;
 	to->client.fov						= player.pev->fov;
@@ -1003,6 +987,10 @@ void HUD_WeaponsPostThink( local_state_s *from, local_state_s *to, usercmd_t *cm
 	to->client.fuser2					= player.m_flNextAmmoBurn;
 	to->client.fuser3					= player.m_flAmmoStartCharge;
 	to->client.maxspeed					= player.pev->maxspeed;
+
+	// Azure Sheep - Send Weapon holster infos to server.
+	to->client.vuser3[0] = player.m_iSwitchWeaponState;
+	to->client.vuser3[1] = player.m_iSwitchWeaponID;
 
 	//HL Weapons
 	to->client.vuser1[0]				= player.ammo_9mm;

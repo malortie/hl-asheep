@@ -345,6 +345,7 @@ public:
 	void UpdateWeaponSwitching();
 	int m_iSwitchWeaponState;
 	int m_iSwitchWeaponMethod;
+	int m_iSwitchWeaponID;
 	CBasePlayerItem* m_pWeaponToSwitchTo;
 #endif // defined ( ASHEEP_WEAPONHOLSTER )
 

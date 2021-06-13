@@ -213,6 +213,7 @@ void CBasePlayer::ResetSwitchWeaponVariables()
 	m_pWeaponToSwitchTo = NULL;
 	m_iSwitchWeaponMethod = 0;
 	m_iSwitchWeaponState = SwitchWeaponState::STATE_NONE;
+	m_iSwitchWeaponID = -1;
 }
 
 void CBasePlayer::BeginSwitchWeapon(CBasePlayerItem* weaponToSwitchTo, int switchWeaponMethod)
@@ -220,6 +221,7 @@ void CBasePlayer::BeginSwitchWeapon(CBasePlayerItem* weaponToSwitchTo, int switc
 	m_pWeaponToSwitchTo = weaponToSwitchTo;
 	m_iSwitchWeaponMethod = switchWeaponMethod;
 	m_iSwitchWeaponState = SwitchWeaponState::STATE_DEPLOY;
+	m_iSwitchWeaponID = weaponToSwitchTo->m_iId;
 }
 
 #endif // defined ( ASHEEP_WEAPONHOLSTER )

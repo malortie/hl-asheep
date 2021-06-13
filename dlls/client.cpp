@@ -1742,6 +1742,10 @@ void UpdateClientData ( const edict_t *ent, int sendweapons, struct clientdata_s
 			cd->ammo_rockets	= pl->ammo_rockets;
 			cd->ammo_cells		= pl->ammo_uranium;
 			cd->vuser2.x		= pl->ammo_hornets;
+
+			// Azure Sheep - Used to send Weapon holster infos to client.
+			cd->vuser3[0] = pl->m_iSwitchWeaponState;
+			cd->vuser3[1] = pl->m_iSwitchWeaponID;
 			
 
 			if ( pl->m_pActiveItem )
