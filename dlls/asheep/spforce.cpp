@@ -341,7 +341,7 @@ void CSpForce::FireWeapon2(const Vector& shootOrigin, const Vector& shootDirecti
 {
 	Vector	vecShellVelocity = right * RANDOM_FLOAT(40, 90) + up * RANDOM_FLOAT(75, 200) + forward * RANDOM_FLOAT(-40, 40);
 	EjectBrass(shootOrigin - shootDirection * 24, vecShellVelocity, pev->angles.y, m_iShell[SHELL_SLOT2], TE_BOUNCE_SHOTSHELL);
-	FireBullets(1, shootOrigin, shootDirection, VECTOR_CONE_15DEGREES, 2048, BULLET_PLAYER_BERETTA, 0); // shoot +-7.5 degrees
+	FireBullets(1, shootOrigin, shootDirection, VECTOR_CONE_15DEGREES, 2048, BULLET_MONSTER_BERETTA, 0); // shoot +-7.5 degrees
 }
 
 void CSpForce::ChangeWeaponVisibility(BOOL visible)

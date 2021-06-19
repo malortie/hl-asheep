@@ -352,6 +352,10 @@ int EV_HLDM_CheckTracer( int idx, float *vecSrc, float *end, float *forward, flo
 		case BULLET_MONSTER_MP5:
 		case BULLET_MONSTER_9MM:
 		case BULLET_MONSTER_12MM:
+		case BULLET_PLAYER_9MMM41A:
+		case BULLET_PLAYER_BERETTA:
+		case BULLET_MONSTER_9MMM41A:
+		case BULLET_MONSTER_BERETTA:
 		default:
 			EV_CreateTracer( vecTracerSrc, end );
 			break;
