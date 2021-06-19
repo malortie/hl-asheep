@@ -32,16 +32,6 @@
 #if defined ( ASHEEP_DLL )
 #include	"basemonsterwithichthyosaurai.h"
 
-#define ICHTHYOSAUR_PROBE_LENGTH		150
-
-#define ICHTHYOSAUR_MIN_SWIM_SPEED		80
-#define ICHTHYOSAUR_MAX_SWIM_SPEED		400
-#define ICHTHYOSAUR_NORMAL_SWIM_SPEED	150
-
-#define ICHTHYOSAUR_MAX_DISTANCE		512
-
-#define ICHTHYOSAUR_SWIM_MOMENTUM		2.5f
-
 #define EYE_MAD		0
 #define EYE_BASE	1
 #define EYE_CLOSED	2
@@ -75,27 +65,10 @@ protected:
 	virtual int GetFirstTimeSpawnHealth() const;
 
 	virtual float GetDamageShake() const;
-	virtual float GetAttackBiteRange() const;
 
 	virtual BOOL CanBlink() const;
 	virtual BOOL Blink();
 	virtual void SetDeathSequence();
-
-	virtual float GetMinSwimSpeed() const;
-	virtual float GetMaxSwimSpeed() const;
-	virtual float GetNormalSwimSpeed() const;
-	virtual float GetIdealDistance() const;
-	virtual float GetMaxDistance() const;
-	virtual float GetSwimMomentum() const;
-
-	virtual float GetFirstTimeSpawnMinSwimSpeed() const;
-	virtual float GetFirstTimeSpawnMaxSwimSpeed() const;
-	virtual float GetFirstTimeSpawnNormalSwimSpeed() const;
-	virtual float GetFirstTimeSpawnIdealDistance() const;
-	virtual float GetFirstTimeSpawnMaxDistance() const;
-	virtual float GetFirstTimeSpawnSwimMomentum() const;
-
-	virtual float GetProbeLength() const;
 };
 
 LINK_ENTITY_TO_CLASS(monster_ichthyosaur, CIchthyosaur);
@@ -213,79 +186,9 @@ int CIchthyosaur::GetFirstTimeSpawnHealth() const
 	return gSkillData.ichthyosaurHealth;
 }
 
-float CIchthyosaur::GetMinSwimSpeed() const
-{
-	return ICHTHYOSAUR_MIN_SWIM_SPEED;
-}
-
-float CIchthyosaur::GetMaxSwimSpeed() const
-{
-	return ICHTHYOSAUR_MAX_SWIM_SPEED;
-}
-
-float CIchthyosaur::GetNormalSwimSpeed() const
-{
-	return ICHTHYOSAUR_NORMAL_SWIM_SPEED;
-}
-
-float CIchthyosaur::GetIdealDistance() const
-{
-	return ICHTHYOSAUR_MAX_DISTANCE;
-}
-
-float CIchthyosaur::GetMaxDistance() const
-{
-	return ICHTHYOSAUR_MAX_DISTANCE;
-}
-
-float CIchthyosaur::GetSwimMomentum() const
-{
-	return ICHTHYOSAUR_SWIM_MOMENTUM;
-}
-
-float CIchthyosaur::GetFirstTimeSpawnMinSwimSpeed() const
-{
-	return ICHTHYOSAUR_MIN_SWIM_SPEED;
-}
-
-float CIchthyosaur::GetFirstTimeSpawnMaxSwimSpeed() const
-{
-	return 300;
-}
-
-float CIchthyosaur::GetFirstTimeSpawnNormalSwimSpeed() const
-{
-	return ICHTHYOSAUR_NORMAL_SWIM_SPEED;
-}
-
-float CIchthyosaur::GetFirstTimeSpawnSwimMomentum() const
-{
-	return ICHTHYOSAUR_SWIM_MOMENTUM;
-}
-
-float CIchthyosaur::GetFirstTimeSpawnIdealDistance() const
-{
-	return 384;
-}
-
-float CIchthyosaur::GetFirstTimeSpawnMaxDistance() const
-{
-	return 384;
-}
-
-float CIchthyosaur::GetProbeLength() const
-{
-	return ICHTHYOSAUR_PROBE_LENGTH;
-}
-
 float CIchthyosaur::GetDamageShake() const
 {
 	return gSkillData.ichthyosaurDmgShake;
-}
-
-float CIchthyosaur::GetAttackBiteRange() const
-{
-	return 80;
 }
 
 BOOL CIchthyosaur::CanBlink() const
