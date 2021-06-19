@@ -2206,7 +2206,7 @@ int CBaseMonster::IRelationship ( CBaseEntity *pTarget )
 	/*PLAYER*/		{ R_NO	,R_DL	,R_NO	,R_NO	,R_DL	,R_DL	,R_DL	,R_DL	,R_DL	,R_DL	,R_NO	,R_NO,	R_DL,	R_DL,	R_DL,	R_NO,	R_DL,	R_DL	},
 	/*HUMANPASSIVE*/{ R_NO	,R_NO	,R_AL	,R_AL	,R_HT	,R_FR	,R_NO	,R_HT	,R_DL	,R_FR	,R_NO	,R_AL,	R_NO,	R_NO,	R_HT,	R_AL,	R_HT,	R_NO	},
 	/*HUMANMILITAR*/{ R_NO	,R_NO	,R_HT	,R_DL	,R_NO	,R_HT	,R_DL	,R_DL	,R_DL	,R_DL	,R_NO	,R_HT,	R_NO,	R_NO,	R_DL,	R_HT,	R_DL,	R_DL	},
-	/*ALIENMILITAR*/{ R_NO	,R_DL	,R_HT	,R_DL	,R_HT	,R_NO	,R_NO	,R_NO	,R_NO	,R_NO	,R_NO	,R_DL,	R_NO,	R_NO,	R_NO,	R_DL,	R_HT,	R_NO	},
+	/*ALIENMILITAR*/{ R_NO	,R_DL	,R_HT	,R_DL	,R_HT	,R_NO	,R_NO	,R_NO	,R_NO	,R_NO	,R_NO	,R_DL,	R_NO,	R_NO,	R_NO,	R_DL,	R_HT,	R_DL	},
 	/*ALIENPASSIVE*/{ R_NO	,R_NO	,R_NO	,R_NO	,R_NO	,R_NO	,R_NO	,R_NO	,R_NO	,R_NO	,R_NO	,R_NO,	R_NO,	R_NO,	R_NO,	R_NO,	R_NO,	R_NO	},
 	/*ALIENMONSTER*/{ R_NO	,R_DL	,R_DL	,R_DL	,R_DL	,R_NO	,R_NO	,R_NO	,R_NO	,R_NO	,R_NO	,R_DL,	R_NO,	R_NO,	R_NO,	R_DL,	R_DL,	R_NO	},
 	/*ALIENPREY   */{ R_NO	,R_NO	,R_DL	,R_DL	,R_DL	,R_NO	,R_NO	,R_NO	,R_NO	,R_FR	,R_NO	,R_DL,	R_NO,	R_NO,	R_NO,	R_DL,	R_DL,	R_NO	},
@@ -2218,7 +2218,7 @@ int CBaseMonster::IRelationship ( CBaseEntity *pTarget )
 	/*ARCHER*/		{ R_NO	,R_DL	,R_DL	,R_DL	,R_DL	,R_NO	,R_NO	,R_NO	,R_NO	,R_NO	,R_NO	,R_DL,	R_NO,	R_NO,	R_NO,	R_DL,	R_DL,	R_NO	},
 	/*KATE*/		{ R_NO	,R_DL	,R_AL	,R_AL	,R_DL	,R_DL	,R_DL	,R_DL	,R_DL	,R_DL	,R_NO	,R_NO,	R_NO,	R_NO,	R_NO,	R_NO,	R_DL,	R_DL	},
 	/*SPECIALFORCE*/{ R_NO	,R_NO	,R_HT	,R_DL	,R_DL	,R_HT	,R_DL	,R_DL	,R_DL	,R_DL	,R_NO	,R_HT,	R_NO,	R_NO,	R_DL,	R_HT,	R_NO,	R_DL	},
-	/*RAT*/			{ R_NO	,R_FR	,R_DL	,R_DL	,R_DL	,R_NO	,R_FR	,R_FR	,R_FR	,R_FR	,R_NO	,R_DL,	R_FR,	R_FR,	R_NO,	R_DL,	R_DL,	R_NO	},
+	/*RAT*/			{ R_NO	,R_FR	,R_DL	,R_DL	,R_DL	,R_DL	,R_FR	,R_FR	,R_FR	,R_FR	,R_NO	,R_DL,	R_FR,	R_FR,	R_NO,	R_DL,	R_DL,	R_NO	},
 	};
 #else
 	static int iEnemy[14][14] =
