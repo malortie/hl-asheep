@@ -124,6 +124,7 @@ BOOL CBasePlayerWeapon::DefaultHolster(int iAnim, float flDelay, int skiplocal /
 {
 #if defined ( CLIENT_DLL )
 	// CLIENT
+	m_fInReload = FALSE;// cancel any reload in progress.
 
 	SendWeaponAnim(iAnim, skiplocal, body);
 
@@ -132,6 +133,8 @@ BOOL CBasePlayerWeapon::DefaultHolster(int iAnim, float flDelay, int skiplocal /
 
 #else
 	// SERVER
+	m_fInReload = FALSE;// cancel any reload in progress.
+
 	SendWeaponAnim(iAnim, skiplocal, body);
 
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + flDelay;
