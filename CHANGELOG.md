@@ -77,6 +77,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Toad entity class relationship
 - Finished implementation of trigger_sound
 - Implemented missing monster_bodypart behavior
+- Missing pistols weapon icons on pickup
 
 ## [asheep/1.0.1] - 2017-12-12
 
