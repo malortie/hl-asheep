@@ -55,6 +55,9 @@
     <Filter Include="Source Files\_hl\cl_dll\hl">
       <UniqueIdentifier>{bd9d5958-4e67-4bff-bbd8-6ba6dfcdb720}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\_hl\dlls\asheep">
+      <UniqueIdentifier>{e422affc-a777-4fda-a5d3-4cad980533bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\crossbow.cpp">
@@ -306,6 +309,57 @@
     <ClCompile Include="..\..\public\interface.cpp">
       <Filter>Source Files\public</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\9mmm41a.cpp">
+      <Filter>Source Files\_hl\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\barney9mmar.cpp">
+      <Filter>Source Files\_hl\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\barney9mmhg.cpp">
+      <Filter>Source Files\_hl\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\barneyhandgrenade.cpp">
+      <Filter>Source Files\_hl\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\barneyshotgun.cpp">
+      <Filter>Source Files\_hl\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\beretta.cpp">
+      <Filter>Source Files\_hl\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\kmedkit.cpp">
+      <Filter>Source Files\_hl\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\poolstick.cpp">
+      <Filter>Source Files\_hl\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\toadweapon.cpp">
+      <Filter>Source Files\_hl\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\baseweaponarwithgrenadelauncher.cpp">
+      <Filter>Source Files\_hl\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\baseweapongrenade.cpp">
+      <Filter>Source Files\_hl\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\baseweaponmelee.cpp">
+      <Filter>Source Files\_hl\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\baseweaponpistol.cpp">
+      <Filter>Source Files\_hl\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\baseweaponshotgun.cpp">
+      <Filter>Source Files\_hl\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\baseweaponwiththrowablemonster.cpp">
+      <Filter>Source Files\_hl\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\asheep_weapons.cpp">
+      <Filter>Source Files\_hl\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\weapon_util.cpp">
+      <Filter>Source Files\_hl\dlls\asheep</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\cl_dll\kbutton.h">
@@ -427,6 +481,27 @@
     </ClInclude>
     <ClInclude Include="..\..\cl_dll\view.h">
       <Filter>Header Files\cl_dll</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\baseweaponarwithgrenadelauncher.h">
+      <Filter>Source Files\_hl\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\baseweapongrenade.h">
+      <Filter>Source Files\_hl\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\baseweaponmelee.h">
+      <Filter>Source Files\_hl\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\baseweaponpistol.h">
+      <Filter>Source Files\_hl\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\baseweaponshotgun.h">
+      <Filter>Source Files\_hl\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\baseweaponwiththrowablemonster.h">
+      <Filter>Source Files\_hl\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\weapon_util.h">
+      <Filter>Source Files\_hl\dlls\asheep</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -63,7 +63,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;QUIVER;VOXEL;QUAKE2;VALVE_DLL;CLIENT_WEAPONS;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_WARNINGS</PreprocessorDefinitions>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <AdditionalIncludeDirectories>..\..\dlls;..\..\engine;..\..\common;..\..\pm_shared;..\..\game_shared;..\..\public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\dlls;..\..\engine;..\..\common;..\..\pm_shared;..\..\game_shared;..\..\public;..\..\dlls\asheep;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -88,7 +88,7 @@ if exist "$(TargetDir)$(TargetName).pdb" copy "$(TargetDir)$(TargetName).pdb" "$
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;QUIVER;VOXEL;QUAKE2;VALVE_DLL;CLIENT_WEAPONS;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_WARNINGS</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\dlls;..\..\engine;..\..\common;..\..\pm_shared;..\..\game_shared;..\..\public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\dlls;..\..\engine;..\..\common;..\..\pm_shared;..\..\game_shared;..\..\public;..\..\dlls\asheep;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
@@ -114,6 +114,76 @@ if exist "$(TargetDir)$(TargetName).pdb" copy "$(TargetDir)$(TargetName).pdb" "$
     <ClCompile Include="..\..\dlls\animating.cpp" />
     <ClCompile Include="..\..\dlls\animation.cpp" />
     <ClCompile Include="..\..\dlls\apache.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\9mmm41a.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\adrian.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\archer.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\armor.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\asheep_triggers.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\asheep_weapons.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\barney9mmar.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\barney9mmhg.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\barneyhandgrenade.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\barneyshotgun.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\barniel.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\basemonsterrepel.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\basemonsterwithheadcrabai.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\basemonsterwithichthyosaurai.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\basemonsterwithichthyosaurai_constants.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\basemonsterwithsnarkai.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\basemonsterwithzombieai.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\basemonsterwithzombieai_util.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\baseweaponarwithgrenadelauncher.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\baseweapongrenade.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\baseweaponmelee.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\baseweaponpistol.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\baseweaponshotgun.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\baseweaponwiththrowablemonster.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\beretta.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\bodypart.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\combat_tactics.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\dead_actor.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\dead_adrian.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\dead_barney.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\dead_barniel.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\dead_gordon.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\dead_hevbarney.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\dead_hgrunt.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\dead_kate.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\dead_myself.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\dead_scientist.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\dead_spforce.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\dead_terror.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\dead_worker.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\exp_alien_slave.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\garbage.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\gordon.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\hevbarney.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\hgruntrepel.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\hterror.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\hterrorrepel.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\kate.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\kmedkit.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\myself.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\panther.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\player_utils.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\poolstick.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\room_type.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\spawnereffect.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\spforce.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\spforcerepel.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\squadmonsterwithhgruntai.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\squadmonsterwithhgruntai_util.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\squadmonsterwithislaveai.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\squadmonsterwithislaveai_util.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\talkmonsterwithbarneyai.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\talkmonsterwithbarneyai_util.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\talkmonsterwithscientistai.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\toad.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\toadweapon.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\toadweaponmonster.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\weapon_util.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\worker.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\zombie_barney.cpp" />
     <ClCompile Include="..\..\dlls\barnacle.cpp" />
     <ClCompile Include="..\..\dlls\barney.cpp" />
     <ClCompile Include="..\..\dlls\bigmomma.cpp" />
@@ -215,6 +285,39 @@ if exist "$(TargetDir)$(TargetName).pdb" copy "$(TargetDir)$(TargetName).pdb" "$
     <ClInclude Include="..\..\dlls\activity.h" />
     <ClInclude Include="..\..\dlls\activitymap.h" />
     <ClInclude Include="..\..\dlls\animation.h" />
+    <ClInclude Include="..\..\dlls\asheep\basemonsterrepel.h" />
+    <ClInclude Include="..\..\dlls\asheep\basemonsterwithheadcrabai.h" />
+    <ClInclude Include="..\..\dlls\asheep\basemonsterwithichthyosaurai.h" />
+    <ClInclude Include="..\..\dlls\asheep\basemonsterwithichthyosaurai_constants.h" />
+    <ClInclude Include="..\..\dlls\asheep\basemonsterwithsnarkai.h" />
+    <ClInclude Include="..\..\dlls\asheep\basemonsterwithzombieai.h" />
+    <ClInclude Include="..\..\dlls\asheep\basemonsterwithzombieai_util.h" />
+    <ClInclude Include="..\..\dlls\asheep\baseweaponarwithgrenadelauncher.h" />
+    <ClInclude Include="..\..\dlls\asheep\baseweapongrenade.h" />
+    <ClInclude Include="..\..\dlls\asheep\baseweaponmelee.h" />
+    <ClInclude Include="..\..\dlls\asheep\baseweaponpistol.h" />
+    <ClInclude Include="..\..\dlls\asheep\baseweaponshotgun.h" />
+    <ClInclude Include="..\..\dlls\asheep\baseweaponwiththrowablemonster.h" />
+    <ClInclude Include="..\..\dlls\asheep\combat_tactics.h" />
+    <ClInclude Include="..\..\dlls\asheep\dead_actor.h" />
+    <ClInclude Include="..\..\dlls\asheep\hgrunt.h" />
+    <ClInclude Include="..\..\dlls\asheep\hterror.h" />
+    <ClInclude Include="..\..\dlls\asheep\monsters_classnames.h" />
+    <ClInclude Include="..\..\dlls\asheep\player_utils.h" />
+    <ClInclude Include="..\..\dlls\asheep\scientist.h" />
+    <ClInclude Include="..\..\dlls\asheep\room_type.h" />
+    <ClInclude Include="..\..\dlls\asheep\spawnereffect.h" />
+    <ClInclude Include="..\..\dlls\asheep\spforce.h" />
+    <ClInclude Include="..\..\dlls\asheep\squadmonsterwithhgruntai.h" />
+    <ClInclude Include="..\..\dlls\asheep\squadmonsterwithhgruntai_util.h" />
+    <ClInclude Include="..\..\dlls\asheep\squadmonsterwithislaveai.h" />
+    <ClInclude Include="..\..\dlls\asheep\squadmonsterwithislaveai_util.h" />
+    <ClInclude Include="..\..\dlls\asheep\talkmonsterwithbarneyai.h" />
+    <ClInclude Include="..\..\dlls\asheep\talkmonsterwithbarneyai_util.h" />
+    <ClInclude Include="..\..\dlls\asheep\talkmonsterwithscientistai.h" />
+    <ClInclude Include="..\..\dlls\asheep\toadweaponmonster.h" />
+    <ClInclude Include="..\..\dlls\asheep\weaponinterface.h" />
+    <ClInclude Include="..\..\dlls\asheep\weapon_util.h" />
     <ClInclude Include="..\..\dlls\basemonster.h" />
     <ClInclude Include="..\..\dlls\cbase.h" />
     <ClInclude Include="..\..\dlls\cdll_dll.h" />

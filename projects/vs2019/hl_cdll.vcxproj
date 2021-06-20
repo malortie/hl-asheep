@@ -63,7 +63,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;CLIENT_DLL;CLIENT_WEAPONS;HL_DLL;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_WARNINGS</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>..\..\dlls;..\..\cl_dll;..\..\public;..\..\common;..\..\pm_shared;..\..\engine;..\..\utils\vgui\include;..\..\game_shared;..\..\external;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\dlls;..\..\cl_dll;..\..\public;..\..\common;..\..\pm_shared;..\..\engine;..\..\utils\vgui\include;..\..\game_shared;..\..\external;..\..\dlls\asheep;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
@@ -91,7 +91,7 @@ if exist "$(TargetDir)$(TargetName).pdb" copy "$(TargetDir)$(TargetName).pdb" "$
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;CLIENT_DLL;CLIENT_WEAPONS;HL_DLL;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_WARNINGS</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>..\..\dlls;..\..\cl_dll;..\..\public;..\..\common;..\..\pm_shared;..\..\engine;..\..\utils\vgui\include;..\..\game_shared;..\..\external;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\dlls;..\..\cl_dll;..\..\public;..\..\common;..\..\pm_shared;..\..\engine;..\..\utils\vgui\include;..\..\game_shared;..\..\external;..\..\dlls\asheep;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
@@ -169,6 +169,23 @@ if exist "$(TargetDir)$(TargetName).pdb" copy "$(TargetDir)$(TargetName).pdb" "$
     <ClCompile Include="..\..\cl_dll\view.cpp" />
     <ClCompile Include="..\..\cl_dll\voice_status.cpp" />
     <ClCompile Include="..\..\common\parsemsg.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\9mmm41a.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\asheep_weapons.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\barney9mmar.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\barney9mmhg.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\barneyhandgrenade.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\barneyshotgun.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\baseweaponarwithgrenadelauncher.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\baseweapongrenade.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\baseweaponmelee.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\baseweaponpistol.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\baseweaponshotgun.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\baseweaponwiththrowablemonster.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\beretta.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\kmedkit.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\poolstick.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\toadweapon.cpp" />
+    <ClCompile Include="..\..\dlls\asheep\weapon_util.cpp" />
     <ClCompile Include="..\..\dlls\crossbow.cpp" />
     <ClCompile Include="..\..\dlls\crowbar.cpp" />
     <ClCompile Include="..\..\dlls\egon.cpp" />
@@ -227,6 +244,13 @@ if exist "$(TargetDir)$(TargetName).pdb" copy "$(TargetDir)$(TargetName).pdb" "$
     <ClInclude Include="..\..\cl_dll\view.h" />
     <ClInclude Include="..\..\cl_dll\wrect.h" />
     <ClInclude Include="..\..\common\parsemsg.h" />
+    <ClInclude Include="..\..\dlls\asheep\baseweaponarwithgrenadelauncher.h" />
+    <ClInclude Include="..\..\dlls\asheep\baseweapongrenade.h" />
+    <ClInclude Include="..\..\dlls\asheep\baseweaponmelee.h" />
+    <ClInclude Include="..\..\dlls\asheep\baseweaponpistol.h" />
+    <ClInclude Include="..\..\dlls\asheep\baseweaponshotgun.h" />
+    <ClInclude Include="..\..\dlls\asheep\baseweaponwiththrowablemonster.h" />
+    <ClInclude Include="..\..\dlls\asheep\weapon_util.h" />
     <ClInclude Include="..\..\game_shared\vgui_scrollbar2.h" />
     <ClInclude Include="..\..\game_shared\vgui_slider2.h" />
     <ClInclude Include="..\..\game_shared\voice_banmgr.h" />

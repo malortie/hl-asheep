@@ -34,6 +34,9 @@
     <Filter Include="Header Files\pm_shared">
       <UniqueIdentifier>{37941113-16fa-4ce0-9bdd-a72a1ced8902}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\dlls\asheep">
+      <UniqueIdentifier>{a52d8bfb-3267-4143-88ad-689f51ba0e3f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\aflock.cpp">
@@ -342,6 +345,216 @@
     <ClCompile Include="..\..\dlls\xen.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\9mmm41a.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\adrian.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\archer.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\armor.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\asheep_triggers.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\asheep_weapons.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\barney9mmar.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\barney9mmhg.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\barneyhandgrenade.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\barneyshotgun.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\barniel.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\basemonsterrepel.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\basemonsterwithheadcrabai.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\basemonsterwithichthyosaurai.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\basemonsterwithichthyosaurai_constants.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\basemonsterwithsnarkai.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\basemonsterwithzombieai.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\basemonsterwithzombieai_util.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\baseweaponarwithgrenadelauncher.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\baseweapongrenade.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\baseweaponmelee.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\baseweaponpistol.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\baseweaponshotgun.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\baseweaponwiththrowablemonster.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\beretta.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\bodypart.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\combat_tactics.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\dead_actor.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\dead_barney.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\dead_barniel.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\dead_gordon.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\dead_hevbarney.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\dead_hgrunt.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\dead_scientist.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\dead_spforce.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\dead_worker.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\exp_alien_slave.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\garbage.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\gordon.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\hevbarney.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\hgruntrepel.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\hterror.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\kate.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\kmedkit.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\myself.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\panther.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\player_utils.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\poolstick.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\spawnereffect.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\spforce.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\spforcerepel.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\squadmonsterwithhgruntai.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\squadmonsterwithhgruntai_util.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\squadmonsterwithislaveai.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\squadmonsterwithislaveai_util.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\talkmonsterwithbarneyai.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\talkmonsterwithbarneyai_util.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\talkmonsterwithscientistai.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\toad.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\toadweapon.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\toadweaponmonster.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\weapon_util.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\worker.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\zombie_barney.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\room_type.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\dead_myself.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\dead_adrian.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\dead_kate.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\dead_terror.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\asheep\hterrorrepel.cpp">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\doors.h">
@@ -478,6 +691,105 @@
     </ClInclude>
     <ClInclude Include="..\..\dlls\vector.h">
       <Filter>Header Files\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\basemonsterrepel.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\basemonsterwithheadcrabai.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\basemonsterwithichthyosaurai.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\basemonsterwithichthyosaurai_constants.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\basemonsterwithsnarkai.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\basemonsterwithzombieai.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\basemonsterwithzombieai_util.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\baseweaponarwithgrenadelauncher.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\baseweapongrenade.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\baseweaponmelee.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\baseweaponpistol.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\baseweaponshotgun.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\baseweaponwiththrowablemonster.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\combat_tactics.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\dead_actor.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\hgrunt.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\player_utils.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\scientist.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\spawnereffect.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\spforce.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\squadmonsterwithhgruntai.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\squadmonsterwithhgruntai_util.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\squadmonsterwithislaveai.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\squadmonsterwithislaveai_util.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\talkmonsterwithbarneyai.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\talkmonsterwithbarneyai_util.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\talkmonsterwithscientistai.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\toadweaponmonster.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\weapon_util.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\weaponinterface.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\room_type.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\monsters_classnames.h">
+      <Filter>Source Files\dlls\asheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\asheep\hterror.h">
+      <Filter>Source Files\dlls\asheep</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
