@@ -428,11 +428,7 @@ void CTripmine::Holster( int skiplocal /* = 0 */ )
 		pev->nextthink = gpGlobals->time + 0.1;
 	}
 
-#if defined ( ASHEEP_WEAPONHOLSTER )
 	DefaultHolster(TRIPMINE_HOLSTER, 16.0f / 30.0f, skiplocal, 0);
-#else
-	SendWeaponAnim( TRIPMINE_HOLSTER );
-#endif // defined ( ASHEEP_WEAPONHOLSTER )
 	EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_WEAPON, "common/null.wav", 1.0, ATTN_NORM);
 }
 

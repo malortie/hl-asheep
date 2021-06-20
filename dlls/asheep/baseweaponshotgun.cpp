@@ -65,12 +65,7 @@ BOOL CBaseWeaponShotgun::Deploy()
 
 void CBaseWeaponShotgun::Holster(int skiplocal /*= 0*/)
 {
-#if defined ( ASHEEP_WEAPONHOLSTER )
 	DefaultHolster(GetHolsterSequence(), GetHolsterSequenceDuration(), skiplocal, 0);
-#else
-	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5;
-	SendWeaponAnim(GetHolsterSequence());
-#endif // defined ( ASHEEP_WEAPONHOLSTER )
 }
 
 void CBaseWeaponShotgun::PrimaryAttack()

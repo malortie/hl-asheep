@@ -314,17 +314,10 @@ void CCrossbow::Holster( int skiplocal /* = 0 */ )
 	}
 
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5;
-#if defined ( ASHEEP_WEAPONHOLSTER )
 	if (m_iClip)
 		DefaultHolster( CROSSBOW_HOLSTER1, 16.0f / 30.0f, skiplocal, 0);
 	else
 		DefaultHolster( CROSSBOW_HOLSTER2, 16.0f / 30.0f, skiplocal, 0);
-#else
-	if (m_iClip)
-		SendWeaponAnim( CROSSBOW_HOLSTER1 );
-	else
-		SendWeaponAnim( CROSSBOW_HOLSTER2 );
-#endif // defined ( ASHEEP_WEAPONHOLSTER )
 }
 
 void CCrossbow::PrimaryAttack( void )

@@ -136,11 +136,7 @@ void CGauss::Holster( int skiplocal /* = 0 */ )
 	
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5;
 	
-#if defined ( ASHEEP_WEAPONHOLSTER )
 	DefaultHolster(GAUSS_HOLSTER, 31.0f / 45.0f, skiplocal, 0);
-#else
-	SendWeaponAnim( GAUSS_HOLSTER );
-#endif // defined ( ASHEEP_WEAPONHOLSTER )
 	m_fInAttack = 0;
 }
 

@@ -109,12 +109,7 @@ int CEgon::AddToPlayer( CBasePlayer *pPlayer )
 
 void CEgon::Holster( int skiplocal /* = 0 */ )
 {
-#if defined ( ASHEEP_WEAPONHOLSTER )
 	DefaultHolster(EGON_HOLSTER, 16.0f / 30.0f, skiplocal, 0);
-#else
-	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5;
-	SendWeaponAnim( EGON_HOLSTER );
-#endif // defined ( ASHEEP_WEAPONHOLSTER )
 
     EndAttack();
 }

@@ -323,7 +323,6 @@ public:
 	
 	float m_flNextChatTime;
 	
-#if defined ( ASHEEP_WEAPONHOLSTER )
 	enum SwitchWeaponMethod
 	{
 		SWITCH_SELECTWEAPON = 0,
@@ -347,7 +346,6 @@ public:
 	int m_iSwitchWeaponMethod;
 	int m_iSwitchWeaponID;
 	CBasePlayerItem* m_pWeaponToSwitchTo;
-#endif // defined ( ASHEEP_WEAPONHOLSTER )
 
 	float m_flNextBatteryDenyMessageTime;
 };

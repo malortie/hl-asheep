@@ -313,7 +313,6 @@ void CSatchel::Holster( int skiplocal /* = 0 */ )
 {
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5;
 	
-#if defined ( ASHEEP_WEAPONHOLSTER )
 	if (m_chargeReady)
 	{
 		DefaultHolster(SATCHEL_RADIO_HOLSTER, 16.0f / 30.0f, skiplocal, 0);
@@ -322,16 +321,6 @@ void CSatchel::Holster( int skiplocal /* = 0 */ )
 	{
 		DefaultHolster(SATCHEL_DROP, 16.0f / 30.0f, skiplocal, 0);
 	}
-#else
-	if ( m_chargeReady )
-	{
-		SendWeaponAnim( SATCHEL_RADIO_HOLSTER );
-	}
-	else
-	{
-		SendWeaponAnim( SATCHEL_DROP );
-	}
-#endif // defined ( ASHEEP_WEAPONHOLSTER )
 	EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_WEAPON, "common/null.wav", 1.0, ATTN_NORM);
 
 	if ( !m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] && !m_chargeReady )

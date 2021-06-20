@@ -145,12 +145,10 @@ TYPEDESCRIPTION	CBasePlayer::m_playerSaveData[] =
 	//DEFINE_FIELD( CBasePlayer, m_fOnTarget, FIELD_BOOLEAN ), // Don't need to restore
 	//DEFINE_FIELD( CBasePlayer, m_nCustomSprayFrames, FIELD_INTEGER ), // Don't need to restore
 	
-#if defined ( ASHEEP_WEAPONHOLSTER )
 	DEFINE_FIELD(CBasePlayer, m_iSwitchWeaponMethod, FIELD_INTEGER),
 	DEFINE_FIELD(CBasePlayer, m_iSwitchWeaponState, FIELD_INTEGER),
 	DEFINE_FIELD(CBasePlayer, m_iSwitchWeaponID, FIELD_INTEGER),
 	DEFINE_FIELD(CBasePlayer, m_pWeaponToSwitchTo, FIELD_CLASSPTR),
-#endif // defined ( ASHEEP_WEAPONHOLSTER )
 	DEFINE_FIELD(CBasePlayer, m_flNextBatteryDenyMessageTime, FIELD_TIME),
 };	
 
@@ -2947,12 +2945,10 @@ void CBasePlayer::Spawn( void )
 	
 	m_flNextChatTime = gpGlobals->time;
 
-#if defined ( ASHEEP_WEAPONHOLSTER )
 	m_iSwitchWeaponMethod = 0;
 	m_iSwitchWeaponState = SwitchWeaponState::STATE_NONE;
 	m_iSwitchWeaponID = -1;
 	m_pWeaponToSwitchTo = NULL;
-#endif // defined ( ASHEEP_WEAPONHOLSTER )
 	m_flNextBatteryDenyMessageTime = gpGlobals->time;
 	g_pGameRules->PlayerSpawn( this );
 }
@@ -3122,17 +3118,7 @@ void CBasePlayer::SelectNextItem( int iItem )
 		m_pActiveItem->Holster( );
 	}
 	
-#if defined ( ASHEEP_WEAPONHOLSTER )
 	BeginSwitchWeapon(pItem, SwitchWeaponMethod::SWITCH_SELECTNEXTWEAPON);
-#else
-	m_pActiveItem = pItem;
-
-	if (m_pActiveItem)
-	{
-		m_pActiveItem->Deploy( );
-		m_pActiveItem->UpdateItemInfo( );
-	}
-#endif // defined ( ASHEEP_WEAPONHOLSTER )
 }
 
 void CBasePlayer::SelectItem(const char *pstr)
@@ -3173,18 +3159,7 @@ void CBasePlayer::SelectItem(const char *pstr)
 	if (m_pActiveItem)
 		m_pActiveItem->Holster( );
 	
-#if defined ( ASHEEP_WEAPONHOLSTER )
 	BeginSwitchWeapon(pItem, SwitchWeaponMethod::SWITCH_SELECTWEAPON);
-#else
-	m_pLastItem = m_pActiveItem;
-	m_pActiveItem = pItem;
-
-	if (m_pActiveItem)
-	{
-		m_pActiveItem->Deploy( );
-		m_pActiveItem->UpdateItemInfo( );
-	}
-#endif // defined ( ASHEEP_WEAPONHOLSTER )
 }
 
 
@@ -3206,15 +3181,7 @@ void CBasePlayer::SelectLastItem(void)
 	if (m_pActiveItem)
 		m_pActiveItem->Holster( );
 	
-#if defined ( ASHEEP_WEAPONHOLSTER )
 	BeginSwitchWeapon(m_pLastItem, SwitchWeaponMethod::SWITCH_SELECTLASTWEAPON);
-#else
-	CBasePlayerItem *pTemp = m_pActiveItem;
-	m_pActiveItem = m_pLastItem;
-	m_pLastItem = pTemp;
-	m_pActiveItem->Deploy( );
-	m_pActiveItem->UpdateItemInfo( );
-#endif // defined ( ASHEEP_WEAPONHOLSTER )
 }
 
 //==============================================
@@ -3932,13 +3899,11 @@ void CBasePlayer::ItemPostFrame()
 
 	ImpulseCommands();
 
-#if defined ( ASHEEP_WEAPONHOLSTER )
 	if (IsSwitchingWeapon())
 	{
 		UpdateWeaponSwitching();
 		return;
 	}
-#endif // defined ( ASHEEP_WEAPONHOLSTER )
 	if (!m_pActiveItem)
 		return;
 
@@ -4715,7 +4680,6 @@ BOOL CBasePlayer :: SwitchWeapon( CBasePlayerItem *pWeapon )
 	
 	ResetAutoaim( );
 	
-#if defined ( ASHEEP_WEAPONHOLSTER )
 	if (!m_pActiveItem)
 	{
 		m_pActiveItem = pWeapon;
@@ -4730,15 +4694,6 @@ BOOL CBasePlayer :: SwitchWeapon( CBasePlayerItem *pWeapon )
 
 		BeginSwitchWeapon(pWeapon, SwitchWeaponMethod::SWITCH_EXPLICIT);
 	}
-#else
-	if (m_pActiveItem)
-	{
-		m_pActiveItem->Holster( );
-	}
-
-	m_pActiveItem = pWeapon;
-	pWeapon->Deploy( );
-#endif // defined ( ASHEEP_WEAPONHOLSTER )
 
 	return TRUE;
 }

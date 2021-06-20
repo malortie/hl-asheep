@@ -59,11 +59,7 @@ void CBaseWeaponGrenade::Holster(int skiplocal /* = 0 */)
 
 	if (m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType])
 	{
-#if defined ( ASHEEP_WEAPONHOLSTER )
 		DefaultHolster(GetHolsterSequence(), GetHolsterSequenceDuration(), skiplocal, 0);
-#else
-		SendWeaponAnim(GetHolsterSequence());
-#endif // defined ( ASHEEP_WEAPONHOLSTER )
 	}
 	else
 	{

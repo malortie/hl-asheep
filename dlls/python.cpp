@@ -130,12 +130,8 @@ void CPython::Holster( int skiplocal /* = 0 */ )
 	}
 
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 1.0;
-#if defined ( ASHEEP_WEAPONHOLSTER )
 	m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + UTIL_SharedRandomFloat( m_pPlayer->random_seed, 10, 15 );
 	DefaultHolster(PYTHON_HOLSTER, 16.0f / 30.0f, skiplocal, 0);
-#else
-	SendWeaponAnim( PYTHON_HOLSTER );
-#endif // defined ( ASHEEP_WEAPONHOLSTER )
 }
 
 void CPython::SecondaryAttack( void )

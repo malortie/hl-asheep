@@ -118,7 +118,6 @@ void CBasePlayerWeapon::DoSuitSpeakOutOfAmmo()
 }
 
 
-#if defined ( ASHEEP_WEAPONHOLSTER )
 
 BOOL CBasePlayerWeapon::DefaultHolster(int iAnim, float flDelay, int skiplocal /*= 0*/, int body /*= 0*/)
 {
@@ -227,4 +226,3 @@ void CBasePlayer::BeginSwitchWeapon(CBasePlayerItem* weaponToSwitchTo, int switc
 	m_iSwitchWeaponID = weaponToSwitchTo->m_iId;
 }
 
-#endif // defined ( ASHEEP_WEAPONHOLSTER )

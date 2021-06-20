@@ -407,9 +407,7 @@ public:
 	virtual BOOL CanDeploy( void );
 	virtual BOOL IsUseable( void );
 	BOOL DefaultDeploy( char *szViewModel, char *szWeaponModel, int iAnim, char *szAnimExt, int skiplocal = 0, int body = 0 );
-#if defined ( ASHEEP_WEAPONHOLSTER )
 	BOOL DefaultHolster( int iAnim, float flDelay, int skiplocal = 0, int body = 0 );
-#endif // defined ( ASHEEP_WEAPONHOLSTER )
 	int DefaultReload( int iClipSize, int iAnim, float fDelay, int body = 0 );
 
 	virtual void ItemPostFrame( void );	// called each frame by the player PostThink
