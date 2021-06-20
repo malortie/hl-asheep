@@ -135,7 +135,6 @@ struct skilldata_t
 	float plrStomach;
 	float plrLeg;
 	float plrArm;
-#if defined  ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 	float adrianHealth;
 	float adrianDmgKick;
 
@@ -187,7 +186,6 @@ struct skilldata_t
 	float plrDmg9mmM41AGrenade;
 
 	float kmedkitHeal;
-#endif // defined  ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 };
 
 extern	DLL_GLOBAL	skilldata_t	gSkillData;

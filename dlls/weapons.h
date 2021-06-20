@@ -62,7 +62,6 @@ public:
 #define ITEM_SECURITY		3
 #define ITEM_BATTERY		4
 
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 #define WEAPON_NONE				0
 #define WEAPON_CROWBAR			1
 #define WEAPON_POOLSTICK		2
@@ -87,34 +86,9 @@ public:
 #define WEAPON_TRIPMINE			21
 #define WEAPON_SNARK			22
 #define WEAPON_TOAD				23
-#else
-#define WEAPON_NONE				0
-#define WEAPON_CROWBAR			1
-#define	WEAPON_GLOCK			2
-#define WEAPON_PYTHON			3
-#define WEAPON_MP5				4
-#define WEAPON_CHAINGUN			5
-#define WEAPON_CROSSBOW			6
-#define WEAPON_SHOTGUN			7
-#define WEAPON_RPG				8
-#define WEAPON_GAUSS			9
-#define WEAPON_EGON				10
-#define WEAPON_HORNETGUN		11
-#define WEAPON_HANDGRENADE		12
-#define WEAPON_TRIPMINE			13
-#define	WEAPON_SATCHEL			14
-#define	WEAPON_SNARK			15
-#endif // defined(ASHEEP_DLL) || defined(ASHEEP_CLIENT_DLL)
-
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 #define WEAPON_ALLWEAPONS		(~(1<<WEAPON_ARMOR))
-#else
-#define WEAPON_ALLWEAPONS		(~(1<<WEAPON_SUIT))
-#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 #define WEAPON_ARMOR			30
-#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 #define WEAPON_SUIT				31	// ?????
 
 #define MAX_WEAPONS			32
@@ -138,7 +112,6 @@ public:
 #define SNARK_WEIGHT		5
 #define SATCHEL_WEIGHT		-10
 #define TRIPMINE_WEIGHT		-10
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 #define POOLSTICK_WEIGHT	CROWBAR_WEIGHT
 #define KMEDKIT_WEIGHT		-10
 #define BARNEY9MMHG_WEIGHT	GLOCK_WEIGHT
@@ -148,7 +121,6 @@ public:
 #define _9MMM41A_WEIGHT		15
 #define BARNEYHANDGRENADE_WEIGHT HANDGRENADE_WEIGHT
 #define TOAD_WEIGHT			SNARK_WEIGHT 
-#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
 
 // weapon clip/carry ammo capacities
@@ -164,7 +136,6 @@ public:
 #define SNARK_MAX_CARRY			15
 #define HORNET_MAX_CARRY		8
 #define M203_GRENADE_MAX_CARRY	10
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 #define KMEDKIT_MAX_CARRY			3
 #define BARNEY9MMHG_MAX_CARRY		_9MM_MAX_CARRY
 #define BERETTA_MAX_CARRY			250
@@ -174,7 +145,6 @@ public:
 #define _9MMM41A_GRENADE_MAX_CARRY	10
 #define BARNEYHANDGRENADE_MAX_CARRY	HANDGRENADE_MAX_CARRY
 #define TOAD_MAX_CARRY				12 
-#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
 // the maximum amount of ammo each weapon's clip can hold
 #define WEAPON_NOCLIP			-1
@@ -195,7 +165,6 @@ public:
 #define TRIPMINE_MAX_CLIP		WEAPON_NOCLIP
 #define SNARK_MAX_CLIP			WEAPON_NOCLIP
 
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 #define KMEDKIT_MAX_CLIP		WEAPON_NOCLIP
 #define BARNEY9MMHG_MAX_CLIP		GLOCK_MAX_CLIP
 #define BERETTA_MAX_CLIP			15
@@ -204,7 +173,6 @@ public:
 #define _9MMM41A_MAX_CLIP			50
 #define BARNEYHANDGRENADE_MAX_CLIP	HANDGRENADE_MAX_CLIP
 #define TOAD_MAX_CLIP				WEAPON_NOCLIP
-#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
 // the default amount of ammo that comes with each gun when it spawns
 #define GLOCK_DEFAULT_GIVE			17
@@ -222,7 +190,6 @@ public:
 #define TRIPMINE_DEFAULT_GIVE		1
 #define SNARK_DEFAULT_GIVE			5
 #define HIVEHAND_DEFAULT_GIVE		8
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 #define KMEDKIT_DEFAULT_GIVE			1
 #define BARNEY9MMHG_DEFAULT_GIVE		GLOCK_DEFAULT_GIVE
 #define BERETTA_DEFAULT_GIVE			15
@@ -231,7 +198,6 @@ public:
 #define _9MMM41A_DEFAULT_GIVE			25
 #define BARNEYHANDGRENADE_DEFAULT_GIVE	HANDGRENADE_DEFAULT_GIVE
 #define TOAD_DEFAULT_GIVE				1
-#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
 // The amount of ammo given to a player by an ammo item.
 #define AMMO_URANIUMBOX_GIVE	20
@@ -245,10 +211,8 @@ public:
 #define AMMO_RPGCLIP_GIVE		RPG_MAX_CLIP
 #define AMMO_URANIUMBOX_GIVE	20
 #define AMMO_SNARKBOX_GIVE		5
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 #define AMMO_KMEDKIT_GIVE			1
 #define AMMO_TOAD_GIVE				1
-#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
 // bullet types
 typedef	enum
@@ -259,19 +223,15 @@ typedef	enum
 	BULLET_PLAYER_357, // python
 	BULLET_PLAYER_BUCKSHOT, // shotgun
 	BULLET_PLAYER_CROWBAR, // crowbar swipe
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 	BULLET_PLAYER_POOLSTICK,
 	BULLET_PLAYER_BERETTA,
 	BULLET_PLAYER_9MMM41A,
-#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
 	BULLET_MONSTER_9MM,
 	BULLET_MONSTER_MP5,
 	BULLET_MONSTER_12MM,
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 	BULLET_MONSTER_9MMM41A,
 	BULLET_MONSTER_BERETTA,
-#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 } Bullet;
 
 
@@ -448,7 +408,6 @@ public:
 	float	m_flPrevPrimaryAttack;
 	float	m_flLastFireTime;			
 
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 	BOOL UsesPrimaryAmmo();
 	BOOL UsesSecondaryAmmo();
 	BOOL HasPrimaryAmmo();
@@ -458,7 +417,6 @@ public:
 	int GetSecondaryAmmoCount();
 	BOOL IsAllowedToNotifyOutOfAmmo();
 	void DoSuitSpeakOutOfAmmo();
-#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 };
 
 
@@ -568,7 +526,6 @@ bool bIsMultiplayer ( void );
 void LoadVModel ( char *szViewModel, CBasePlayer *m_pPlayer );
 #endif
 
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 #include "weaponinterface.h"
 #include "weapon_util.h"
 #include "baseweaponmelee.h"
@@ -577,9 +534,7 @@ void LoadVModel ( char *szViewModel, CBasePlayer *m_pPlayer );
 #include "baseweaponshotgun.h"
 #include "baseweapongrenade.h"
 #include "baseweaponwiththrowablemonster.h"
-#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 class CGlock : public CBaseWeaponPistol
 {
 	typedef CBaseWeaponPistol BaseClass;
@@ -618,44 +573,7 @@ private:
 	unsigned short m_usFireGlock1;
 	unsigned short m_usFireGlock2;
 };
-#else
-class CGlock : public CBasePlayerWeapon
-{
-public:
-	void Spawn( void );
-	void Precache( void );
-	int iItemSlot( void ) { return 2; }
-	int GetItemInfo(ItemInfo *p);
 
-	void PrimaryAttack( void );
-	void SecondaryAttack( void );
-	void GlockFire( float flSpread, float flCycleTime, BOOL fUseAutoAim );
-	BOOL Deploy( void );
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
-	void Holster(int skiplocal = 0);
-#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
-	void Reload( void );
-	void WeaponIdle( void );
-
-	virtual BOOL UseDecrement( void )
-	{ 
-#if defined( CLIENT_WEAPONS )
-		return TRUE;
-#else
-		return FALSE;
-#endif
-	}
-
-private:
-	int m_iShell;
-	
-
-	unsigned short m_usFireGlock1;
-	unsigned short m_usFireGlock2;
-};
-#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
-
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 class CCrowbar : public CBaseWeaponMelee
 {
 	typedef CBaseWeaponMelee BaseClass;
@@ -695,36 +613,6 @@ private:
 	static const char* pHitBodySounds[];
 	static const char* pHitWorldSounds[];
 };
-#else
-class CCrowbar : public CBasePlayerWeapon
-{
-public:
-	void Spawn( void );
-	void Precache( void );
-	int iItemSlot( void ) { return 1; }
-	void EXPORT SwingAgain( void );
-	void EXPORT Smack( void );
-	int GetItemInfo(ItemInfo *p);
-
-	void PrimaryAttack( void );
-	int Swing( int fFirst );
-	BOOL Deploy( void );
-	void Holster( int skiplocal = 0 );
-	int m_iSwing;
-	TraceResult m_trHit;
-
-	virtual BOOL UseDecrement( void )
-	{ 
-#if defined( CLIENT_WEAPONS )
-		return TRUE;
-#else
-		return FALSE;
-#endif
-	}
-private:
-	unsigned short m_usCrowbar;
-};
-#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
 class CPython : public CBasePlayerWeapon
 {
@@ -756,7 +644,6 @@ private:
 	unsigned short m_usFirePython;
 };
 
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 class CMP5 : public CBaseWeaponARWithGrenadeLauncher
 {
 	typedef CBaseWeaponARWithGrenadeLauncher BaseClass;
@@ -792,42 +679,6 @@ private:
 	unsigned short m_usMP5;
 	unsigned short m_usMP52;
 };
-#else
-class CMP5 : public CBasePlayerWeapon
-{
-public:
-	void Spawn( void );
-	void Precache( void );
-	int iItemSlot( void ) { return 3; }
-	int GetItemInfo(ItemInfo *p);
-	int AddToPlayer( CBasePlayer *pPlayer );
-
-	void PrimaryAttack( void );
-	void SecondaryAttack( void );
-	int SecondaryAmmoIndex( void );
-	BOOL Deploy( void );
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
-	void Holster(int skiplocal = 0);
-#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
-	void Reload( void );
-	void WeaponIdle( void );
-	float m_flNextAnimTime;
-	int m_iShell;
-
-	virtual BOOL UseDecrement( void )
-	{ 
-#if defined( CLIENT_WEAPONS )
-		return TRUE;
-#else
-		return FALSE;
-#endif
-	}
-
-private:
-	unsigned short m_usMP5;
-	unsigned short m_usMP52;
-};
-#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
 class CCrossbow : public CBasePlayerWeapon
 {
@@ -863,7 +714,6 @@ private:
 	unsigned short m_usCrossbow2;
 };
 
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 // p->iSlot = 2;
 // p->iPosition = 2;
 class CShotgun : public CBaseWeaponShotgun
@@ -897,50 +747,6 @@ private:
 
 	static const char* pReloadSounds[];
 };
-#else
-class CShotgun : public CBasePlayerWeapon
-{
-public:
-
-#ifndef CLIENT_DLL
-	int		Save( CSave &save );
-	int		Restore( CRestore &restore );
-	static	TYPEDESCRIPTION m_SaveData[];
-#endif
-
-
-	void Spawn( void );
-	void Precache( void );
-	int iItemSlot( ) { return 3; }
-	int GetItemInfo(ItemInfo *p);
-	int AddToPlayer( CBasePlayer *pPlayer );
-
-	void PrimaryAttack( void );
-	void SecondaryAttack( void );
-	BOOL Deploy( );
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
-	void Holster(int skiplocal = 0);
-#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
-	void Reload( void );
-	void WeaponIdle( void );
-	int m_fInReload;
-	float m_flNextReload;
-	int m_iShell;
-
-	virtual BOOL UseDecrement( void )
-	{ 
-#if defined( CLIENT_WEAPONS )
-		return TRUE;
-#else
-		return FALSE;
-#endif
-	}
-
-private:
-	unsigned short m_usDoubleFire;
-	unsigned short m_usSingleFire;
-};
-#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
 class CLaserSpot : public CBaseEntity
 {
@@ -1169,7 +975,6 @@ private:
 };
 
 
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 class CHandGrenade : public CBaseWeaponGrenade
 {
 public:
@@ -1194,31 +999,6 @@ public:
 	float PlayThrowAnimation(float tossVelocity);
 	float PlayIdleAnimation();
 };
-#else
-class CHandGrenade : public CBasePlayerWeapon
-{
-public:
-	void Spawn( void );
-	void Precache( void );
-	int iItemSlot( void ) { return 5; }
-	int GetItemInfo(ItemInfo *p);
-
-	void PrimaryAttack( void );
-	BOOL Deploy( void );
-	BOOL CanHolster( void );
-	void Holster( int skiplocal = 0 );
-	void WeaponIdle( void );
-	
-	virtual BOOL UseDecrement( void )
-	{ 
-#if defined( CLIENT_WEAPONS )
-		return TRUE;
-#else
-		return FALSE;
-#endif
-	}
-};
-#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
 class CSatchel : public CBasePlayerWeapon
 {
@@ -1290,7 +1070,6 @@ private:
 
 };
 
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 class CSqueak : public CBaseWeaponWithThrowableMonster
 {
 	typedef CBaseWeaponWithThrowableMonster BaseClass;
@@ -1325,37 +1104,7 @@ private:
 	static const char* pDeploySounds[];
 	static const char* pHuntSounds[];
 };
-#else
-class CSqueak : public CBasePlayerWeapon
-{
-public:
-	void Spawn( void );
-	void Precache( void );
-	int iItemSlot( void ) { return 5; }
-	int GetItemInfo(ItemInfo *p);
 
-	void PrimaryAttack( void );
-	void SecondaryAttack( void );
-	BOOL Deploy( void );
-	void Holster( int skiplocal = 0 );
-	void WeaponIdle( void );
-	int m_fJustThrown;
-
-	virtual BOOL UseDecrement( void )
-	{ 
-#if defined( CLIENT_WEAPONS )
-		return TRUE;
-#else
-		return FALSE;
-#endif
-	}
-
-private:
-	unsigned short m_usSnarkFire;
-};
-#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
-
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 // p->iPosition = 1;
 class CBarney9MMHandgun : public CBaseWeaponPistol
 {
@@ -1748,6 +1497,5 @@ private:
 	static const char* pDeploySounds[];
 	static const char* pHuntSounds[];
 };
-#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
 #endif // WEAPONS_H

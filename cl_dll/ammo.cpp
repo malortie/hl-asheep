@@ -427,19 +427,11 @@ void WeaponsResource :: SelectSlot( int iSlot, int fAdvance, int iDirection )
 	if ( gHUD.m_fPlayerDead || gHUD.m_iHideHUDDisplay & ( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
 		return;
 
-#if defined ( ASHEEP_CLIENT_DLL )
 	if (!(gHUD.m_iWeaponBits & (1 << (WEAPON_ARMOR))) && !(gHUD.m_iWeaponBits & (1 << (WEAPON_SUIT))))
 		return;
 
 	if (!(gHUD.m_iWeaponBits & ~(1 << (WEAPON_ARMOR))) && !(gHUD.m_iWeaponBits & ~(1 << (WEAPON_SUIT))))
 		return;
-#else
-	if (!(gHUD.m_iWeaponBits & (1<<(WEAPON_SUIT)) ))
-		return;
-
-	if ( ! ( gHUD.m_iWeaponBits & ~(1<<(WEAPON_SUIT)) ))
-		return;
-#endif // defined ( ASHEEP_CLIENT_DLL )
 
 	WEAPON *p = NULL;
 	bool fastSwitch = CVAR_GET_FLOAT( "hud_fastswitch" ) != 0;
@@ -841,13 +833,8 @@ int CHudAmmo::Draw(float flTime)
 	int a, x, y, r, g, b;
 	int AmmoWidth;
 
-#if defined ( ASHEEP_CLIENT_DLL )
 	if (!(gHUD.m_iWeaponBits & (1 << (WEAPON_ARMOR))) && !(gHUD.m_iWeaponBits & (1 << (WEAPON_SUIT))))
 		return 1;
-#else
-	if (!(gHUD.m_iWeaponBits & (1<<(WEAPON_SUIT)) ))
-		return 1;
-#endif // defined ( ASHEEP_CLIENT_DLL )
 
 	if ( (gHUD.m_iHideHUDDisplay & ( HIDEHUD_WEAPONS | HIDEHUD_ALL )) )
 		return 1;

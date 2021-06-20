@@ -310,9 +310,7 @@ extern void ClientPrint( entvars_t *client, int msg_dest, const char *msg_name, 
 extern void			UTIL_SayText( const char *pText, CBaseEntity *pEntity );
 extern void			UTIL_SayTextAll( const char *pText, CBaseEntity *pEntity );
 
-#if defined ( ASHEEP_DLL )
 #include "player_utils.h"
-#endif // defined ( ASHEEP_DLL )
 
 typedef struct hudtextparms_s
 {
@@ -439,9 +437,7 @@ extern DLL_GLOBAL int			g_Language;
 #define	SF_TRIGGER_ALLOWMONSTERS	1// monsters allowed to fire this trigger
 #define	SF_TRIGGER_NOCLIENTS		2// players not allowed to fire this trigger
 #define SF_TRIGGER_PUSHABLES		4// only pushables can fire this trigger
-#if defined ( ASHEEP_DLL )
 #define SF_TRIGGER_KATEONLY			8 // Only kate is allowed to fire this trigger
-#endif // defined ( ASHEEP_DLL )
 
 // func breakable
 #define SF_BREAK_TRIGGER_ONLY	1// may only be broken by trigger
@@ -550,6 +546,4 @@ int UTIL_SharedRandomLong( unsigned int seed, int low, int high );
 float UTIL_SharedRandomFloat( unsigned int seed, float low, float high );
 
 float UTIL_WeaponTimeBase( void );
-#if defined ( ASHEEP_DLL )
 void UTIL_MakeMonstersWithClassnameEnemyOfPlayer(const char* classname);
-#endif // defined ( ASHEEP_DLL )

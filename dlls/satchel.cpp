@@ -245,11 +245,7 @@ int CSatchel::GetItemInfo(ItemInfo *p)
 	p->iMaxAmmo2 = -1;
 	p->iMaxClip = WEAPON_NOCLIP;
 	p->iSlot = 4;
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 	p->iPosition = 2;
-#else
-	p->iPosition = 1;
-#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 	p->iFlags = ITEM_FLAG_SELECTONEMPTY | ITEM_FLAG_LIMITINWORLD | ITEM_FLAG_EXHAUSTIBLE;
 	p->iId = m_iId = WEAPON_SATCHEL;
 	p->iWeight = SATCHEL_WEIGHT;

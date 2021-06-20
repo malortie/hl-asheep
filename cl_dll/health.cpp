@@ -205,11 +205,7 @@ int CHudHealth::Draw(float flTime)
 	ScaleColors(r, g, b, a );
 
 	// Only draw health if we have the suit.
-#if defined ( ASHEEP_CLIENT_DLL )
 	if (gHUD.m_iWeaponBits & (1<<(WEAPON_SUIT)) || gHUD.m_iWeaponBits & (1 << (WEAPON_ARMOR)))
-#else
-	if (gHUD.m_iWeaponBits & (1<<(WEAPON_SUIT)))
-#endif // defined ( ASHEEP_CLIENT_DLL )
 	{
 		HealthWidth = gHUD.GetSpriteRect(gHUD.m_HUD_number_0).right - gHUD.GetSpriteRect(gHUD.m_HUD_number_0).left;
 		int CrossWidth = gHUD.GetSpriteRect(m_HUD_cross).right - gHUD.GetSpriteRect(m_HUD_cross).left;
@@ -228,11 +224,7 @@ int CHudHealth::Draw(float flTime)
 
 		int iHeight = gHUD.m_iFontHeight;
 		int iWidth = HealthWidth/10;
-#if defined ( ASHEEP_CLIENT_DLL )
 		FillRGBA(x, y, iWidth, iHeight, r, g, b, a);
-#else
-		FillRGBA(x, y, iWidth, iHeight, 255, 160, 0, a);
-#endif // defined ( ASHEEP_CLIENT_DLL )
 	}
 
 	DrawDamage(flTime);

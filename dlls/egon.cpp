@@ -493,13 +493,8 @@ void CEgon::WeaponIdle( void )
 {
 	ResetEmptySound( );
 
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 	if ( m_flTimeWeaponIdle > UTIL_WeaponTimeBase() )
 		return;
-#else
-	if ( m_flTimeWeaponIdle > gpGlobals->time )
-		return;
-#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
 	if ( m_fireState != FIRE_OFF )
 		 EndAttack();

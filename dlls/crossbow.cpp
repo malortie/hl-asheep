@@ -285,11 +285,7 @@ int CCrossbow::GetItemInfo(ItemInfo *p)
 	p->iMaxAmmo2 = -1;
 	p->iMaxClip = CROSSBOW_MAX_CLIP;
 	p->iSlot = 2;
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 	p->iPosition = 4;
-#else
-	p->iPosition = 2;
-#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 	p->iId = WEAPON_CROSSBOW;
 	p->iFlags = 0;
 	p->iWeight = CROSSBOW_WEIGHT;

@@ -105,13 +105,8 @@ int CHudBattery::Draw(float flTime)
 
 	UnpackRGB(r,g,b, RGB_YELLOWISH);
 
-#if defined ( ASHEEP_CLIENT_DLL )
 	if (!(gHUD.m_iWeaponBits & (1 << (WEAPON_ARMOR))) && !(gHUD.m_iWeaponBits & (1 << (WEAPON_SUIT))))
 		return 1;
-#else
-	if (!(gHUD.m_iWeaponBits & (1<<(WEAPON_SUIT)) ))
-		return 1;
-#endif // defined ( ASHEEP_CLIENT_DLL )
 
 	// Has health changed? Flash the health #
 	if (m_fFade)

@@ -912,10 +912,8 @@ void ClientPrecache( void )
 
 	if (giPrecacheGrunt)
 		UTIL_PrecacheOther("monster_human_grunt");
-#if defined ( ASHEEP_DLL )
 	PRECACHE_SOUND("debris/metal3.wav");
 	UTIL_PrecacheOther("env_spawnereffect");
-#endif // defined ( ASHEEP_DLL )
 
 	// Used when the player tries to pickup a battery without having the suit.
 	PRECACHE_SOUND("barney/nope.wav");
@@ -1770,12 +1768,10 @@ void UpdateClientData ( const edict_t *ent, int sendweapons, struct clientdata_s
 						cd->vuser2.y = ( ( CRpg * )pl->m_pActiveItem)->m_fSpotActive;
 						cd->vuser2.z = ( ( CRpg * )pl->m_pActiveItem)->m_cActiveRockets;
 					}
-#if defined ( ASHEEP_DLL )
 					else if (pl->m_pActiveItem->m_iId == WEAPON_KMEDKIT)
 					{
 						cd->vuser2.y = pl->ammo_medshots;
 					}
-#endif // defined ( ASHEEP_DLL )
 				}
 			}
 		}

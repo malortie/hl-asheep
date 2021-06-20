@@ -397,11 +397,7 @@ int CTripmine::GetItemInfo(ItemInfo *p)
 	p->iMaxAmmo2 = -1;
 	p->iMaxClip = WEAPON_NOCLIP;
 	p->iSlot = 4;
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 	p->iPosition = 3;
-#else
-	p->iPosition = 2;
-#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 	p->iId = m_iId = WEAPON_TRIPMINE;
 	p->iWeight = TRIPMINE_WEIGHT;
 	p->iFlags = ITEM_FLAG_LIMITINWORLD | ITEM_FLAG_EXHAUSTIBLE;
@@ -446,19 +442,11 @@ void CTripmine::PrimaryAttack( void )
 	UTIL_TraceLine( vecSrc, vecSrc + vecAiming * 128, dont_ignore_monsters, ENT( m_pPlayer->pev ), &tr );
 
 	int flags;
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 #ifdef CLIENT_WEAPONS
 	flags = FEV_NOTHOST;
 #else
 	flags = 0;
 #endif
-#else
-#ifdef CLIENT_WEAPONS
-	flags = FEV_NOTHOST;
-#else
-	flags = 0;
-#endif
-#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 
 	PLAYBACK_EVENT_FULL( flags, m_pPlayer->edict(), m_usTripFire, 0.0, (float *)&g_vecZero, (float *)&g_vecZero, 0.0, 0.0, 0, 0, 0, 0 );
 

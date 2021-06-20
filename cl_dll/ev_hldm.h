@@ -17,19 +17,15 @@ typedef	enum
 	BULLET_PLAYER_357, // python
 	BULLET_PLAYER_BUCKSHOT, // shotgun
 	BULLET_PLAYER_CROWBAR, // crowbar swipe
-#if defined ( ASHEEP_CLIENT_DLL )
 	BULLET_PLAYER_POOLSTICK,
 	BULLET_PLAYER_BERETTA,
 	BULLET_PLAYER_9MMM41A,
-#endif // defined ( ASHEEP_CLIENT_DLL )
 
 	BULLET_MONSTER_9MM,
 	BULLET_MONSTER_MP5,
 	BULLET_MONSTER_12MM,
-#if defined ( ASHEEP_CLIENT_DLL )
 	BULLET_MONSTER_9MMM41A,
 	BULLET_MONSTER_BERETTA,
-#endif // defined ( ASHEEP_CLIENT_DLL )
 } Bullet;
 
 enum glock_e {
@@ -68,9 +64,7 @@ enum mp5_e
 	MP5_FIRE1,
 	MP5_FIRE2,
 	MP5_FIRE3,
-#if defined ( ASHEEP_CLIENT_DLL )
 	MP5_HOLSTER,
-#endif // defined ( ASHEEP_CLIENT_DLL )
 };
 
 enum python_e {

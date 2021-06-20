@@ -74,7 +74,6 @@ void EV_SnarkFire( struct event_args_s *args  );
 
 
 void EV_TrainPitchAdjust( struct event_args_s *args );
-#if defined ( ASHEEP_CLIENT_DLL )
 void EV_FireBeretta1(struct event_args_s *args);
 void EV_FireBeretta2(struct event_args_s *args);
 void EV_Fire9MMM41A(struct event_args_s *args);
@@ -82,7 +81,6 @@ void EV_Fire9MMM41A2(struct event_args_s *args);
 void EV_KMedkit(struct event_args_s *args);
 void EV_Poolstick(struct event_args_s *args);
 void EV_Toad(struct event_args_s *args);
-#endif // defined ( ASHEEP_CLIENT_DLL )
 }
 
 #define VECTOR_CONE_1DEGREES Vector( 0.00873, 0.00873, 0.00873 )
@@ -304,12 +302,10 @@ void EV_HLDM_DecalGunshot( pmtrace_t *pTrace, int iBulletType )
 		case BULLET_MONSTER_MP5:
 		case BULLET_PLAYER_BUCKSHOT:
 		case BULLET_PLAYER_357:
-#if defined ( ASHEEP_CLIENT_DLL )
 		case BULLET_PLAYER_9MMM41A:
 		case BULLET_MONSTER_9MMM41A:
 		case BULLET_PLAYER_BERETTA:
 		case BULLET_MONSTER_BERETTA:
-#endif // defined ( ASHEEP_CLIENT_DLL )
 		default:
 			// smoke and decal
 			EV_HLDM_GunshotDecalTrace( pTrace, EV_HLDM_DamageDecal( pe ) );
@@ -430,18 +426,14 @@ void EV_HLDM_FireBullets( int idx, float *forward, float *right, float *up, int 
 			{
 			default:
 			case BULLET_PLAYER_9MM:		
-#if defined ( ASHEEP_CLIENT_DLL )
 			case BULLET_PLAYER_BERETTA:
-#endif // defined ( ASHEEP_CLIENT_DLL )
 				
 				EV_HLDM_PlayTextureSound( idx, &tr, vecSrc, vecEnd, iBulletType );
 				EV_HLDM_DecalGunshot( &tr, iBulletType );
 			
 					break;
 			case BULLET_PLAYER_MP5:		
-#if defined ( ASHEEP_CLIENT_DLL )
 			case BULLET_PLAYER_9MMM41A:
-#endif // defined ( ASHEEP_CLIENT_DLL )
 				
 				if ( !tracer )
 				{
@@ -1728,7 +1720,6 @@ int EV_TFC_IsAllyTeam( int iTeam1, int iTeam2 )
 	return 0;
 }
 
-#if defined ( ASHEEP_CLIENT_DLL )
 //======================
 //	    BERETTA START
 //======================
@@ -2123,4 +2114,3 @@ void EV_Toad(struct event_args_s *args)
 //======================
 //	   TOAD END
 //======================
-#endif // defined ( ASHEEP_CLIENT_DLL )

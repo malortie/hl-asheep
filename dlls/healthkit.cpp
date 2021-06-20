@@ -196,11 +196,7 @@ void CWallHealth::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE u
 	}
 
 	// if the player doesn't have the suit, or there is no juice left, make the deny noise
-#if defined ( ASHEEP_DLL )
 	if ((m_iJuice <= 0) || (!(pActivator->pev->weapons & (1<<WEAPON_ARMOR)) && !(pActivator->pev->weapons & (1 << WEAPON_SUIT))))
-#else
-	if ((m_iJuice <= 0) || (!(pActivator->pev->weapons & (1<<WEAPON_SUIT))))
-#endif // defined ( ASHEEP_DLL )
 	{
 		if (m_flSoundTime <= gpGlobals->time)
 		{

@@ -302,7 +302,6 @@ void CGameRules::RefreshSkillData ( void )
 	gSkillData.plrStomach = GetSkillCvar( "sk_player_stomach" );
 	gSkillData.plrLeg = GetSkillCvar( "sk_player_leg" );
 	gSkillData.plrArm = GetSkillCvar( "sk_player_arm" );
-#if defined  ( ASHEEP_DLL )
 	gSkillData.adrianHealth = GetSkillCvar("sk_adrian_health");
 	gSkillData.adrianDmgKick = GetSkillCvar("sk_adrian_kick");
 
@@ -354,7 +353,6 @@ void CGameRules::RefreshSkillData ( void )
 	gSkillData.plrDmg9mmM41AGrenade = GetSkillCvar("sk_plr_9mmM41A_grenade");
 
 	gSkillData.kmedkitHeal = GetSkillCvar("sk_kmedkit_heal");
-#endif // defined  ( ASHEEP_DLL )
 }
 
 //=========================================================

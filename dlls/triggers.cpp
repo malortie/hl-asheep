@@ -1889,19 +1889,10 @@ void CBaseTrigger :: TeleportTouch( CBaseEntity *pOther )
  	
 	if ( !( pev->spawnflags & SF_TRIGGER_ALLOWMONSTERS ) )
 	{// no monsters allowed!
-#if defined ( ASHEEP_DLL )
-		if ( FBitSet( pevToucher->flags, FL_MONSTER ) && 
-			!((pev->spawnflags & SF_TRIGGER_KATEONLY) && FClassnameIs(ENT(pevToucher), "monster_kate"))) 
-			// Unless it's kate and only kate can fire this trigger.
-		{
-			return;
-		}
-#else
 		if ( FBitSet( pevToucher->flags, FL_MONSTER ) )
 		{
 			return;
 		}
-#endif // defined ( ASHEEP_DLL )
 	}
 
 	if ( ( pev->spawnflags & SF_TRIGGER_NOCLIENTS ) )
@@ -2446,7 +2437,6 @@ void CTriggerCamera::Move()
 	float fraction = 2 * gpGlobals->frametime;
 	pev->velocity = ((pev->movedir * pev->speed) * fraction) + (pev->velocity * (1-fraction));
 }
-#if defined ( ASHEEP_DLL )
 class CTriggerSound : public CBaseTrigger
 {
 public:
@@ -2507,6 +2497,5 @@ void CTriggerSound::SetPlayerRoomType()
 		}
 	}
 }
-#endif // defined ( ASHEEP_DLL )
 
 

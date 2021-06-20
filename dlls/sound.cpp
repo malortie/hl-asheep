@@ -1006,11 +1006,7 @@ typedef struct sentenceg
 
 } SENTENCEG;
 
-#if defined ( ASHEEP_DLL )
 #define CSENTENCEG_MAX 512
-#else
-#define CSENTENCEG_MAX 200					// max number of sentence groups
-#endif // defined ( ASHEEP_DLL )
 // globals
 
 SENTENCEG rgsentenceg[CSENTENCEG_MAX];

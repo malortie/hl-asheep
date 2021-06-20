@@ -176,20 +176,12 @@ class CItemSuit : public CItem
 	void Spawn( void )
 	{ 
 		Precache( );
-#if defined ( ASHEEP_DLL )
 		SET_MODEL(ENT(pev), "models/w_blue_suit.mdl");
-#else
-		SET_MODEL(ENT(pev), "models/w_suit.mdl");
-#endif // defined ( ASHEEP_DLL )
 		CItem::Spawn( );
 	}
 	void Precache( void )
 	{
-#if defined ( ASHEEP_DLL )
 		PRECACHE_MODEL("models/w_blue_suit.mdl");
-#else
-		PRECACHE_MODEL ("models/w_suit.mdl");
-#endif // defined ( ASHEEP_DLL )
 	}
 	BOOL MyTouch( CBasePlayer *pPlayer )
 	{

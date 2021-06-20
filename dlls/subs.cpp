@@ -91,9 +91,7 @@ BOOL CBaseDMStart::IsTriggered( CBaseEntity *pEntity )
 // This updates global tables that need to know about entities being removed
 void CBaseEntity::UpdateOnRemove( void )
 {
-#if defined( ASHEEP_DLL )
 	OnRemove();
-#endif // defined( ASHEEP_DLL )
 	int	i;
 
 	if ( FBitSet( pev->flags, FL_GRAPHED ) )

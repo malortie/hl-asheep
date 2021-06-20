@@ -49,7 +49,6 @@ cvar_t	*g_psv_aim = NULL;
 cvar_t	*g_footsteps = NULL;
 
 //CVARS FOR SKILL LEVEL SETTINGS
-#if defined ( ASHEEP_DLL )
 #define DEFINE_SKILL_CVAR( _cvarName, _skill1Value, _skill2Value, _skill3Value ) \
 	cvar_t	_cvarName##1 = { #_cvarName##"1" , #_skill1Value}; \
 	cvar_t	_cvarName##2 = { #_cvarName##"2", #_skill2Value }; \
@@ -59,7 +58,6 @@ cvar_t	*g_footsteps = NULL;
 	CVAR_REGISTER( &_skillCVarVariable##1 ); \
 	CVAR_REGISTER( &_skillCVarVariable##2 ); \
 	CVAR_REGISTER( &_skillCVarVariable##3 );
-#endif // defined ( ASHEEP_DLL )
 // Agrunt
 cvar_t	sk_agrunt_health1 = {"sk_agrunt_health1","0"};
 cvar_t	sk_agrunt_health2 = {"sk_agrunt_health2","0"};
@@ -459,7 +457,6 @@ cvar_t	sk_player_leg1	= { "sk_player_leg1","1" };
 cvar_t	sk_player_leg2	= { "sk_player_leg2","1" };
 cvar_t	sk_player_leg3	= { "sk_player_leg3","1" };
 
-#if defined ( ASHEEP_DLL )
 DEFINE_SKILL_CVAR(sk_adrian_health, 100, 100, 100);
 DEFINE_SKILL_CVAR(sk_adrian_kick, 5, 5, 5);
 
@@ -510,7 +507,6 @@ DEFINE_SKILL_CVAR(sk_plr_beretta_bullet, 10, 10, 10);
 DEFINE_SKILL_CVAR(sk_plr_9mmM41A_bullet, 8, 8, 8);
 DEFINE_SKILL_CVAR(sk_plr_9mmM41A_grenade, 105, 105, 105);
 
-#endif // defined ( ASHEEP_DLL )
 DEFINE_SKILL_CVAR(sk_kmedkit_heal, 15, 15, 10);
 // END Cvars for Skill Level settings
 
@@ -947,7 +943,6 @@ void GameDLLInit( void )
 	CVAR_REGISTER ( &sk_player_leg1 );
 	CVAR_REGISTER ( &sk_player_leg2 );
 	CVAR_REGISTER ( &sk_player_leg3 );
-#if defined ( ASHEEP_DLL )
 	REGISTER_SKILL_CVAR(sk_adrian_health);
 	REGISTER_SKILL_CVAR(sk_adrian_kick);
 
@@ -999,7 +994,6 @@ void GameDLLInit( void )
 	REGISTER_SKILL_CVAR(sk_plr_9mmM41A_grenade);
 
 	REGISTER_SKILL_CVAR(sk_kmedkit_heal);
-#endif // defined ( ASHEEP_DLL )
 // END REGISTER CVARS FOR SKILL LEVEL STUFF
 
 	SERVER_COMMAND( "exec skill.cfg\n" );

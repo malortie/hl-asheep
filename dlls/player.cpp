@@ -1139,9 +1139,7 @@ void CBasePlayer::TabulateAmmo()
 	ammo_rockets = AmmoInventory( GetAmmoIndex( "rockets" ) );
 	ammo_uranium = AmmoInventory( GetAmmoIndex( "uranium" ) );
 	ammo_hornets = AmmoInventory( GetAmmoIndex( "Hornets" ) );
-#if defined ( ASHEEP_DLL )
 	ammo_medshots = AmmoInventory(GetAmmoIndex("Medkit"));
-#endif // defined ( ASHEEP_DLL )
 }
 
 
@@ -3330,7 +3328,6 @@ void CBasePlayer::GiveNamedItem( const char *pszName )
 	VARS( pent )->origin = pev->origin;
 	pent->v.spawnflags |= SF_NORESPAWN;
 
-#if defined ( ASHEEP_DLL )
 	// Specify that this toad weapon should not spawn
 	// a toad upon spawning.
 	if (FStrEq(pszName, "weapon_toad"))
@@ -3339,7 +3336,6 @@ void CBasePlayer::GiveNamedItem( const char *pszName )
 		if(toadWeapon != NULL)
 			toadWeapon->m_doNotSpawnToad = TRUE;
 	}
-#endif // defined ( ASHEEP_DLL )
 	DispatchSpawn( pent );
 	DispatchTouch( pent, ENT( pev ) );
 }
@@ -3374,11 +3370,7 @@ void CBasePlayer :: FlashlightTurnOn( void )
 		return;
 	}
 
-#if defined ( ASHEEP_DLL )
 	if ( (pev->weapons & (1<<WEAPON_ARMOR)) || (pev->weapons & (1 << WEAPON_SUIT)))
-#else
-	if ( (pev->weapons & (1<<WEAPON_SUIT)) )
-#endif // defined ( ASHEEP_DLL )
 	{
 		EMIT_SOUND_DYN( ENT(pev), CHAN_WEAPON, SOUND_FLASHLIGHT_ON, 1.0, ATTN_NORM, 0, PITCH_NORM );
 		SetBits(pev->effects, EF_DIMLIGHT);
@@ -3571,7 +3563,6 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 		GiveNamedItem( "weapon_snark" );
 		GiveNamedItem( "weapon_hornetgun" );
 #endif
-#if defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 		GiveNamedItem( "weapon_barney9mmhg" );
 		GiveNamedItem( "weapon_barney9mmar" );
 		GiveNamedItem( "weapon_barneyshotgun" );
@@ -3581,7 +3572,6 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 		GiveNamedItem( "weapon_kmedkit" );
 		GiveNamedItem( "weapon_poolstick" );
 		GiveNamedItem( "weapon_toad" );
-#endif // defined ( ASHEEP_DLL ) || defined ( ASHEEP_CLIENT_DLL )
 		gEvilImpulse101 = FALSE;
 		break;
 

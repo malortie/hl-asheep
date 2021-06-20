@@ -1893,9 +1893,7 @@ Schedule_t *CSquadMonsterWithHGruntAI :: GetSchedule( void )
 								// player
 								SpeakCaughtEnemy();
 							else if ((m_hEnemy != NULL) &&
-#if defined ( ASHEEP_DLL )
 									(m_hEnemy->Classify() != CLASS_KATE) &&
-#endif // defined ( ASHEEP_DLL )
 									(m_hEnemy->Classify() != CLASS_PLAYER_ALLY) && 
 									(m_hEnemy->Classify() != CLASS_HUMAN_PASSIVE) && 
 									(m_hEnemy->Classify() != CLASS_MACHINE))
