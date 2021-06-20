@@ -411,13 +411,8 @@ int CTripmine::GetItemInfo(ItemInfo *p)
 
 BOOL CTripmine::Deploy( )
 {
-#if defined ( ASHEEP_CLIENT_WEAPONS )
 	//pev->body = 0;
 	return DefaultDeploy( "models/v_tripmine.mdl", "models/p_tripmine.mdl", TRIPMINE_DRAW, "trip" );
-#else
-	pev->body = 0;
-	return DefaultDeploy( "models/v_tripmine.mdl", "models/p_tripmine.mdl", TRIPMINE_DRAW, "trip", UseDecrement(), pev->body );
-#endif // defined ( ASHEEP_CLIENT_WEAPONS )
 }
 
 

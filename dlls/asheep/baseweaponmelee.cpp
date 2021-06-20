@@ -108,32 +108,19 @@ int CBaseWeaponMelee::Swing(int fFirst)
 	}
 #endif
 
-#if defined ( ASHEEP_CLIENT_WEAPONS )
 	PLAYBACK_EVENT_FULL(FEV_NOTHOST, m_pPlayer->edict(), GetSwingEvent(),
 		0.0, (float *)&g_vecZero, (float *)&g_vecZero, 0, 0, 0,
 		0.0, 0, 0.0);
-#endif // defined ( ASHEEP_CLIENT_WEAPONS )
 
 	if (tr.flFraction >= 1.0)
 	{
 		if (fFirst)
 		{
-#if !defined ( ASHEEP_CLIENT_WEAPONS )
-			// miss
-			PlayMissAnimation();
-			m_flNextPrimaryAttack = gpGlobals->time + GetFireRate();
-			// play wiff or swish sound
-			PlayMissSound();
-
-			// player "shoot" animation
-			m_pPlayer->SetAnimation(PLAYER_ATTACK1);
-#else
 			// miss
 			m_flNextPrimaryAttack = GetNextAttackDelay(GetFireRate());
 
 			// player "shoot" animation
 			m_pPlayer->SetAnimation(PLAYER_ATTACK1);
-#endif // !defined ( ASHEEP_CLIENT_WEAPONS )
 		}
 	}
 	else
