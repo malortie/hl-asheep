@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Visual Studio 2019 project files
+- CMake support
 - Missing entity monster_adrian_dead
 - Missing entity monster_kate_dead
 - Missing entity monster_myself_dead
