@@ -50,6 +50,7 @@ set(LINK_OPTS_RELEASE
 # Include directories
 set(INCLUDE_DIRS
   ${CMAKE_CURRENT_SOURCE_DIR}
+  ${CMAKE_CURRENT_SOURCE_DIR}/${ASHEEP_DLLS_FOLDER}
   ${ENGINE_DIR}
   ${COMMON_DIR}
   ${PM_SHARED_DIR}
@@ -105,6 +106,39 @@ set(HEADER_FILES
   ${PM_SHARED_DIR}/pm_movevars.h
   ${PM_SHARED_DIR}/pm_shared.h
   ${MOD_CONFIG_FILE_PATH}
+  ${ASHEEP_DLLS_FOLDER}/basemonsterrepel.h
+  ${ASHEEP_DLLS_FOLDER}/basemonsterwithheadcrabai.h
+  ${ASHEEP_DLLS_FOLDER}/basemonsterwithichthyosaurai.h
+  ${ASHEEP_DLLS_FOLDER}/basemonsterwithichthyosaurai_constants.h
+  ${ASHEEP_DLLS_FOLDER}/basemonsterwithsnarkai.h
+  ${ASHEEP_DLLS_FOLDER}/basemonsterwithzombieai.h
+  ${ASHEEP_DLLS_FOLDER}/basemonsterwithzombieai_util.h
+  ${ASHEEP_DLLS_FOLDER}/baseweaponarwithgrenadelauncher.h
+  ${ASHEEP_DLLS_FOLDER}/baseweapongrenade.h
+  ${ASHEEP_DLLS_FOLDER}/baseweaponmelee.h
+  ${ASHEEP_DLLS_FOLDER}/baseweaponpistol.h
+  ${ASHEEP_DLLS_FOLDER}/baseweaponshotgun.h
+  ${ASHEEP_DLLS_FOLDER}/baseweaponwiththrowablemonster.h
+  ${ASHEEP_DLLS_FOLDER}/combat_tactics.h
+  ${ASHEEP_DLLS_FOLDER}/dead_actor.h
+  ${ASHEEP_DLLS_FOLDER}/hgrunt.h
+  ${ASHEEP_DLLS_FOLDER}/hterror.h
+  ${ASHEEP_DLLS_FOLDER}/monsters_classnames.h
+  ${ASHEEP_DLLS_FOLDER}/player_utils.h
+  ${ASHEEP_DLLS_FOLDER}/scientist.h
+  ${ASHEEP_DLLS_FOLDER}/room_type.h
+  ${ASHEEP_DLLS_FOLDER}/spawnereffect.h
+  ${ASHEEP_DLLS_FOLDER}/spforce.h
+  ${ASHEEP_DLLS_FOLDER}/squadmonsterwithhgruntai.h
+  ${ASHEEP_DLLS_FOLDER}/squadmonsterwithhgruntai_util.h
+  ${ASHEEP_DLLS_FOLDER}/squadmonsterwithislaveai.h
+  ${ASHEEP_DLLS_FOLDER}/squadmonsterwithislaveai_util.h
+  ${ASHEEP_DLLS_FOLDER}/talkmonsterwithbarneyai.h
+  ${ASHEEP_DLLS_FOLDER}/talkmonsterwithbarneyai_util.h
+  ${ASHEEP_DLLS_FOLDER}/talkmonsterwithscientistai.h
+  ${ASHEEP_DLLS_FOLDER}/toadweaponmonster.h
+  ${ASHEEP_DLLS_FOLDER}/weaponinterface.h
+  ${ASHEEP_DLLS_FOLDER}/weapon_util.h
 )
 
 # Source files
@@ -208,6 +242,76 @@ set(SOURCE_FILES
   xen.cpp
   zombie.cpp
   ${GAME_SHARED_DIR}/voice_gamemgr.cpp
+  ${ASHEEP_DLLS_FOLDER}/9mmm41a.cpp
+  ${ASHEEP_DLLS_FOLDER}/adrian.cpp
+  ${ASHEEP_DLLS_FOLDER}/archer.cpp
+  ${ASHEEP_DLLS_FOLDER}/armor.cpp
+  ${ASHEEP_DLLS_FOLDER}/asheep_triggers.cpp
+  ${ASHEEP_DLLS_FOLDER}/asheep_weapons.cpp
+  ${ASHEEP_DLLS_FOLDER}/barney9mmar.cpp
+  ${ASHEEP_DLLS_FOLDER}/barney9mmhg.cpp
+  ${ASHEEP_DLLS_FOLDER}/barneyhandgrenade.cpp
+  ${ASHEEP_DLLS_FOLDER}/barneyshotgun.cpp
+  ${ASHEEP_DLLS_FOLDER}/barniel.cpp
+  ${ASHEEP_DLLS_FOLDER}/basemonsterrepel.cpp
+  ${ASHEEP_DLLS_FOLDER}/basemonsterwithheadcrabai.cpp
+  ${ASHEEP_DLLS_FOLDER}/basemonsterwithichthyosaurai.cpp
+  ${ASHEEP_DLLS_FOLDER}/basemonsterwithichthyosaurai_constants.cpp
+  ${ASHEEP_DLLS_FOLDER}/basemonsterwithsnarkai.cpp
+  ${ASHEEP_DLLS_FOLDER}/basemonsterwithzombieai.cpp
+  ${ASHEEP_DLLS_FOLDER}/basemonsterwithzombieai_util.cpp
+  ${ASHEEP_DLLS_FOLDER}/baseweaponarwithgrenadelauncher.cpp
+  ${ASHEEP_DLLS_FOLDER}/baseweapongrenade.cpp
+  ${ASHEEP_DLLS_FOLDER}/baseweaponmelee.cpp
+  ${ASHEEP_DLLS_FOLDER}/baseweaponpistol.cpp
+  ${ASHEEP_DLLS_FOLDER}/baseweaponshotgun.cpp
+  ${ASHEEP_DLLS_FOLDER}/baseweaponwiththrowablemonster.cpp
+  ${ASHEEP_DLLS_FOLDER}/beretta.cpp
+  ${ASHEEP_DLLS_FOLDER}/bodypart.cpp
+  ${ASHEEP_DLLS_FOLDER}/combat_tactics.cpp
+  ${ASHEEP_DLLS_FOLDER}/dead_actor.cpp
+  ${ASHEEP_DLLS_FOLDER}/dead_adrian.cpp
+  ${ASHEEP_DLLS_FOLDER}/dead_barney.cpp
+  ${ASHEEP_DLLS_FOLDER}/dead_barniel.cpp
+  ${ASHEEP_DLLS_FOLDER}/dead_gordon.cpp
+  ${ASHEEP_DLLS_FOLDER}/dead_hevbarney.cpp
+  ${ASHEEP_DLLS_FOLDER}/dead_hgrunt.cpp
+  ${ASHEEP_DLLS_FOLDER}/dead_kate.cpp
+  ${ASHEEP_DLLS_FOLDER}/dead_myself.cpp
+  ${ASHEEP_DLLS_FOLDER}/dead_scientist.cpp
+  ${ASHEEP_DLLS_FOLDER}/dead_spforce.cpp
+  ${ASHEEP_DLLS_FOLDER}/dead_terror.cpp
+  ${ASHEEP_DLLS_FOLDER}/dead_worker.cpp
+  ${ASHEEP_DLLS_FOLDER}/exp_alien_slave.cpp
+  ${ASHEEP_DLLS_FOLDER}/garbage.cpp
+  ${ASHEEP_DLLS_FOLDER}/gordon.cpp
+  ${ASHEEP_DLLS_FOLDER}/hevbarney.cpp
+  ${ASHEEP_DLLS_FOLDER}/hgruntrepel.cpp
+  ${ASHEEP_DLLS_FOLDER}/hterror.cpp
+  ${ASHEEP_DLLS_FOLDER}/hterrorrepel.cpp
+  ${ASHEEP_DLLS_FOLDER}/kate.cpp
+  ${ASHEEP_DLLS_FOLDER}/kmedkit.cpp
+  ${ASHEEP_DLLS_FOLDER}/myself.cpp
+  ${ASHEEP_DLLS_FOLDER}/panther.cpp
+  ${ASHEEP_DLLS_FOLDER}/player_utils.cpp
+  ${ASHEEP_DLLS_FOLDER}/poolstick.cpp
+  ${ASHEEP_DLLS_FOLDER}/room_type.cpp
+  ${ASHEEP_DLLS_FOLDER}/spawnereffect.cpp
+  ${ASHEEP_DLLS_FOLDER}/spforce.cpp
+  ${ASHEEP_DLLS_FOLDER}/spforcerepel.cpp
+  ${ASHEEP_DLLS_FOLDER}/squadmonsterwithhgruntai.cpp
+  ${ASHEEP_DLLS_FOLDER}/squadmonsterwithhgruntai_util.cpp
+  ${ASHEEP_DLLS_FOLDER}/squadmonsterwithislaveai.cpp
+  ${ASHEEP_DLLS_FOLDER}/squadmonsterwithislaveai_util.cpp
+  ${ASHEEP_DLLS_FOLDER}/talkmonsterwithbarneyai.cpp
+  ${ASHEEP_DLLS_FOLDER}/talkmonsterwithbarneyai_util.cpp
+  ${ASHEEP_DLLS_FOLDER}/talkmonsterwithscientistai.cpp
+  ${ASHEEP_DLLS_FOLDER}/toad.cpp
+  ${ASHEEP_DLLS_FOLDER}/toadweapon.cpp
+  ${ASHEEP_DLLS_FOLDER}/toadweaponmonster.cpp
+  ${ASHEEP_DLLS_FOLDER}/weapon_util.cpp
+  ${ASHEEP_DLLS_FOLDER}/worker.cpp
+  ${ASHEEP_DLLS_FOLDER}/zombie_barney.cpp
 )
 
 set(PM_SHARED_SOURCE_FILES

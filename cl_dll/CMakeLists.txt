@@ -47,6 +47,7 @@ set(LINK_OPTS_RELEASE
 # Include directories
 set(INCLUDE_DIRS 
   ${DLLS_DIR}
+  ${ASHEEP_DLLS_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${PUBLIC_DIR}
   ${COMMON_DIR}
@@ -100,6 +101,13 @@ set(HEADER_FILES
   ${PM_SHARED_DIR}/pm_movevars.h
   ${PM_SHARED_DIR}/pm_shared.h
   ${MOD_CONFIG_FILE_PATH}
+  ${ASHEEP_DLLS_DIR}/baseweaponarwithgrenadelauncher.h
+  ${ASHEEP_DLLS_DIR}/baseweapongrenade.h
+  ${ASHEEP_DLLS_DIR}/baseweaponmelee.h
+  ${ASHEEP_DLLS_DIR}/baseweaponpistol.h
+  ${ASHEEP_DLLS_DIR}/baseweaponshotgun.h
+  ${ASHEEP_DLLS_DIR}/baseweaponwiththrowablemonster.h
+  ${ASHEEP_DLLS_DIR}/weapon_util.h
 )
 
 # Source files
@@ -184,6 +192,23 @@ set(SOURCE_FILES
   ${GAME_SHARED_DIR}/vgui_slider2.cpp
   ${GAME_SHARED_DIR}/voice_banmgr.cpp
   ${PUBLIC_DIR}/interface.cpp
+  ${ASHEEP_DLLS_DIR}/9mmm41a.cpp
+  ${ASHEEP_DLLS_DIR}/asheep_weapons.cpp
+  ${ASHEEP_DLLS_DIR}/barney9mmar.cpp
+  ${ASHEEP_DLLS_DIR}/barney9mmhg.cpp
+  ${ASHEEP_DLLS_DIR}/barneyhandgrenade.cpp
+  ${ASHEEP_DLLS_DIR}/barneyshotgun.cpp
+  ${ASHEEP_DLLS_DIR}/baseweaponarwithgrenadelauncher.cpp
+  ${ASHEEP_DLLS_DIR}/baseweapongrenade.cpp
+  ${ASHEEP_DLLS_DIR}/baseweaponmelee.cpp
+  ${ASHEEP_DLLS_DIR}/baseweaponpistol.cpp
+  ${ASHEEP_DLLS_DIR}/baseweaponshotgun.cpp
+  ${ASHEEP_DLLS_DIR}/baseweaponwiththrowablemonster.cpp
+  ${ASHEEP_DLLS_DIR}/beretta.cpp
+  ${ASHEEP_DLLS_DIR}/kmedkit.cpp
+  ${ASHEEP_DLLS_DIR}/poolstick.cpp
+  ${ASHEEP_DLLS_DIR}/toadweapon.cpp
+  ${ASHEEP_DLLS_DIR}/weapon_util.cpp
 )
 
 set(PM_SHARED_SOURCE_FILES
