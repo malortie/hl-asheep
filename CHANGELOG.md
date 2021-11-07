@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [asheep/2.0.0] - 2021-06-20
+## [2.0.0] - 2021-11-07
 
 ### Added
 
@@ -79,7 +79,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Implemented missing monster_bodypart behavior
 - Missing pistols weapon icons on pickup
 
-## [asheep/1.0.1] - 2017-12-12
+## [1.0.1] - 2017-12-12
 
 ### Fixed
 
@@ -87,7 +87,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Wrong grunt skin when using specific weapon
 - Cards Barney not using the correct bodygroup
 
-## [asheep/1.0.0] - 2017-07-29
+## [1.0.0] - 2017-07-29
 
 ### Added
 
