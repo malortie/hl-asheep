@@ -2125,11 +2125,29 @@ void PM_LadderMove( physent_t *pLadder )
 		{
 			right += flSpeed;
 		}
+		
+		// Create a copy of the plane's normal and fixup any possible infinite/nan value.
+		int i;
+		vec3_t planenormal;
+		VectorCopy( trace.plane.normal, planenormal );
+		for ( i = 0; i < 3; ++i )
+		{
+			if ( isinf( planenormal[i] ) || IS_NAN( planenormal[i] )  )
+			{
+				if ( planenormal[i] > 0 )
+					planenormal[i] = 1;
+				else if ( planenormal[i] < 0 )
+					planenormal[i] = -1;
+				else
+					planenormal[i] = 0;
+			}
+		}
+		VectorNormalize( planenormal );
 
 		if ( pmove->cmd.buttons & IN_JUMP )
 		{
 			pmove->movetype = MOVETYPE_WALK;
-			VectorScale( trace.plane.normal, 270, pmove->velocity );
+			VectorScale( planenormal, 270, pmove->velocity );
 		}
 		else
 		{
@@ -2151,14 +2169,14 @@ void PM_LadderMove( physent_t *pLadder )
 	//					perp = perp.Normalize();
 				VectorClear( tmp );
 				tmp[2] = 1;
-				CrossProduct( tmp, trace.plane.normal, perp );
+				CrossProduct( tmp, planenormal, perp );
 				VectorNormalize( perp );
 
 
 				// decompose velocity into ladder plane
-				normal = DotProduct( velocity, trace.plane.normal );
+				normal = DotProduct( velocity, planenormal );
 				// This is the velocity into the face of the ladder
-				VectorScale( trace.plane.normal, normal, cross );
+				VectorScale( planenormal, normal, cross );
 
 
 				// This is the player's additional velocity
@@ -2169,11 +2187,11 @@ void PM_LadderMove( physent_t *pLadder )
 				// NOTE: It IS possible to face up and move down or face down and move up
 				// because the velocity is a sum of the directional velocity and the converted
 				// velocity through the face of the ladder -- by design.
-				CrossProduct( trace.plane.normal, perp, tmp );
+				CrossProduct( planenormal, perp, tmp );
 				VectorMA( lateral, -normal, tmp, pmove->velocity );
 				if ( onFloor && normal > 0 )	// On ground moving away from the ladder
 				{
-					VectorMA( pmove->velocity, MAX_CLIMB_SPEED, trace.plane.normal, pmove->velocity );
+					VectorMA( pmove->velocity, MAX_CLIMB_SPEED, planenormal, pmove->velocity );
 				}
 				//pev->velocity = lateral - (CrossProduct( trace.vecPlaneNormal, perp ) * normal);
 			}
